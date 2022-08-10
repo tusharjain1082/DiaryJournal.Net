@@ -324,7 +324,7 @@ namespace DiaryJournal.Net
             // 1st create the chapter's data blob
             String rtf = ""; // reset the chapter's rtf blob or it will be imported in db
             ChapterData? chapterData = myDB.newChapterData(chapter.guid, rtf);
-            myDB.importNewDBChapterData(ctx, chapterData);
+            myDB.importNewDBChapterData(ctx, ref chapterData);
 
             // 2nd create chapter in db
             if (DBImport)
@@ -351,7 +351,7 @@ namespace DiaryJournal.Net
             return chapterData;
         }
 
-        public static bool importNewDBChapterData(myContext ctx, ChapterData chapterData)
+        public static bool importNewDBChapterData(myContext ctx, ref ChapterData chapterData)
         {
             // now import the entry into db
             try
@@ -470,14 +470,14 @@ namespace DiaryJournal.Net
             return updateDBChapter(ctx, ref dbChapter);
         }
 
-        public static bool updateChapterByIDChapter(myContext ctx, Chapter identifier, String decodedRtf = "") 
+        public static bool updateChapterByGuid(myContext ctx, Guid guid, String decodedRtf = "") 
         {
-            Chapter? dbChapter = findDbChapterByGuid(ctx, identifier.guid);
+            Chapter? dbChapter = findDbChapterByGuid(ctx, guid);
             if (dbChapter == null)
                 return false;
 
             // chapter found, update it and it's data
-            return UpdateChapterAndData(ctx, dbChapter, decodedRtf);
+            return UpdateChapterAndData(ctx, ref dbChapter, decodedRtf);
         }
 
         public static bool updateDBChapterData(myContext ctx, ref ChapterData chapterData)
@@ -509,7 +509,7 @@ namespace DiaryJournal.Net
             }
         }
 
-        public static bool UpdateChapterAndData(myContext ctx, Chapter dbChapter, String decodedRtf)
+        public static bool UpdateChapterAndData(myContext ctx, ref Chapter dbChapter, String decodedRtf)
         {
             // 1st load chapter's data blob
             ChapterData? dbChapterData = myDB.loadDBChapterData(ctx, dbChapter.guid);
@@ -580,7 +580,7 @@ namespace DiaryJournal.Net
             }
         }
 
-        public static bool pureDBChapterRecursive(myContext ctx, Guid guid)
+        public static bool purgeDBChapterRecursive(myContext ctx, Guid guid)
         {
             Chapter? parentChapter = findDbChapterByGuid(ctx, guid);
             if (parentChapter == null)

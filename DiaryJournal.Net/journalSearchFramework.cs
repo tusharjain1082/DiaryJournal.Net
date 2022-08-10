@@ -81,7 +81,7 @@ namespace DiaryJournal.Net
             if (ChaptersCount <= 0)
                 return false;
 
-            AdvRichTextBox? rtb = new AdvRichTextBox();
+            AdvRichTextBox rtb = new AdvRichTextBox();
             rtb.WordWrap = false;
             rtb.Multiline = true;
             rtb.SuspendLayout();
@@ -103,17 +103,17 @@ namespace DiaryJournal.Net
                     return false;
 
                 // first load the chapter's data
-                ChapterData? chapterData = myDB.loadDBChapterData(ctx, chapter.guid);
-                if (chapterData == null)
+                ChapterData? dbChapterData = myDB.loadDBChapterData(ctx, chapter.guid);
+                if (dbChapterData == null)
                     continue; // error
 
-                String decodedRtf = commonMethods.Base64Decode(chapterData.data);
+                String decodedRtf = commonMethods.Base64Decode(dbChapterData.data);
                 if (decodedRtf == null || decodedRtf.Length <= 0)
                     continue; // no data or 0 length string
 
-                rtb.Rtf = "";
-                rtb.Clear();
                 rtb.Rtf = decodedRtf;
+                rtb.Select(0, 0);
+                rtb.ScrollToCaret();
 
                 if (searchAll)
                 {
@@ -165,26 +165,25 @@ namespace DiaryJournal.Net
                         {
                             Match match = matches[i];
                             //AdvRichTextBox.ReplaceSelectedUnicodeText(rtb, match.Value, match.Index, match.Length);
-                            bool result = rtb.FindReplaceUnicodeText(rtb, match.Value, 0, rtb.TextLength, replacement);//rtb.FindUnicodeText(rtb, match.Value, 0, rtb.TextLength);
+                            bool result = rtb.FindReplaceUnicodeText(rtb, match.Value, 0, -1, replacement);//rtb.FindUnicodeText(rtb, match.Value, 0, rtb.TextLength);
                             if (!result)
                                 continue;
+
                             // working =
                             //rtb.SelectionStart = index;//matchIndex;
                             //rtb.SelectionLength = match.Value.Length;
                             //rtb.SelectedText = replacement;
                         }
-                        // finally update db
-                        if (!myDB.updateChapterByIDChapter(ctx, chapter, rtb.Rtf))
-                        {
+                        bool result3 = myDB.updateChapterByGuid(ctx, chapter.guid, rtb.Rtf);
+                        if (result3 == false)
                             continue;
-                        }
                     }
                     __insertLvSearchItem(lv, chapter, matches.LongCount());
                 }
             }
             tsProgressBar.Value = 0;
-            rtb.ResumeLayout();
             rtb.EndUpdate();
+            rtb.ResumeLayout();
             rtb.Clear();
             rtb.Dispose();
             rtb = null;

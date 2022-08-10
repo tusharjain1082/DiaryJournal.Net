@@ -28,7 +28,7 @@ namespace DiaryJournal.Net
 
             // 1st import the chapter's data blob
             ChapterData? chapterData = myDB.newChapterData(chapter.guid, rtf);
-            if (!myDB.importNewDBChapterData(ctx, chapterData))
+            if (!myDB.importNewDBChapterData(ctx, ref chapterData))
                 return null;
 
             // 2nd now import the entry as a chapter into db

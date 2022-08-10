@@ -212,8 +212,12 @@ namespace DiaryJournal.Net
             }
 
             // first save the entry, then exit
-            saveCloseDB();
-
+            if (stateChanged)
+            {
+                if (MessageBox.Show(this, "do you wish to save the currently active changed entry?", "question",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    saveCloseDB();
+            }
             base.OnClosing(e);
 
         }
@@ -655,7 +659,7 @@ namespace DiaryJournal.Net
 
                 // 1st import the chapter's data blob
                 ChapterData? chapterData = myDB.newChapterData(chapter.guid, rtf);
-                myDB.importNewDBChapterData(ctx, chapterData);
+                myDB.importNewDBChapterData(ctx, ref chapterData);
 
                 // 2nd now import the entry as a chapter into db
                 if (!myDB.importNewDBChapter(ctx, ref chapter))
@@ -1038,8 +1042,8 @@ namespace DiaryJournal.Net
             // setup rtf
             // get rtf and update
             rtf = commonMethods.Base64Decode(rtf);
-            resetRtb(rtbEntry, true, true);
             rtbEntry.Rtf = rtf;
+            resetRtb(rtbEntry, false, true);
             tsslblEntryTitle.Text = dbChapter.Title;
             CalendarEntries.SelectionStart = dbChapter.chapterDateTime;
             CalendarEntries.SelectionEnd = dbChapter.chapterDateTime;
@@ -1077,7 +1081,7 @@ namespace DiaryJournal.Net
                 return;
 
             // finall save/update
-            myDB.UpdateChapterAndData(ctx, dbChapter, rtbEntry.Rtf);
+            myDB.UpdateChapterAndData(ctx, ref dbChapter, rtbEntry.Rtf);
             stateChanged = false;
             tsslblStateChanged.Text = " ";
             tsbuttonSave.Checked = false;
@@ -2052,7 +2056,7 @@ namespace DiaryJournal.Net
             foreach (ListViewItem listViewItem in lvTrashCan.CheckedItems)
             {
                 Chapter chapter = listViewItem.Tag as Chapter;
-                myDB.pureDBChapterRecursive(ctx, chapter.guid);
+                myDB.purgeDBChapterRecursive(ctx, chapter.guid);
             }
 
             // refresh trash can after deleting
@@ -2602,7 +2606,13 @@ namespace DiaryJournal.Net
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveCloseDB();
+            if (stateChanged)
+            {
+                if (MessageBox.Show(this, "do you wish to save the currently active changed entry?", "question",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    saveCloseDB();
+            }
+
             Application.Exit();
         }
 
