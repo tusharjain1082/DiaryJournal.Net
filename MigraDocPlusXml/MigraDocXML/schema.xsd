@@ -1,0 +1,2114 @@
+<?xml version="1.0"?>
+<!-- This file has been auto-generated from the MigraDocXML schema generator -->
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    
+    <xs:simpleType name="unitType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([-?\d.]+(mm|cm|in|pt|pc|))|(.*{.*}.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="scriptType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(.*{.*}.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="intType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(-?\d+)|(.*{.*}.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="boolType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="true|false|0|1|(.*{.*}.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="doubleType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(-?\d+\.?\d*)|(.*{.*}.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="orientationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Landscape"/>
+            <xs:enumeration value="Portrait"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="pageFormatType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A0"/>
+            <xs:enumeration value="A1"/>
+            <xs:enumeration value="A2"/>
+            <xs:enumeration value="A3"/>
+            <xs:enumeration value="A4"/>
+            <xs:enumeration value="A5"/>
+            <xs:enumeration value="A6"/>
+            <xs:enumeration value="B5"/>
+            <xs:enumeration value="Ledger"/>
+            <xs:enumeration value="Legal"/>
+            <xs:enumeration value="Letter"/>
+            <xs:enumeration value="P11x17"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="breakTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BreakEvenPage"/>
+            <xs:enumeration value="BreakNextPage"/>
+            <xs:enumeration value="BreakOddPage"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="paragraphAlignmentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Center"/>
+            <xs:enumeration value="Justify"/>
+            <xs:enumeration value="Left"/>
+            <xs:enumeration value="Right"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="lineSpacingRuleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AtLeast"/>
+            <xs:enumeration value="Double"/>
+            <xs:enumeration value="Exactly"/>
+            <xs:enumeration value="Multiple"/>
+            <xs:enumeration value="OnePtFive"/>
+            <xs:enumeration value="Single"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="colorRegexType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(#[0-9A-Fa-f]{6})|(#[0-9A-Fa-f]{8})|(.*{.*}.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="colorListType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AliceBlue"/>
+            <xs:enumeration value="AntiqueWhite"/>
+            <xs:enumeration value="Aqua"/>
+            <xs:enumeration value="Aquamarine"/>
+            <xs:enumeration value="Azure"/>
+            <xs:enumeration value="Beige"/>
+            <xs:enumeration value="Bisque"/>
+            <xs:enumeration value="Black"/>
+            <xs:enumeration value="BlanchedAlmond"/>
+            <xs:enumeration value="Blue"/>
+            <xs:enumeration value="BlueViolet"/>
+            <xs:enumeration value="Brown"/>
+            <xs:enumeration value="BurlyWood"/>
+            <xs:enumeration value="CadetBlue"/>
+            <xs:enumeration value="Chartreuse"/>
+            <xs:enumeration value="Chocolate"/>
+            <xs:enumeration value="Coral"/>
+            <xs:enumeration value="CornflowerBlue"/>
+            <xs:enumeration value="Cornsilk"/>
+            <xs:enumeration value="Crimson"/>
+            <xs:enumeration value="Cyan"/>
+            <xs:enumeration value="DarkBlue"/>
+            <xs:enumeration value="DarkCyan"/>
+            <xs:enumeration value="DarkGoldenrod"/>
+            <xs:enumeration value="DarkGray"/>
+            <xs:enumeration value="DarkGreen"/>
+            <xs:enumeration value="DarkKhaki"/>
+            <xs:enumeration value="DarkMagenta"/>
+            <xs:enumeration value="DarkOliveGreen"/>
+            <xs:enumeration value="DarkOrange"/>
+            <xs:enumeration value="DarkOrchid"/>
+            <xs:enumeration value="DarkRed"/>
+            <xs:enumeration value="DarkSalmon"/>
+            <xs:enumeration value="DarkSeaGreen"/>
+            <xs:enumeration value="DarkSlateBlue"/>
+            <xs:enumeration value="DarkSlateGray"/>
+            <xs:enumeration value="DarkTurquoise"/>
+            <xs:enumeration value="DarkViolet"/>
+            <xs:enumeration value="DeepPink"/>
+            <xs:enumeration value="DeepSkyBlue"/>
+            <xs:enumeration value="DimGray"/>
+            <xs:enumeration value="DodgerBlue"/>
+            <xs:enumeration value="Firebrick"/>
+            <xs:enumeration value="FloaralWhite"/>
+            <xs:enumeration value="ForestGreen"/>
+            <xs:enumeration value="Fuchsia"/>
+            <xs:enumeration value="Gainsboro"/>
+            <xs:enumeration value="GhostWhite"/>
+            <xs:enumeration value="Gold"/>
+            <xs:enumeration value="Goldenrod"/>
+            <xs:enumeration value="Gray"/>
+            <xs:enumeration value="Green"/>
+            <xs:enumeration value="GreenYellow"/>
+            <xs:enumeration value="Honeydew"/>
+            <xs:enumeration value="HotPink"/>
+            <xs:enumeration value="IndianRed"/>
+            <xs:enumeration value="Indigo"/>
+            <xs:enumeration value="Ivory"/>
+            <xs:enumeration value="Khaki"/>
+            <xs:enumeration value="Lavender"/>
+            <xs:enumeration value="LavenderBlush"/>
+            <xs:enumeration value="LawnGreen"/>
+            <xs:enumeration value="LemonChiffon"/>
+            <xs:enumeration value="LightBlue"/>
+            <xs:enumeration value="LightCoral"/>
+            <xs:enumeration value="LightCyan"/>
+            <xs:enumeration value="LightGoldenrodYellow"/>
+            <xs:enumeration value="LightGray"/>
+            <xs:enumeration value="LightGreen"/>
+            <xs:enumeration value="LightPink"/>
+            <xs:enumeration value="LightSalmon"/>
+            <xs:enumeration value="LightSeaGreen"/>
+            <xs:enumeration value="LightSkyBlue"/>
+            <xs:enumeration value="LightSlateGray"/>
+            <xs:enumeration value="LightSteelBlue"/>
+            <xs:enumeration value="LightYellow"/>
+            <xs:enumeration value="Lime"/>
+            <xs:enumeration value="LimeGreen"/>
+            <xs:enumeration value="Linen"/>
+            <xs:enumeration value="Magenta"/>
+            <xs:enumeration value="Maroon"/>
+            <xs:enumeration value="MediumAquamarine"/>
+            <xs:enumeration value="MediumBlue"/>
+            <xs:enumeration value="MediumOrchid"/>
+            <xs:enumeration value="MediumPurple"/>
+            <xs:enumeration value="MediumSeaGreen"/>
+            <xs:enumeration value="MediumSlateBlue"/>
+            <xs:enumeration value="MediumSpringGreen"/>
+            <xs:enumeration value="MediumTurquoise"/>
+            <xs:enumeration value="MediumVioletRed"/>
+            <xs:enumeration value="MidnightBlue"/>
+            <xs:enumeration value="MintCream"/>
+            <xs:enumeration value="MistyRose"/>
+            <xs:enumeration value="Moccasin"/>
+            <xs:enumeration value="NavajoWhite"/>
+            <xs:enumeration value="Navy"/>
+            <xs:enumeration value="OldLace"/>
+            <xs:enumeration value="Olive"/>
+            <xs:enumeration value="OliveDrab"/>
+            <xs:enumeration value="Orange"/>
+            <xs:enumeration value="OrangeRed"/>
+            <xs:enumeration value="Orchid"/>
+            <xs:enumeration value="PaleGoldenrod"/>
+            <xs:enumeration value="PaleGreen"/>
+            <xs:enumeration value="PaleTurquoise"/>
+            <xs:enumeration value="PaleVioletRed"/>
+            <xs:enumeration value="PapayaWhip"/>
+            <xs:enumeration value="PeachPuff"/>
+            <xs:enumeration value="Peru"/>
+            <xs:enumeration value="Pink"/>
+            <xs:enumeration value="Plum"/>
+            <xs:enumeration value="PowderBlue"/>
+            <xs:enumeration value="Purple"/>
+            <xs:enumeration value="Red"/>
+            <xs:enumeration value="RosyBrown"/>
+            <xs:enumeration value="RoyalBlue"/>
+            <xs:enumeration value="SaddleBrown"/>
+            <xs:enumeration value="Salmon"/>
+            <xs:enumeration value="SandyBrown"/>
+            <xs:enumeration value="SeaGreen"/>
+            <xs:enumeration value="SeaShell"/>
+            <xs:enumeration value="Sienna"/>
+            <xs:enumeration value="Silver"/>
+            <xs:enumeration value="SkyBlue"/>
+            <xs:enumeration value="SlateBlue"/>
+            <xs:enumeration value="SlateGray"/>
+            <xs:enumeration value="Snow"/>
+            <xs:enumeration value="SpringGreen"/>
+            <xs:enumeration value="SteelBlue"/>
+            <xs:enumeration value="Tan"/>
+            <xs:enumeration value="Teal"/>
+            <xs:enumeration value="Thistle"/>
+            <xs:enumeration value="Tomato"/>
+            <xs:enumeration value="Transparent"/>
+            <xs:enumeration value="Turquoise"/>
+            <xs:enumeration value="Violet"/>
+            <xs:enumeration value="Wheat"/>
+            <xs:enumeration value="White"/>
+            <xs:enumeration value="WhiteSmoke"/>
+            <xs:enumeration value="Yellow"/>
+            <xs:enumeration value="YellowGreen"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="colorType">
+        <xs:union memberTypes="colorRegexType colorListType"/>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="outlineLevelType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BodyText"/>
+            <xs:enumeration value="Level1"/>
+            <xs:enumeration value="Level2"/>
+            <xs:enumeration value="Level3"/>
+            <xs:enumeration value="Level4"/>
+            <xs:enumeration value="Level5"/>
+            <xs:enumeration value="Level6"/>
+            <xs:enumeration value="Level7"/>
+            <xs:enumeration value="Level8"/>
+            <xs:enumeration value="Level9"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="underlineType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Dash"/>
+            <xs:enumeration value="DotDash"/>
+            <xs:enumeration value="DotDotDash"/>
+            <xs:enumeration value="Dotted"/>
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="Single"/>
+            <xs:enumeration value="Words"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="hyperlinkTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Bookmark"/>
+            <xs:enumeration value="File"/>
+            <xs:enumeration value="Local"/>
+            <xs:enumeration value="Url"/>
+            <xs:enumeration value="Web"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="relativeHorizontalType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Character"/>
+            <xs:enumeration value="Column"/>
+            <xs:enumeration value="Margin"/>
+            <xs:enumeration value="Page"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="relativeVerticalType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Line"/>
+            <xs:enumeration value="Margin"/>
+            <xs:enumeration value="Page"/>
+            <xs:enumeration value="Paragraph"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="horizontalAlignmentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Left"/>
+            <xs:enumeration value="Center"/>
+            <xs:enumeration value="Right"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="verticalAlignmentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Bottom"/>
+            <xs:enumeration value="Center"/>
+            <xs:enumeration value="Top"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="rowHeightRuleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AtLeast"/>
+            <xs:enumeration value="Auto"/>
+            <xs:enumeration value="Exactly"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="footnoteLocationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BeneathText"/>
+            <xs:enumeration value="BottomOfPage"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="footnoteNumberingRuleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="RestartContinuous"/>
+            <xs:enumeration value="RestartPage"/>
+            <xs:enumeration value="RestartSection"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="footnoteNumberStyleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Arabic"/>
+            <xs:enumeration value="LowercaseLetter"/>
+            <xs:enumeration value="LowercaseRoman"/>
+            <xs:enumeration value="UppercaseLetter"/>
+            <xs:enumeration value="UppercaseRoman"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="dashStyleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Dash"/>
+            <xs:enumeration value="DashDot"/>
+            <xs:enumeration value="DashDotDot"/>
+            <xs:enumeration value="Solid"/>
+            <xs:enumeration value="SquareDot"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="textOrientationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Downward"/>
+            <xs:enumeration value="Horizontal"/>
+            <xs:enumeration value="HorizontalRotatedFarEast"/>
+            <xs:enumeration value="Upward"/>
+            <xs:enumeration value="Vertical"/>
+            <xs:enumeration value="VerticalFarEast"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="shapePositionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Bottom"/>
+            <xs:enumeration value="Center"/>
+            <xs:enumeration value="Inside"/>
+            <xs:enumeration value="Left"/>
+            <xs:enumeration value="Outside"/>
+            <xs:enumeration value="Right"/>
+            <xs:enumeration value="Top"/>
+            <xs:enumeration value="Undefined"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="wrapStyleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="Through"/>
+            <xs:enumeration value="TopBottom"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="pointListTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BulletList1"/>
+            <xs:enumeration value="BulletList2"/>
+            <xs:enumeration value="BulletList3"/>
+            <xs:enumeration value="NumberList1"/>
+            <xs:enumeration value="NumberList2"/>
+            <xs:enumeration value="NumberList3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:complexType name="varType">
+        <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="setType">
+        <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="defaultType">
+        <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="emptyType">
+    </xs:complexType>
+    
+    
+    <xs:complexType name="settersType">
+        <xs:anyAttribute processContents="lax"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="styleType">
+        <xs:sequence>
+            <xs:sequence>
+            </xs:sequence>
+            <xs:element name="Setters" type="settersType" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="Target" type="xs:string" use="required"/>
+        <xs:attribute name="Name" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="bookmarkType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="Name" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="documentType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:element name="Graphics" type="graphicsType"/>
+                <xs:element name="Section" type="sectionType"/>
+                <xs:element name="Resource" type="resourceType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="FootnoteLocation" type="footnoteLocationType"/>
+        <xs:attribute name="FootnoteNumberingRule" type="footnoteNumberingRuleType"/>
+        <xs:attribute name="FootnoteNumberStyle" type="footnoteNumberStyleType"/>
+        <xs:attribute name="FootnoteStartingNumber" type="intType"/>
+        <xs:attribute name="ImagePath" type="xs:string"/>
+        <xs:attribute name="ResourcePath" type="xs:string"/>
+        <xs:attribute name="UseCmykColor" type="boolType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="resourceType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:element name="Default" type="defaultType"/>
+                <xs:element name="Paragraph" type="paragraphType"/>
+                <xs:element name="p" type="paragraphType"/>
+                <xs:element name="Hyperlink" type="hyperlinkType"/>
+                <xs:element name="a" type="hyperlinkType"/>
+                <xs:element name="FormattedText" type="formattedTextType"/>
+                <xs:element name="b" type="formattedTextType"/>
+                <xs:element name="i" type="formattedTextType"/>
+                <xs:element name="ul" type="formattedTextType"/>
+                <xs:element name="sub" type="formattedTextType"/>
+                <xs:element name="super" type="formattedTextType"/>
+                <xs:element name="Bookmark" type="bookmarkType"/>
+                <xs:element name="PointList" type="pointListType"/>
+                <xs:element name="list" type="pointListType"/>
+                <xs:element name="Image" type="imageType"/>
+                <xs:element name="Header" type="headerFooterType"/>
+                <xs:element name="Footer" type="headerFooterType"/>
+                <xs:element name="TextFrame" type="textFrameType"/>
+                <xs:element name="Table" type="tableType"/>
+                <xs:element name="PageBreak" type="emptyType"/>
+                <xs:element name="Graphics" type="graphicsType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="Name" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="insertType">
+        <xs:attribute name="Path" type="xs:string"/>
+        <xs:attribute name="Resource" type="xs:string"/>
+        <xs:attribute name="Text" type="xs:string"/>
+        <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="sectionType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:element name="Paragraph" type="paragraphType"/>
+                <xs:element name="p" type="paragraphType"/>
+                <xs:element name="PointList" type="pointListType"/>
+                <xs:element name="list" type="pointListType"/>
+                <xs:element name="Header" type="headerFooterType"/>
+                <xs:element name="Footer" type="headerFooterType"/>
+                <xs:element name="TextFrame" type="textFrameType"/>
+                <xs:element name="Image" type="imageType"/>
+                <xs:element name="Table" type="tableType"/>
+                <xs:element name="PageBreak" type="emptyType"/>
+                <xs:element name="Chart" type="chartType"/>
+                <xs:element name="Graphics" type="graphicsType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="PageSetup.DifferentFirstPageHeaderFooter" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Defines whether the section has a different first page header &amp; footer</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.OddAndEvenPagesHeaderFooter" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Defines whether the odd and even pages of the section have a different header &amp; footer</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.HorizontalPageBreak" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Defines whether a page should break horizontally. Currently only tables are supported</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.BottomMargin" type="unitType"/>
+        <xs:attribute name="PageSetup.LeftMargin" type="unitType"/>
+        <xs:attribute name="PageSetup.RightMargin" type="unitType"/>
+        <xs:attribute name="PageSetup.TopMargin" type="unitType"/>
+        <xs:attribute name="PageSetup.HorizontalMargin" type="unitType">
+            <xs:annotation>
+                <xs:documentation>Sets the left &amp; right margins</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.VerticalMargin" type="unitType">
+            <xs:annotation>
+                <xs:documentation>Sets the top &amp; bottom margins</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.Margin" type="unitType">
+            <xs:annotation>
+                <xs:documentation>Sets all margins</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.MirrorMargins" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Defines whether the odd and even pages of the section should change left and right margins</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.FooterDistance" type="unitType">
+            <xs:annotation>
+                <xs:documentation>The distance between the footer and the page bottom of the pages in the section</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.HeaderDistance" type="unitType">
+            <xs:annotation>
+                <xs:documentation>The distance between the header and the page top of the pages in the section</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.Orientation" type="orientationType"/>
+        <xs:attribute name="PageSetup.PageFormat" type="pageFormatType"/>
+        <xs:attribute name="PageSetup.PageWidth" type="unitType"/>
+        <xs:attribute name="PageSetup.PageHeight" type="unitType"/>
+        <xs:attribute name="PageSetup.SectionStart" type="breakTypeType">
+            <xs:annotation>
+                <xs:documentation>Defines whether the section starts on next, odd or even page</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.StartingNumber" type="intType">
+            <xs:annotation>
+                <xs:documentation>The starting number for the first section page</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.ContentWidth" type="unitType">
+            <xs:annotation>
+                <xs:documentation>Sets the PageWidth to the value + the left &amp; right margin values</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="PageSetup.ContentHeight" type="unitType">
+            <xs:annotation>
+                <xs:documentation>Sets the PageHeight to the value + the top &amp; bottom margin values</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Tag" type="xs:string"/>
+        <xs:attribute name="Style" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="logicalType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:element name="Paragraph" type="paragraphType"/>
+                <xs:element name="p" type="paragraphType"/>
+                <xs:element name="FormattedText" type="formattedTextType"/>
+                <xs:element name="b" type="formattedTextType"/>
+                <xs:element name="i" type="formattedTextType"/>
+                <xs:element name="ul" type="formattedTextType"/>
+                <xs:element name="sub" type="formattedTextType"/>
+                <xs:element name="super" type="formattedTextType"/>
+                <xs:element name="Bookmark" type="bookmarkType"/>
+                <xs:element name="DateField" type="dateFieldType"/>
+                <xs:element name="PageField" type="pageFieldType"/>
+                <xs:element name="NumPagesField" type="numPagesFieldType"/>
+                <xs:element name="Hyperlink" type="hyperlinkType"/>
+                <xs:element name="a" type="hyperlinkType"/>
+                <xs:element name="PointList" type="pointListType"/>
+                <xs:element name="list" type="pointListType"/>
+                <xs:element name="Header" type="headerFooterType"/>
+                <xs:element name="Footer" type="headerFooterType"/>
+                <xs:element name="TextFrame" type="textFrameType"/>
+                <xs:element name="Section" type="sectionType"/>
+                <xs:element name="Image" type="imageType"/>
+                <xs:element name="Line" type="graphicsLineType"/>
+                <xs:element name="Bezier" type="graphicsBezierType"/>
+                <xs:element name="Rect" type="graphicsRectType"/>
+                <xs:element name="String" type="graphicsStringType"/>
+                <xs:element name="Table" type="tableType"/>
+                <xs:element name="PageBreak" type="emptyType"/>
+                <xs:element name="Column" type="columnType"/>
+                <xs:element name="Row" type="rowType"/>
+                <xs:element name="Cell" type="cellType"/>
+                <xs:element name="C0" type="cellType"/>
+                <xs:element name="C1" type="cellType"/>
+                <xs:element name="C2" type="cellType"/>
+                <xs:element name="C3" type="cellType"/>
+                <xs:element name="C4" type="cellType"/>
+                <xs:element name="C5" type="cellType"/>
+                <xs:element name="C6" type="cellType"/>
+                <xs:element name="C7" type="cellType"/>
+                <xs:element name="C8" type="cellType"/>
+                <xs:element name="C9" type="cellType"/>
+                <xs:element name="C10" type="cellType"/>
+                <xs:element name="C11" type="cellType"/>
+                <xs:element name="C12" type="cellType"/>
+                <xs:element name="C13" type="cellType"/>
+                <xs:element name="C14" type="cellType"/>
+                <xs:element name="C15" type="cellType"/>
+                <xs:element name="C16" type="cellType"/>
+                <xs:element name="C17" type="cellType"/>
+                <xs:element name="C18" type="cellType"/>
+                <xs:element name="C19" type="cellType"/>
+                <xs:element name="C20" type="cellType"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="logicalTestType">
+        <xs:complexContent>
+            <xs:extension base="logicalType">
+                <xs:attribute name="Test" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="forEachType">
+        <xs:complexContent>
+            <xs:extension base="logicalType">
+                <xs:attribute name="Var" type="xs:string" use="required"/>
+                <xs:attribute name="In" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="formattedTextType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="Font.Bold" type="boolType"/>
+                <xs:attribute name="Font.Italic" type="boolType"/>
+                <xs:attribute name="Font.Size" type="unitType"/>
+                <xs:attribute name="Font.Color" type="xs:string"/>
+                <xs:attribute name="Font.Name" type="xs:string"/>
+                <xs:attribute name="Font.Subscript" type="boolType"/>
+                <xs:attribute name="Font.Superscript" type="boolType"/>
+                <xs:attribute name="Font.Underline" type="underlineType"/>
+                <xs:attribute name="Style" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="dateFieldType">
+        <xs:attribute name="Format" type="xs:string"/>
+        <xs:attribute name="Style" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="pageFieldType">
+        <xs:attribute name="Format" type="xs:string"/>
+        <xs:attribute name="Style" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="numPagesFieldType">
+        <xs:attribute name="Format" type="xs:string"/>
+        <xs:attribute name="Style" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="paragraphFormatType">
+        <xs:attribute name="Format.Alignment" type="paragraphAlignmentType"/>
+        <xs:attribute name="Format.FirstLineIndent" type="unitType"/>
+        <xs:attribute name="Format.KeepTogether" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Indicates whether to keep all the paragraph's lines on the same page</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.KeepWithNext" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Indicates whether this and the next paragraph stay on the same page</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.LeftIndent" type="unitType"/>
+        <xs:attribute name="Format.LineSpacing" type="unitType">
+            <xs:annotation>
+                <xs:documentation>The sapce between lines in the paragraph</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.LineSpacingRule" type="lineSpacingRuleType">
+            <xs:annotation>
+                <xs:documentation>The rule which is used to define the line spacing</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.OutlineLevel" type="outlineLevelType"/>
+        <xs:attribute name="Format.PageBreakBefore" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Indicates whether a page break is inserted before the paragraph</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.RightIndent" type="unitType"/>
+        <xs:attribute name="Format.SpaceAfter" type="unitType">
+            <xs:annotation>
+                <xs:documentation>The space that's inserted after the paragraph</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.SpaceBefore" type="unitType">
+            <xs:annotation>
+                <xs:documentation>The space that's inserted before the paragraph</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.WidowControl" type="boolType">
+            <xs:annotation>
+                <xs:documentation>Indicates whether a line from the paragraph stays alone in a page</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Format.Font.Bold" type="boolType"/>
+        <xs:attribute name="Format.Font.Italic" type="boolType"/>
+        <xs:attribute name="Format.Font.Size" type="unitType"/>
+        <xs:attribute name="Format.Font.Color" type="colorType"/>
+        <xs:attribute name="Format.Font.Name" type="xs:string"/>
+        <xs:attribute name="Format.Font.Subscript" type="boolType"/>
+        <xs:attribute name="Format.Font.Superscript" type="boolType"/>
+        <xs:attribute name="Format.Font.Underline" type="underlineType"/>
+        <xs:attribute name="Format.Shading.Color" type="colorType"/>
+        <xs:attribute name="Format.Shading.Visible" type="boolType"/>
+        <xs:attribute name="Format.Borders.Bottom.Color" type="colorType"/>
+        <xs:attribute name="Format.Borders.Bottom.Name" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Bottom.Visible" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Bottom.Width" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Left.Color" type="colorType"/>
+        <xs:attribute name="Format.Borders.Left.Name" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Left.Visible" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Left.Width" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Right.Color" type="colorType"/>
+        <xs:attribute name="Format.Borders.Right.Name" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Right.Visible" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Right.Width" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Top.Color" type="colorType"/>
+        <xs:attribute name="Format.Borders.Top.Name" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Top.Visible" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Top.Width" type="xs:string"/>
+        <xs:attribute name="Format.Borders.DiagonalDown.Color" type="colorType"/>
+        <xs:attribute name="Format.Borders.DiagonalDown.Name" type="xs:string"/>
+        <xs:attribute name="Format.Borders.DiagonalDown.Visible" type="xs:string"/>
+        <xs:attribute name="Format.Borders.DiagonalDown.Width" type="xs:string"/>
+        <xs:attribute name="Format.Borders.DiagonalUp.Color" type="colorType"/>
+        <xs:attribute name="Format.Borders.DiagonalUp.Name" type="xs:string"/>
+        <xs:attribute name="Format.Borders.DiagonalUp.Visible" type="xs:string"/>
+        <xs:attribute name="Format.Borders.DiagonalUp.Width" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Color" type="colorType"/>
+        <xs:attribute name="Format.Borders.Distance" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Visible" type="xs:string"/>
+        <xs:attribute name="Format.Borders.Width" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="paragraphType" mixed="true">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="Hyperlink" type="hyperlinkType"/>
+                        <xs:element name="a" type="hyperlinkType"/>
+                        <xs:element name="FormattedText" type="formattedTextType"/>
+                        <xs:element name="b" type="formattedTextType"/>
+                        <xs:element name="i" type="formattedTextType"/>
+                        <xs:element name="ul" type="formattedTextType"/>
+                        <xs:element name="sub" type="formattedTextType"/>
+                        <xs:element name="super" type="formattedTextType"/>
+                        <xs:element name="Bookmark" type="bookmarkType"/>
+                        <xs:element name="DateField" type="dateFieldType"/>
+                        <xs:element name="PageField" type="pageFieldType"/>
+                        <xs:element name="NumPagesField" type="numPagesFieldType"/>
+                        <xs:element name="Image" type="imageType"/>
+                        <xs:element name="Graphics" type="graphicsType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="Style" type="xs:string"/>
+                <xs:attribute name="Tag" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="hyperlinkType" mixed="true">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:element name="FormattedText" type="formattedTextType"/>
+                <xs:element name="b" type="formattedTextType"/>
+                <xs:element name="i" type="formattedTextType"/>
+                <xs:element name="ul" type="formattedTextType"/>
+                <xs:element name="sub" type="formattedTextType"/>
+                <xs:element name="super" type="formattedTextType"/>
+                <xs:element name="Bookmark" type="bookmarkType"/>
+                <xs:element name="DateField" type="dateFieldType"/>
+                <xs:element name="PageField" type="pageFieldType"/>
+                <xs:element name="NumPagesField" type="numPagesFieldType"/>
+                <xs:element name="Image" type="imageType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="Font.Bold" type="boolType"/>
+        <xs:attribute name="Font.Italic" type="boolType"/>
+        <xs:attribute name="Font.Size" type="unitType"/>
+        <xs:attribute name="Font.Color" type="colorType"/>
+        <xs:attribute name="Font.Name" type="xs:string"/>
+        <xs:attribute name="Font.Subscript" type="boolType"/>
+        <xs:attribute name="Font.Superscript" type="boolType"/>
+        <xs:attribute name="Font.Underline" type="underlineType"/>
+        <xs:attribute name="Name" type="xs:string"/>
+        <xs:attribute name="Type" type="hyperlinkTypeType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="pointListType">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="PointList" type="pointListType"/>
+                        <xs:element name="list" type="pointListType"/>
+                        <xs:element name="Paragraph" type="paragraphType"/>
+                        <xs:element name="p" type="paragraphType"/>
+                        <xs:element name="Graphics" type="graphicsType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="Type" type="pointListTypeType"/>
+                <xs:attribute name="NumberPosition" type="unitType"/>
+                <xs:attribute name="Tag" type="xs:string"/>
+                <xs:attribute name="Style" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="shapeType">
+        <xs:attribute name="FillFormat.Color" type="colorType"/>
+        <xs:attribute name="FillFormat.Visible" type="boolType"/>
+        <xs:attribute name="LineFormat.Color" type="colorType"/>
+        <xs:attribute name="LineFormat.DashStyle" type="dashStyleType"/>
+        <xs:attribute name="LineFormat.Visible" type="boolType"/>
+        <xs:attribute name="LineFormat.Width" type="unitType"/>
+        <xs:attribute name="WrapFormat.DistanceBottom" type="unitType"/>
+        <xs:attribute name="WrapFormat.DistanceLeft" type="unitType"/>
+        <xs:attribute name="WrapFormat.DistanceRight" type="unitType"/>
+        <xs:attribute name="WrapFormat.DistanceTop" type="unitType"/>
+        <xs:attribute name="WrapFormat.Style" type="wrapStyleType">
+            <xs:annotation>
+                <xs:documentation>Specifies how the shape object should be placed between the other elements</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Height" type="unitType"/>
+        <xs:attribute name="Left" type="shapePositionType">
+            <xs:annotation>
+                <xs:documentation>The position of the left side of the shape</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="RelativeHorizontal" type="relativeHorizontalType">
+            <xs:annotation>
+                <xs:documentation>What the shape is placed horizontally in relation to</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="RelativeVertical" type="relativeHorizontalType">
+            <xs:annotation>
+                <xs:documentation>What the shape is placed vertically in relation to</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Top" type="shapePositionType">
+            <xs:annotation>
+                <xs:documentation>The position of the top side of the shape</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Width" type="unitType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+        <xs:attribute name="Style" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="imageType">
+        <xs:complexContent>
+            <xs:extension base="shapeType">
+                <xs:attribute name="LockAspectRatio" type="boolType"/>
+                <xs:attribute name="Name" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The image file to be added</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Resolution" type="doubleType">
+                    <xs:annotation>
+                        <xs:documentation>User defined resolution for the image in dots per inch</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="ScaleHeight" type="doubleType">
+                    <xs:annotation>
+                        <xs:documentation>The scale height of the image. If Height is set too, the resulting image height is ScaleHeight * Height</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="ScaleWidth" type="doubleType">
+                    <xs:annotation>
+                        <xs:documentation>The scale width of the image. If Width is set too, the resulting image width is ScaleWidth * Width</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="textFrameType">
+        <xs:complexContent>
+            <xs:extension base="shapeType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="Paragraph" type="paragraphType"/>
+                        <xs:element name="p" type="paragraphType"/>
+                        <xs:element name="PointList" type="pointListType"/>
+                        <xs:element name="list" type="pointListType"/>
+                        <xs:element name="Image" type="imageType"/>
+                        <xs:element name="Table" type="tableType"/>
+                        <xs:element name="Chart" type="chartType"/>
+                        <xs:element name="Graphics" type="graphicsType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="MarginBottom" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The margin between the textframe's content and its bottom edge</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="MarginLeft" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The margin between the textframe's content and its left edge</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="MarginRight" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The margin between the textframe's content and its right edge</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="MarginTop" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The margin between the textframe's content and its top edge</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Orientation" type="textOrientationType">
+                    <xs:annotation>
+                        <xs:documentation>The text orientation for the textframe content</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.Alignment" type="paragraphAlignmentType"/>
+                <xs:attribute name="Format.FirstLineIndent" type="unitType"/>
+                <xs:attribute name="Format.KeepTogether" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether to keep all the paragraph's lines on the same page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.KeepWithNext" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether this and the next paragraph stay on the same page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.LeftIndent" type="unitType"/>
+                <xs:attribute name="Format.LineSpacing" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The sapce between lines in the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.LineSpacingRule" type="lineSpacingRuleType">
+                    <xs:annotation>
+                        <xs:documentation>The rule which is used to define the line spacing</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.OutlineLevel" type="outlineLevelType"/>
+                <xs:attribute name="Format.PageBreakBefore" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether a page break is inserted before the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.RightIndent" type="unitType"/>
+                <xs:attribute name="Format.SpaceAfter" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The space that's inserted after the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.SpaceBefore" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The space that's inserted before the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.WidowControl" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether a line from the paragraph stays alone in a page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.Font.Bold" type="boolType"/>
+                <xs:attribute name="Format.Font.Italic" type="boolType"/>
+                <xs:attribute name="Format.Font.Size" type="unitType"/>
+                <xs:attribute name="Format.Font.Color" type="colorType"/>
+                <xs:attribute name="Format.Font.Name" type="xs:string"/>
+                <xs:attribute name="Format.Font.Subscript" type="boolType"/>
+                <xs:attribute name="Format.Font.Superscript" type="boolType"/>
+                <xs:attribute name="Format.Font.Underline" type="underlineType"/>
+                <xs:attribute name="Format.Shading.Color" type="colorType"/>
+                <xs:attribute name="Format.Shading.Visible" type="boolType"/>
+                <xs:attribute name="Format.Borders.Bottom.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Bottom.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Bottom.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Bottom.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Left.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Left.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Left.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Left.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Right.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Right.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Right.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Right.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Top.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Top.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Top.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Top.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Distance" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Width" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="headerFooterType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:element name="Paragraph" type="paragraphType"/>
+                <xs:element name="p" type="paragraphType"/>
+                <xs:element name="PointList" type="pointListType"/>
+                <xs:element name="list" type="pointListType"/>
+                <xs:element name="Image" type="imageType"/>
+                <xs:element name="Table" type="tableType"/>
+                <xs:element name="TextFrame" type="textFrameType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="IsEvenPage" type="boolType"/>
+        <xs:attribute name="IsFirstPage" type="boolType"/>
+        <xs:attribute name="IsPrimary" type="boolType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="tableType">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="Column" type="columnType"/>
+                        <xs:element name="Row" type="rowType"/>
+                        <xs:element name="Graphics" type="graphicsType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="BottomPadding" type="unitType"/>
+                <xs:attribute name="LeftPadding" type="unitType"/>
+                <xs:attribute name="RightPadding" type="unitType"/>
+                <xs:attribute name="TopPadding" type="unitType"/>
+                <xs:attribute name="KeepTogether" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether to keep all the table rows on the same page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Tag" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Color" type="colorType"/>
+                <xs:attribute name="Borders.Bottom.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Color" type="colorType"/>
+                <xs:attribute name="Borders.Left.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Color" type="colorType"/>
+                <xs:attribute name="Borders.Right.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Color" type="colorType"/>
+                <xs:attribute name="Borders.Top.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalDown.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalUp.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Color" type="colorType"/>
+                <xs:attribute name="Borders.Distance" type="xs:string"/>
+                <xs:attribute name="Borders.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Width" type="xs:string"/>
+                <xs:attribute name="Shading.Color" type="colorType"/>
+                <xs:attribute name="Shading.Visible" type="boolType"/>
+                <xs:attribute name="Style" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="columnType">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:attribute name="Heading" type="boolType"/>
+                <xs:attribute name="KeepWith" type="intType">
+                    <xs:annotation>
+                        <xs:documentation>The number of columns that should be kept together with current column in case of a page break</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="LeftPadding" type="unitType"/>
+                <xs:attribute name="RightPadding" type="unitType"/>
+                <xs:attribute name="Width" type="unitType"/>
+                <xs:attribute name="Tag" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Color" type="colorType"/>
+                <xs:attribute name="Borders.Bottom.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Color" type="colorType"/>
+                <xs:attribute name="Borders.Left.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Color" type="colorType"/>
+                <xs:attribute name="Borders.Right.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Color" type="colorType"/>
+                <xs:attribute name="Borders.Top.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalDown.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalUp.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Color" type="colorType"/>
+                <xs:attribute name="Borders.Distance" type="xs:string"/>
+                <xs:attribute name="Borders.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Width" type="xs:string"/>
+                <xs:attribute name="Shading.Color" type="colorType"/>
+                <xs:attribute name="Shading.Visible" type="boolType"/>
+                <xs:attribute name="Style" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="rowType">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="Cell" type="cellType"/>
+                        <xs:element name="C0" type="cellType"/>
+                        <xs:element name="C1" type="cellType"/>
+                        <xs:element name="C2" type="cellType"/>
+                        <xs:element name="C3" type="cellType"/>
+                        <xs:element name="C4" type="cellType"/>
+                        <xs:element name="C5" type="cellType"/>
+                        <xs:element name="C6" type="cellType"/>
+                        <xs:element name="C7" type="cellType"/>
+                        <xs:element name="C8" type="cellType"/>
+                        <xs:element name="C9" type="cellType"/>
+                        <xs:element name="C10" type="cellType"/>
+                        <xs:element name="C11" type="cellType"/>
+                        <xs:element name="C12" type="cellType"/>
+                        <xs:element name="C13" type="cellType"/>
+                        <xs:element name="C14" type="cellType"/>
+                        <xs:element name="C15" type="cellType"/>
+                        <xs:element name="C16" type="cellType"/>
+                        <xs:element name="C17" type="cellType"/>
+                        <xs:element name="C18" type="cellType"/>
+                        <xs:element name="C19" type="cellType"/>
+                        <xs:element name="C20" type="cellType"/>
+                        <xs:element name="Graphics" type="graphicsType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="BottomPadding" type="unitType"/>
+                <xs:attribute name="Heading" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>In the case of a page break part way through the table, the header row(s) are displayed at the top of the continuation on the next page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Height" type="unitType"/>
+                <xs:attribute name="HeightRule" type="rowHeightRuleType"/>
+                <xs:attribute name="KeepWith" type="intType">
+                    <xs:annotation>
+                        <xs:documentation>The number of rows that should be kept together with the current row in case of a page break</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="TopPadding" type="unitType"/>
+                <xs:attribute name="VerticalAlignment" type="verticalAlignmentType">
+                    <xs:annotation>
+                        <xs:documentation>The vertical alignment of all cells in the row</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Tag" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Color" type="colorType"/>
+                <xs:attribute name="Borders.Bottom.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Color" type="colorType"/>
+                <xs:attribute name="Borders.Left.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Color" type="colorType"/>
+                <xs:attribute name="Borders.Right.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Color" type="colorType"/>
+                <xs:attribute name="Borders.Top.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalDown.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalUp.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Color" type="colorType"/>
+                <xs:attribute name="Borders.Distance" type="xs:string"/>
+                <xs:attribute name="Borders.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Width" type="xs:string"/>
+                <xs:attribute name="Shading.Color" type="colorType"/>
+                <xs:attribute name="Shading.Visible" type="boolType"/>
+                <xs:attribute name="Style" type="xs:string"/>
+                <xs:attribute name="C0" type="xs:string"/>
+                <xs:attribute name="C1" type="xs:string"/>
+                <xs:attribute name="C2" type="xs:string"/>
+                <xs:attribute name="C3" type="xs:string"/>
+                <xs:attribute name="C4" type="xs:string"/>
+                <xs:attribute name="C5" type="xs:string"/>
+                <xs:attribute name="C6" type="xs:string"/>
+                <xs:attribute name="C7" type="xs:string"/>
+                <xs:attribute name="C8" type="xs:string"/>
+                <xs:attribute name="C9" type="xs:string"/>
+                <xs:attribute name="C10" type="xs:string"/>
+                <xs:attribute name="C11" type="xs:string"/>
+                <xs:attribute name="C12" type="xs:string"/>
+                <xs:attribute name="C13" type="xs:string"/>
+                <xs:attribute name="C14" type="xs:string"/>
+                <xs:attribute name="C15" type="xs:string"/>
+                <xs:attribute name="C16" type="xs:string"/>
+                <xs:attribute name="C17" type="xs:string"/>
+                <xs:attribute name="C18" type="xs:string"/>
+                <xs:attribute name="C19" type="xs:string"/>
+                <xs:attribute name="C20" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="cellType" mixed="true">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="Paragraph" type="paragraphType"/>
+                        <xs:element name="p" type="paragraphType"/>
+                        <xs:element name="PointList" type="pointListType"/>
+                        <xs:element name="list" type="pointListType"/>
+                        <xs:element name="Table" type="tableType"/>
+                        <xs:element name="TextFrame" type="textFrameType"/>
+                        <xs:element name="Image" type="imageType"/>
+                        <xs:element name="Chart" type="chartType"/>
+                        <xs:element name="Graphics" type="graphicsType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="Borders.Bottom.Color" type="colorType"/>
+                <xs:attribute name="Borders.Bottom.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Bottom.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Color" type="colorType"/>
+                <xs:attribute name="Borders.Left.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Left.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Color" type="colorType"/>
+                <xs:attribute name="Borders.Right.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Right.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Color" type="colorType"/>
+                <xs:attribute name="Borders.Top.Name" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Top.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalDown.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalDown.Width" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Color" type="colorType"/>
+                <xs:attribute name="Borders.DiagonalUp.Name" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.DiagonalUp.Width" type="xs:string"/>
+                <xs:attribute name="Borders.Color" type="colorType"/>
+                <xs:attribute name="Borders.Distance" type="xs:string"/>
+                <xs:attribute name="Borders.Visible" type="xs:string"/>
+                <xs:attribute name="Borders.Width" type="xs:string"/>
+                <xs:attribute name="Shading.Color" type="colorType"/>
+                <xs:attribute name="Shading.Visible" type="boolType"/>
+                <xs:attribute name="MergeDown" type="intType">
+                    <xs:annotation>
+                        <xs:documentation>The number of cells below to be merged into this one</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="MergeRight" type="intType">
+                    <xs:annotation>
+                        <xs:documentation>The number of cells to the right to be merged into this one</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Style" type="xs:string"/>
+                <xs:attribute name="Index" type="intType">
+                    <xs:annotation>
+                        <xs:documentation>The index of the column that the cell belongs to</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="VerticalAlignment" type="verticalAlignmentType"/>
+                <xs:attribute name="Tag" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:simpleType name="tickMarkTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Cross"/>
+            <xs:enumeration value="Inside"/>
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="Outside"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="chartTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Area2D"/>
+            <xs:enumeration value="Bar2D"/>
+            <xs:enumeration value="BarStacked2D"/>
+            <xs:enumeration value="Column2D"/>
+            <xs:enumeration value="ColumnStacked2D"/>
+            <xs:enumeration value="Line"/>
+            <xs:enumeration value="Pie2D"/>
+            <xs:enumeration value="PieExploded2D"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="dataLabelPositionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Center"/>
+            <xs:enumeration value="InsideBase"/>
+            <xs:enumeration value="InsideEnd"/>
+            <xs:enumeration value="OutsideEnd"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="dataLabelTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="Percent"/>
+            <xs:enumeration value="Value"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="blankTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Interpolated"/>
+            <xs:enumeration value="NotPlotted"/>
+            <xs:enumeration value="Zero"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:complexType name="axisType">
+        <xs:attribute name="HasMajorGridlines" type="boolType"/>
+        <xs:attribute name="HasMinorGridlines" type="boolType"/>
+        <xs:attribute name="LineFormat.Color" type="colorType"/>
+        <xs:attribute name="LineFormat.DashStyle" type="dashStyleType"/>
+        <xs:attribute name="LineFormat.Visible" type="boolType"/>
+        <xs:attribute name="LineFormat.Width" type="unitType"/>
+        <xs:attribute name="MajorGridlines.LineFormat.Color" type="colorType"/>
+        <xs:attribute name="MajorGridlines.LineFormat.DashStyle" type="dashStyleType"/>
+        <xs:attribute name="MajorGridlines.LineFormat.Visible" type="boolType"/>
+        <xs:attribute name="MajorGridlines.LineFormat.Width" type="unitType"/>
+        <xs:attribute name="MajorTick" type="doubleType"/>
+        <xs:attribute name="MajorTickMark" type="tickMarkTypeType"/>
+        <xs:attribute name="MaximumScale" type="doubleType"/>
+        <xs:attribute name="MinimumScale" type="doubleType"/>
+        <xs:attribute name="MinorGridlines.LineFormat.Color" type="colorType"/>
+        <xs:attribute name="MinorGridlines.LineFormat.DashStyle" type="dashStyleType"/>
+        <xs:attribute name="MinorGridlines.LineFormat.Visible" type="boolType"/>
+        <xs:attribute name="MinorGridlines.LineFormat.Width" type="unitType"/>
+        <xs:attribute name="MinorTick" type="doubleType"/>
+        <xs:attribute name="MinorTickMark" type="tickMarkTypeType"/>
+        <xs:attribute name="TickLabels.Font.Bold" type="boolType"/>
+        <xs:attribute name="TickLabels.Font.Italic" type="boolType"/>
+        <xs:attribute name="TickLabels.Font.Size" type="unitType"/>
+        <xs:attribute name="TickLabels.Font.Color" type="colorType"/>
+        <xs:attribute name="TickLabels.Font.Name" type="xs:string"/>
+        <xs:attribute name="TickLabels.Font.Subscript" type="boolType"/>
+        <xs:attribute name="TickLabels.Font.Superscript" type="boolType"/>
+        <xs:attribute name="TickLabels.Font.Underline" type="underlineType"/>
+        <xs:attribute name="TickLabels.Format" type="xs:string"/>
+        <xs:attribute name="Title.Alignment" type="horizontalAlignmentType"/>
+        <xs:attribute name="Title.Caption" type="xs:string"/>
+        <xs:attribute name="Title.Font.Bold" type="boolType"/>
+        <xs:attribute name="Title.Font.Italic" type="boolType"/>
+        <xs:attribute name="Title.Font.Size" type="unitType"/>
+        <xs:attribute name="Title.Font.Color" type="colorType"/>
+        <xs:attribute name="Title.Font.Name" type="xs:string"/>
+        <xs:attribute name="Title.Font.Subscript" type="boolType"/>
+        <xs:attribute name="Title.Font.Superscript" type="boolType"/>
+        <xs:attribute name="Title.Font.Underline" type="underlineType"/>
+        <xs:attribute name="Title.Orientation" type="unitType"/>
+        <xs:attribute name="Title.VerticalAlignment" type="verticalAlignmentType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="plotAreaType">
+        <xs:attribute name="BottomPadding" type="unitType"/>
+        <xs:attribute name="FillFormat.Color" type="colorType"/>
+        <xs:attribute name="FillFormat.Visible" type="boolType"/>
+        <xs:attribute name="LeftPadding" type="unitType"/>
+        <xs:attribute name="LineFormat.Color" type="colorType"/>
+        <xs:attribute name="LineFormat.DashStyle" type="dashStyleType"/>
+        <xs:attribute name="LineFormat.Visible" type="boolType"/>
+        <xs:attribute name="LineFormat.Width" type="unitType"/>
+        <xs:attribute name="RightPadding" type="unitType"/>
+        <xs:attribute name="TopPadding" type="unitType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="textAreaType">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="Legend" type="legendType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="BottomPadding" type="unitType"/>
+                <xs:attribute name="FillFormat.Color" type="colorType"/>
+                <xs:attribute name="FillFormat.Visible" type="boolType"/>
+                <xs:attribute name="Height" type="unitType"/>
+                <xs:attribute name="LeftPadding" type="unitType"/>
+                <xs:attribute name="LineFormat.Color" type="colorType"/>
+                <xs:attribute name="LineFormat.DashStyle" type="dashStyleType"/>
+                <xs:attribute name="LineFormat.Visible" type="boolType"/>
+                <xs:attribute name="LineFormat.Width" type="unitType"/>
+                <xs:attribute name="RightPadding" type="unitType"/>
+                <xs:attribute name="TopPadding" type="unitType"/>
+                <xs:attribute name="VerticalAlignment" type="verticalAlignmentType"/>
+                <xs:attribute name="Width" type="unitType"/>
+                <xs:attribute name="Tag" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="legendType">
+        <xs:complexContent>
+            <xs:extension base="paragraphFormatType">
+                <xs:attribute name="Tag" type="xs:string"/>
+                <xs:attribute name="LineFormat.Color" type="colorType"/>
+                <xs:attribute name="LineFormat.DashStyle" type="dashStyleType"/>
+                <xs:attribute name="LineFormat.Visible" type="boolType"/>
+                <xs:attribute name="LineFormat.Width" type="unitType"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="seriesType">
+        <xs:attribute name="Name" type="xs:string"/>
+        <xs:attribute name="Values" type="xs:string" use="required"/>
+        <xs:attribute name="ChartType" type="chartTypeType"/>
+        <xs:attribute name="FillFormat.Color" type="colorType"/>
+        <xs:attribute name="FillFormat.Visible" type="boolType"/>
+        <xs:attribute name="HasDataLabel" type="boolType"/>
+        <xs:attribute name="LineFormat.Color" type="colorType"/>
+        <xs:attribute name="LineFormat.DashStyle" type="dashStyleType"/>
+        <xs:attribute name="LineFormat.Visible" type="boolType"/>
+        <xs:attribute name="LineFormat.Width" type="unitType"/>
+        <xs:attribute name="MarkerBackgroundColor" type="colorType"/>
+        <xs:attribute name="MarkerForegroundColor" type="colorType"/>
+        <xs:attribute name="MarkerSize" type="unitType"/>
+        <xs:attribute name="MarkerStyle" type="xs:string"/>
+        <xs:attribute name="DataLabel.Font.Bold" type="boolType"/>
+        <xs:attribute name="DataLabel.Font.Italic" type="boolType"/>
+        <xs:attribute name="DataLabel.Font.Size" type="unitType"/>
+        <xs:attribute name="DataLabel.Font.Color" type="colorType"/>
+        <xs:attribute name="DataLabel.Font.Name" type="xs:string"/>
+        <xs:attribute name="DataLabel.Font.Subscript" type="boolType"/>
+        <xs:attribute name="DataLabel.Font.Superscript" type="boolType"/>
+        <xs:attribute name="DataLabel.Font.Underline" type="underlineType"/>
+        <xs:attribute name="DataLabel.Format" type="xs:string"/>
+        <xs:attribute name="DataLabel.Position" type="dataLabelPositionType"/>
+        <xs:attribute name="DataLabel.Type" type="dataLabelTypeType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="dataLabelType">
+        <xs:attribute name="Font.Bold" type="boolType"/>
+        <xs:attribute name="Font.Italic" type="boolType"/>
+        <xs:attribute name="Font.Size" type="unitType"/>
+        <xs:attribute name="Font.Color" type="colorType"/>
+        <xs:attribute name="Font.Name" type="xs:string"/>
+        <xs:attribute name="Font.Subscript" type="boolType"/>
+        <xs:attribute name="Font.Superscript" type="boolType"/>
+        <xs:attribute name="Font.Underline" type="underlineType"/>
+        <xs:attribute name="Format" type="xs:string"/>
+        <xs:attribute name="Position" type="dataLabelPositionType"/>
+        <xs:attribute name="Type" type="dataLabelTypeType"/>
+        <xs:attribute name="Tag" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="xSeriesType">
+        <xs:attribute name="Values" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="chartType">
+        <xs:complexContent>
+            <xs:extension base="shapeType">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="ForEach" type="forEachType"/>
+                        <xs:element name="While" type="logicalTestType"/>
+                        <xs:element name="Var" type="varType"/>
+                        <xs:element name="Set" type="setType"/>
+                        <xs:element name="Style" type="styleType"/>
+                        <xs:element name="Quit" type="emptyType"/>
+                        <xs:element name="Break" type="emptyType"/>
+                        <xs:element name="Continue" type="emptyType"/>
+                        <xs:element name="Insert" type="insertType"/>
+                        <xs:sequence>
+                            <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:element name="TopArea" type="textAreaType"/>
+                        <xs:element name="BottomArea" type="textAreaType"/>
+                        <xs:element name="FooterArea" type="textAreaType"/>
+                        <xs:element name="HeaderArea" type="textAreaType"/>
+                        <xs:element name="LeftArea" type="textAreaType"/>
+                        <xs:element name="RightArea" type="textAreaType"/>
+                        <xs:element name="PlotArea" type="plotAreaType"/>
+                        <xs:element name="Series" type="seriesType"/>
+                        <xs:element name="XSeries" type="xSeriesType"/>
+                        <xs:element name="XAxis" type="axisType"/>
+                        <xs:element name="YAxis" type="axisType"/>
+                        <xs:element name="ZAxis" type="axisType"/>
+                        <xs:element name="DataLabel" type="dataLabelType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="DisplayBlanksAs" type="blankTypeType"/>
+                <xs:attribute name="Type" type="chartTypeType"/>
+                <xs:attribute name="Format.Alignment" type="paragraphAlignmentType"/>
+                <xs:attribute name="Format.FirstLineIndent" type="unitType"/>
+                <xs:attribute name="Format.KeepTogether" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether to keep all the paragraph's lines on the same page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.KeepWithNext" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether this and the next paragraph stay on the same page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.LeftIndent" type="unitType"/>
+                <xs:attribute name="Format.LineSpacing" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The sapce between lines in the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.LineSpacingRule" type="lineSpacingRuleType">
+                    <xs:annotation>
+                        <xs:documentation>The rule which is used to define the line spacing</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.OutlineLevel" type="outlineLevelType"/>
+                <xs:attribute name="Format.PageBreakBefore" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether a page break is inserted before the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.RightIndent" type="unitType"/>
+                <xs:attribute name="Format.SpaceAfter" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The space that's inserted after the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.SpaceBefore" type="unitType">
+                    <xs:annotation>
+                        <xs:documentation>The space that's inserted before the paragraph</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.WidowControl" type="boolType">
+                    <xs:annotation>
+                        <xs:documentation>Indicates whether a line from the paragraph stays alone in a page</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Format.Font.Bold" type="boolType"/>
+                <xs:attribute name="Format.Font.Italic" type="boolType"/>
+                <xs:attribute name="Format.Font.Size" type="unitType"/>
+                <xs:attribute name="Format.Font.Color" type="colorType"/>
+                <xs:attribute name="Format.Font.Name" type="xs:string"/>
+                <xs:attribute name="Format.Font.Subscript" type="boolType"/>
+                <xs:attribute name="Format.Font.Superscript" type="boolType"/>
+                <xs:attribute name="Format.Font.Underline" type="underlineType"/>
+                <xs:attribute name="Format.Shading.Color" type="colorType"/>
+                <xs:attribute name="Format.Shading.Visible" type="boolType"/>
+                <xs:attribute name="Format.Borders.Bottom.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Bottom.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Bottom.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Bottom.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Left.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Left.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Left.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Left.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Right.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Right.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Right.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Right.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Top.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Top.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Top.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Top.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalDown.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Name" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.DiagonalUp.Width" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Color" type="colorType"/>
+                <xs:attribute name="Format.Borders.Distance" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Visible" type="xs:string"/>
+                <xs:attribute name="Format.Borders.Width" type="xs:string"/>
+                <xs:attribute name="PivotChart" type="boolType"/>
+                <xs:attribute name="Tag" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="graphicsType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:element name="Line" type="graphicsLineType"/>
+                <xs:element name="Bezier" type="graphicsBezierType"/>
+                <xs:element name="Rect" type="graphicsRectType"/>
+                <xs:element name="String" type="graphicsStringType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="Page" type="intType"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="graphicsLineType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="Point" type="graphicsPointType"/>
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="Page" type="intType"/>
+        <xs:attribute name="Pen.Color" type="colorType"/>
+        <xs:attribute name="Pen.DashOffset" type="doubleType"/>
+        <xs:attribute name="Pen.DashStyle" type="graphicsDashStyleType"/>
+        <xs:attribute name="Pen.LineCap" type="graphicsLineCapType"/>
+        <xs:attribute name="Pen.LineJoin" type="graphicsLineJoinType"/>
+        <xs:attribute name="Pen.MiterLimit" type="doubleType"/>
+        <xs:attribute name="Pen.Width" type="doubleType"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="graphicsBezierType">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="Point" type="graphicsPointType"/>
+                <xs:element name="ForEach" type="forEachType"/>
+                <xs:element name="While" type="logicalTestType"/>
+                <xs:element name="Var" type="varType"/>
+                <xs:element name="Set" type="setType"/>
+                <xs:element name="Style" type="styleType"/>
+                <xs:element name="Quit" type="emptyType"/>
+                <xs:element name="Break" type="emptyType"/>
+                <xs:element name="Continue" type="emptyType"/>
+                <xs:element name="Insert" type="insertType"/>
+                <xs:sequence>
+                    <xs:element name="If" type="logicalTestType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="ElseIf" type="logicalTestType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="Else" type="logicalType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="Page" type="intType"/>
+        <xs:attribute name="Pen.Color" type="colorType"/>
+        <xs:attribute name="Pen.DashOffset" type="doubleType"/>
+        <xs:attribute name="Pen.DashStyle" type="graphicsDashStyleType"/>
+        <xs:attribute name="Pen.LineCap" type="graphicsLineCapType"/>
+        <xs:attribute name="Pen.LineJoin" type="graphicsLineJoinType"/>
+        <xs:attribute name="Pen.MiterLimit" type="doubleType"/>
+        <xs:attribute name="Pen.Width" type="doubleType"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="graphicsPointType">
+        <xs:attribute name="X" type="unitType"/>
+        <xs:attribute name="Y" type="unitType"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="graphicsRectType">
+        <xs:attribute name="Page" type="intType"/>
+        <xs:attribute name="Pen.Color" type="colorType"/>
+        <xs:attribute name="Pen.DashOffset" type="doubleType"/>
+        <xs:attribute name="Pen.DashStyle" type="graphicsDashStyleType"/>
+        <xs:attribute name="Pen.LineCap" type="graphicsLineCapType"/>
+        <xs:attribute name="Pen.LineJoin" type="graphicsLineJoinType"/>
+        <xs:attribute name="Pen.MiterLimit" type="doubleType"/>
+        <xs:attribute name="Pen.Width" type="doubleType"/>
+        <xs:attribute name="Left" type="unitType"/>
+        <xs:attribute name="Width" type="unitType"/>
+        <xs:attribute name="Right" type="unitType"/>
+        <xs:attribute name="Top" type="unitType"/>
+        <xs:attribute name="Height" type="unitType"/>
+        <xs:attribute name="Bottom" type="unitType"/>
+        <xs:attribute name="Corner" type="unitType"/>
+        <xs:attribute name="CornerX" type="unitType"/>
+        <xs:attribute name="CornerY" type="unitType"/>
+        <xs:attribute name="Area" type="scriptType"/>
+        <xs:attribute name="Brush.Color" type="colorType"/>
+        <xs:attribute name="Brush.Color2" type="colorType"/>
+        <xs:attribute name="Brush.GradientMode" type="graphicsGradientMode"/>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="graphicsStringType" mixed="true">
+        <xs:attribute name="Page" type="intType"/>
+        <xs:attribute name="Brush.Color" type="colorType"/>
+        <xs:attribute name="Brush.Color2" type="colorType"/>
+        <xs:attribute name="Brush.GradientMode" type="graphicsGradientMode"/>
+        <xs:attribute name="Font.FamilyName" type="xs:string"/>
+        <xs:attribute name="Font.EmSize" type="doubleType"/>
+        <xs:attribute name="Font.Style" type="graphicsFontStyleType"/>
+        <xs:attribute name="Font.Options" type="graphicsFontOptionsType"/>
+        <xs:attribute name="Point.X" type="unitType"/>
+        <xs:attribute name="Point.Y" type="unitType"/>
+        <xs:attribute name="Area" type="scriptType"/>
+        <xs:attribute name="Value" type="xs:string"/>
+    </xs:complexType>
+    
+    
+    <xs:simpleType name="graphicsDashStyleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Custom"/>
+            <xs:enumeration value="Dash"/>
+            <xs:enumeration value="DashDot"/>
+            <xs:enumeration value="DashDotDot"/>
+            <xs:enumeration value="Dot"/>
+            <xs:enumeration value="Solid"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="graphicsLineCapType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Flat"/>
+            <xs:enumeration value="Round"/>
+            <xs:enumeration value="Square"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="graphicsLineJoinType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Bevel"/>
+            <xs:enumeration value="Miter"/>
+            <xs:enumeration value="Round"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="graphicsGradientMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BackwardDiagonal"/>
+            <xs:enumeration value="ForwardDiagonal"/>
+            <xs:enumeration value="Horizontal"/>
+            <xs:enumeration value="Vertical"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="graphicsFontStyleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Regular"/>
+            <xs:enumeration value="Bold"/>
+            <xs:enumeration value="Italic"/>
+            <xs:enumeration value="BoldItalic"/>
+            <xs:enumeration value="Underline"/>
+            <xs:enumeration value="Strikeout"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:simpleType name="graphicsFontOptionsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UnicodeDefault"/>
+            <xs:enumeration value="WinAnsiDefault"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:element name="Document" type="documentType"/>
+    
+</xs:schema>
