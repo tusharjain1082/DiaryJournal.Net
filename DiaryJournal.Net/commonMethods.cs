@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public static class commonMethods
     {

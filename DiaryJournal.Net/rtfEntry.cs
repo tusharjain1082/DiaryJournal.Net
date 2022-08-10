@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public static class rtfEntry
     {

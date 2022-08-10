@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System;
 using System.Xml;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public static class xmlEntry
     {
@@ -20,6 +20,7 @@ namespace myJournal.Net
         public const string entryHLFontTagName = "entryHighlightFont";
         public const string entryHLFontColorTagName = "entryHighlightFontColor";
         public const string entryHLBackColorTagName = "entryHighlightBackColor";
+        public const string entryIsDeletedTagName = "entryIsDeleted";
 
         public static bool fromXml(ref Chapter chapter, String file, ref String rtf)
         {
@@ -104,13 +105,21 @@ namespace myJournal.Net
             XmlElement child7 = (XmlElement)list[0];
             chapter.HLBackColor = child7.InnerText;
 
+            list = entryElement.GetElementsByTagName(entryIsDeletedTagName);
+            if (list.Count <= 0)
+                return false;
+
+            // we got entry is deleted element
+            XmlElement child8 = (XmlElement)list[0];
+            chapter.IsDeleted = bool.Parse(child8.InnerText);
+
             list = entryElement.GetElementsByTagName(entryTextTagName);
             if (list.Count <= 0)
                 return false;
 
             // we got entry text child element
-            XmlElement child8 = (XmlElement)list[0];
-            rtf = child8.InnerText;
+            XmlElement child9 = (XmlElement)list[0];
+            rtf = child9.InnerText;
 
             return true;
         }
@@ -151,9 +160,12 @@ namespace myJournal.Net
             XmlElement child7 = doc.CreateElement(string.Empty, entryHLBackColorTagName, string.Empty);
             child7.InnerText = chapter.HLBackColor;
             entryElement.AppendChild(child7);
-            XmlElement child8 = doc.CreateElement(string.Empty, entryTextTagName, string.Empty);
-            child8.InnerText = rtf;
+            XmlElement child8 = doc.CreateElement(string.Empty, entryIsDeletedTagName, string.Empty);
+            child8.InnerText = chapter.IsDeleted.ToString();
             entryElement.AppendChild(child8);
+            XmlElement child9 = doc.CreateElement(string.Empty, entryTextTagName, string.Empty);
+            child9.InnerText = rtf;
+            entryElement.AppendChild(child9);
 
             TextWriter writer = new StringWriterWithEncoding(Encoding.UTF8);
             //StringBuilder sb = new StringBuilder();

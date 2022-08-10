@@ -12,7 +12,7 @@ using System.Drawing.Text;
 using Elistia.DotNetRtfWriter;
 using MigraDoc.DocumentObjectModel;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public partial class FormInsertTable : Form
     {

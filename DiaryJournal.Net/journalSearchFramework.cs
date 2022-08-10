@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 
 {
     public static class journalSearchFramework
@@ -49,7 +49,7 @@ namespace myJournal.Net
 
             // prepare to match whole word if user requires. but we can use it through manual pattern as well.
             if (matchWholeWord)
-                searchPattern = String.Format(@"(\b{0}\b)", searchPattern);
+                searchPattern = String.Format(@"\b{0}\b", searchPattern);
 
             // prepare date and time range
             DateTime from = DateTime.MinValue;
@@ -111,11 +111,6 @@ namespace myJournal.Net
                 if (decodedRtf == null || decodedRtf.Length <= 0)
                     continue; // no data or 0 length string
 
-                //AdvRichTextBox rtb = new AdvRichTextBox();
-                //rtb.WordWrap = false;
-                //rtb.Multiline = true;
-                GC.Collect();
-                rtb.Clear();
                 rtb.Rtf = "";
                 rtb.Clear();
                 rtb.Rtf = decodedRtf;
@@ -164,12 +159,13 @@ namespace myJournal.Net
                     // finally commit replace if user requires right here
                     if (replace)
                     {
-                        // we cannot modify rtf. unicode characters are stored as byte opcodes in rtf, so it's impossible to replace them with string.
+                        // we cannot modify rtf. unicode characters are stored as unicode char opcodes in rtf, so it's impossible to replace them with string.
                         // so we use RichTextBox itself.
                         for (int i = 0; i < matches.Count; i++)
                         {
                             Match match = matches[i];
-                            bool result = rtb.ReplaceUnicodeText(rtb, match.Value, 0, rtb.TextLength, replacement);//rtb.FindUnicodeText(rtb, match.Value, 0, rtb.TextLength);
+                            //AdvRichTextBox.ReplaceSelectedUnicodeText(rtb, match.Value, match.Index, match.Length);
+                            bool result = rtb.FindReplaceUnicodeText(rtb, match.Value, 0, rtb.TextLength, replacement);//rtb.FindUnicodeText(rtb, match.Value, 0, rtb.TextLength);
                             if (!result)
                                 continue;
                             // working =
@@ -178,8 +174,7 @@ namespace myJournal.Net
                             //rtb.SelectedText = replacement;
                         }
                         // finally update db
-                        rtb.SelectAll();
-                        if (!myDB.updateChapterByIDChapter(ctx, chapter, rtb.SelectedRtf))
+                        if (!myDB.updateChapterByIDChapter(ctx, chapter, rtb.Rtf))
                         {
                             continue;
                         }

@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Text.RegularExpressions;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public partial class FrmJournal : Form
     {
@@ -12,7 +12,8 @@ namespace myJournal.Net
         public bool stateChanged = false;
         public textFormatting formatting = null;
         public String previousRtf = "";
-        //public 
+        public FormFind? myFormFind = null;
+        bool properExit = false;
 
 
 
@@ -84,6 +85,8 @@ namespace myJournal.Net
             cmbSize.SelectedIndexChanged += CmbSize_SelectedIndexChanged;
             lvSearch.DoubleClick += LvSearch_DoubleClick;
             lvTrashCan.DoubleClick += LvTrashCan_DoubleClick;
+            this.Shown += FrmJournal_Shown;
+            this.FormClosing += FrmJournal_FormClosing;
 
             String strDateTimeTemplate = DiaryJournal.Net.Properties.Resources.BuildDateTime;
             DateTime buildDateTime = DateTime.Parse(strDateTimeTemplate);
@@ -111,7 +114,9 @@ namespace myJournal.Net
             LvSearchUpdate = new __LvSearchUpdateDelegate(__LvSearchUpdate);
             processSearch = new __processSearchDelegate(__processSearch);
 
-
+            // now load config file and setup
+            myConfigMethods.autoCreateLoadConfigFile(ctx, false);
+            applyConfig(ctx);
             
             splitContainerEntryTree.Cursor = Cursors.Default;
             splitContainerH.Cursor = Cursors.Default;
@@ -122,12 +127,6 @@ namespace myJournal.Net
             // initialize all formatting config
             formatting = new textFormatting();
             cmbFonts.Items.AddRange(formatting.fontNames.ToArray());
-
-            // set editor's flow limit
-            rtbEntry.RightMargin = 1500;
-            rtbViewEntry.RightMargin = 1500;
-            int index = cmbConfigRtbRightMargin.FindString(rtbEntry.RightMargin.ToString());
-            cmbConfigRtbRightMargin.SelectedIndex = index;
 
             // config
             resetRtb(rtbEntry);
@@ -196,6 +195,49 @@ namespace myJournal.Net
             return;
             */
 
+
+        }
+
+        private void FrmJournal_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            if (!properExit)
+            {
+//                var res = MessageBox.Show(this, "you cannot directly close this form. please click on exit button to close the form.", "error",
+  //                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //e.Cancel = true;
+            }
+            else
+            {
+                //e.Cancel = false;
+            }
+
+            // first save the entry, then exit
+            saveCloseDB();
+
+            base.OnClosing(e);
+
+        }
+
+        private void FrmJournal_Shown(object? sender, EventArgs e)
+        {
+            // take final actions as per the stored configuration
+            if (ctx.config.chkCfgAutoLoadCreateDefaultDB)
+                autoCreateLoadDefaultDB(false);
+
+
+        }
+
+        public void applyConfig(myContext ctx)
+        {
+            chkCfgAutoLoadCreateDefaultDB.Checked = ctx.config.chkCfgAutoLoadCreateDefaultDB;
+
+            // set editor's flow limit
+            rtbEntry.RightMargin = ctx.config.cmbCfgRtbEntryRMValue;
+            rtbViewEntry.RightMargin = ctx.config.cmbCfgRtbViewEntryRMValue;
+            int index = cmbCfgRtbEntryRM.FindString(rtbEntry.RightMargin.ToString());
+            cmbCfgRtbEntryRM.SelectedIndex = index;
+            index = cmbCfgRtbViewEntryRM.FindString(rtbViewEntry.RightMargin.ToString());
+            cmbCfgRtbViewEntryRM.SelectedIndex = index;
 
         }
 
@@ -313,13 +355,18 @@ namespace myJournal.Net
             if (clear)
                 rtb.Clear();
 
+            //this.ActiveControl = rtb;
             rtb.Select(0, 0);
             rtb.Font = new Font("Times New Roman", 14.0f, FontStyle.Regular);
             rtb.SelectionFont = new Font("Times New Roman", 14.0f, FontStyle.Regular);
+            rtb.ScrollToCaret();
+            //rtb.Focus();
+            //rtb.Select();
 
             // first save the entry
             if (resetSaveState)
             {
+                stateChanged = false;
                 tsslblStateChanged.Text = " ";
                 tsbuttonSave.Checked = false;
                 tsbuttonSave.BackColor = SystemColors.Control;
@@ -352,7 +399,9 @@ namespace myJournal.Net
         private void RtbEntry_SelectionChanged(object? sender, EventArgs e)
         {
             int caretPosition = rtbEntry.SelectionStart;
+            int lineIndex = rtbEntry.GetLineFromCharIndex(caretPosition);
             tsslabelCaretPosition.Text = caretPosition.ToString();
+            tsslabelLineIndex.Text = lineIndex.ToString();
 
             //int line = rtbEntry.GetLineFromCharIndex(index);
             formatting.selStartIndex = rtbEntry.SelectionStart;
@@ -433,8 +482,6 @@ namespace myJournal.Net
             initTreeViewMonthEntry(chapter);
             TreeNode newNode = initTreeViewDayTimeBasedEntry(chapter);
             tvEntries.SelectedNode = newNode;
-            resetRtb(rtbEntry, false);
-            rtbEntry.Focus();
 
             // update
             ctx.totalEntries++;
@@ -457,8 +504,6 @@ namespace myJournal.Net
             initTreeViewMonthEntry(chapter);
             TreeNode newNode = initTreeViewDayTimeBasedEntry(chapter);
             tvEntries.SelectedNode = newNode;
-            rtbEntry.Font = new Font("Times New Roman", 14.0f, FontStyle.Regular);
-            rtbEntry.Focus();
 
             // update
             ctx.totalEntries++;
@@ -818,7 +863,8 @@ namespace myJournal.Net
 
                 // parent path found, create the entry node.
                 path = String.Format(@"{0}\", chapter.guid);
-                String entryName = String.Format(@"Day({0}):::Time({1}:{2}:{3})Title({4})", chapter.chapterDateTime.Day, chapter.chapterDateTime.Hour, chapter.chapterDateTime.Minute, chapter.chapterDateTime.Second, chapter.Title);
+                String entryName = String.Format(@"Day({0}):::Time({1}:{2}:{3})Title({4})", chapter.chapterDateTime.Day, 
+                    chapter.chapterDateTime.Hour, chapter.chapterDateTime.Minute, chapter.chapterDateTime.Second, chapter.Title);
                 TreeNode newNode = monthNodes[0].Nodes.Add(path, entryName);
                 newNode.Tag = chapter; // this is the actual identification in both this form and in the database.
                 if (chapter.HLFont.Length >= 1)
@@ -846,7 +892,7 @@ namespace myJournal.Net
             {
                 // parent path found, create the entry node.
                 path = String.Format(@"{0}\", chapter.guid);
-                String entryName = String.Format(@"({0}):::Time({1}:{2}:{3})Title({4})", chapter.chapterDateTime.ToString("ddd, dd MMM yyyy"),
+                String entryName = String.Format(@"Date({0}):::Time({1}:{2}:{3})Title({4})", chapter.chapterDateTime.ToString("dd-MM-yyyy"),
                     chapter.chapterDateTime.Hour, chapter.chapterDateTime.Minute, chapter.chapterDateTime.Second, chapter.Title);
                 TreeNode newNode = nodes[0].Nodes.Add(path, entryName);
                 newNode.Tag = chapter; // this is the actual identification in both this form and in the database.
@@ -992,13 +1038,9 @@ namespace myJournal.Net
             // setup rtf
             // get rtf and update
             rtf = commonMethods.Base64Decode(rtf);
+            resetRtb(rtbEntry, true, true);
             rtbEntry.Rtf = rtf;
-            resetRtb(rtbEntry, false);
             tsslblEntryTitle.Text = dbChapter.Title;
-            stateChanged = false;
-            tsslblStateChanged.Text = " ";
-            tsbuttonSave.Checked = false;
-            tsbuttonSave.BackColor = SystemColors.Control;
             CalendarEntries.SelectionStart = dbChapter.chapterDateTime;
             CalendarEntries.SelectionEnd = dbChapter.chapterDateTime;
         }
@@ -1080,7 +1122,8 @@ namespace myJournal.Net
                 return;
 
             // finally set the title
-            setupEntryTitle(input);
+            bool isChild = ((identifier.parentGuid != Guid.Empty) ? true : false);
+            setupEntryTitle(input, isChild);
         }
 
         private void entryTitleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1088,7 +1131,7 @@ namespace myJournal.Net
             changeEntryTitle();
         }
 
-        public void setupEntryTitle(String title)
+        public void setupEntryTitle(String title, bool childEntry)
         {
             if (tvEntries.SelectedNode == null)
                 return;
@@ -1106,8 +1149,14 @@ namespace myJournal.Net
 
             // resetup tree node
             String path = String.Format(@"{0}\", identifier.guid);
-            String entryName = String.Format(@"Day({0}):::Time({1}:{2}:{3})Title({4})", identifier.chapterDateTime.Day, 
-                identifier.chapterDateTime.Hour, identifier.chapterDateTime.Minute, identifier.chapterDateTime.Second, title);
+            String entryName = "";
+            if (!childEntry)
+                entryName = String.Format(@"Day({0}):::Time({1}:{2}:{3})Title({4})", identifier.chapterDateTime.Day, 
+                    identifier.chapterDateTime.Hour, identifier.chapterDateTime.Minute, identifier.chapterDateTime.Second, title);
+            else
+                entryName = String.Format(@"Date({0}):::Time({1}:{2}:{3})Title({4})", identifier.chapterDateTime.ToString("dd-MM-yyyy"),
+                    identifier.chapterDateTime.Hour, identifier.chapterDateTime.Minute, identifier.chapterDateTime.Second, title);
+
             tvEntries.SelectedNode.Text = entryName;
             tvEntries.SelectedNode.Name = path;
             tsslblEntryTitle.Text = title;
@@ -1550,17 +1599,28 @@ namespace myJournal.Net
 
         private void buttonApplyConfig1_Click(object sender, EventArgs e)
         {
+            String err = "error configuration. retry after correcting it. aborted.";
             int rtbEntryRightMargin = 0;
-            if (!int.TryParse(cmbConfigRtbRightMargin.Text, out rtbEntryRightMargin))
+            if (!int.TryParse(cmbCfgRtbEntryRM.Text, out rtbEntryRightMargin))
             {
-                MessageBox.Show("error configuration. retry after correcting it. aborted.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(err, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int rtbViewEntryRightMargin = 0;
+            if (!int.TryParse(cmbCfgRtbViewEntryRM.Text, out rtbViewEntryRightMargin))
+            {
+                MessageBox.Show(err, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-
             // in the final place, apply all configuration
             rtbEntry.RightMargin = rtbEntryRightMargin;
-            rtbViewEntry.RightMargin = rtbEntryRightMargin;
+            rtbViewEntry.RightMargin = rtbViewEntryRightMargin;
+            // update config
+            ctx.config.chkCfgAutoLoadCreateDefaultDB = chkCfgAutoLoadCreateDefaultDB.Checked;
+            ctx.config.cmbCfgRtbEntryRMValue = rtbEntryRightMargin;
+            ctx.config.cmbCfgRtbViewEntryRMValue = rtbViewEntryRightMargin;
+            myConfigMethods.saveConfigFile(myConfigMethods.getConfigPathFile(), ctx, false);
             MessageBox.Show("applied all configuration.", "done", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
@@ -2107,8 +2167,6 @@ namespace myJournal.Net
             // finally update tree view because entry was imported successfully
             TreeNode newNode = initTreeViewChildEntry(chapter);
             tvEntries.SelectedNode = newNode;
-            rtbEntry.Font = new Font("Times New Roman", 14.0f, FontStyle.Regular);
-            rtbEntry.Focus();
 
             // update
             ctx.totalEntries++;
@@ -2497,6 +2555,61 @@ namespace myJournal.Net
         private void lvTrashCan_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void increaseFontSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formatting.formatIncreaseFontSize(rtbEntry);
+        }
+
+        public void increaseFontSize()
+        {
+            formatting.formatIncreaseFontSize(rtbEntry);
+        }
+
+        private void decreaseFontSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formatting.formatDecreaseFontSize(rtbEntry);
+        }
+
+        private void toolStripMenuItem24_Click(object sender, EventArgs e)
+        {
+            if (!ctx.isDBOpen())
+                return;
+
+            findAndReplace();
+        }
+
+        public void findAndReplace()
+        {
+            if (!ctx.isDBOpen())
+                return;
+
+            if (myFormFind != null)
+                return;
+
+            myFormFind = new FormFind();
+            myFormFind.myParentForm = this;
+            myFormFind.rtb = rtbEntry;
+            myFormFind.rtbSearchPattern.Text = rtbEntry.SelectedText;
+            myFormFind.Show(this);
+        }
+
+        private void searchAllEntriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabControlJournal.SelectedIndex = tabControlJournal.TabPages.IndexOfKey("TabPageSearch");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveCloseDB();
+            Application.Exit();
+        }
+
+        public void saveCloseDB()
+        {
+            saveEntry();
+            closeContext();
         }
     }
 

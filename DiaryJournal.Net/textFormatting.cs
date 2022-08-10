@@ -11,7 +11,7 @@ using Elistia.DotNetRtfWriter;
 using MigraDocPlusXml;
 using MigraDoc.Extensions;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public class textFormatting
     {

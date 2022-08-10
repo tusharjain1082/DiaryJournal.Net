@@ -1,4 +1,4 @@
-﻿namespace myJournal.Net
+﻿namespace DiaryJournal.Net
 {
     partial class Form1
     {

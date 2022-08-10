@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
-using myJournal.Net;
+using DiaryJournal.Net;
 
 namespace System.Windows.Forms
 {
@@ -122,6 +122,7 @@ namespace System.Windows.Forms
             return (int)SendMessage(rt.Handle, (IntPtr)EM_GETTEXTLENGTHEX, ref GTL, IntPtr.Zero);
         }
 
+        /* original
         public static string GetText(RichTextBox rt)
         {
             int iCharLength = GetTextLength(rt) + 1;
@@ -131,12 +132,67 @@ namespace System.Windows.Forms
             GT.iCb = iByteLength;
             GT.iFlags = GT_DEFAULT;
             GT.iCodepage = CP_UNICODE;
+            
+            StringBuilder SB = new StringBuilder(iCharLength);
+            SendMessage(rt.Handle, EM_GETTEXTEX, ref GT, SB);
+            string strText = SB.ToString();
+            return strText;
+        }
+        */
+
+        // this method extracts completely 1:1 map copy of the unicode text as it appears in RichTextBox. All text
+        // is aligned in it's original character position as known to RichTextBox itself.
+        // this feature is to be used with regex and it's matching and replacing functions.
+        public static string GetTextRaw(RichTextBox rt)
+        {
+            int iCharLength = GetTextLength(rt) + 1;
+            int iByteLength = 2 * iCharLength;
+
+            GETTEXTEX GT = new GETTEXTEX();
+            GT.iCb = iByteLength;
+            GT.iFlags = GT_RAWTEXT; // GT_DEFAULT;
+            GT.iCodepage = CP_UNICODE;
 
             StringBuilder SB = new StringBuilder(iCharLength);
             SendMessage(rt.Handle, EM_GETTEXTEX, ref GT, SB);
             string strText = SB.ToString();
             return strText;
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TEXTRANGE
+        {
+            public CHARRANGE chrg = default(CHARRANGE);
+            public IntPtr lpstrText = IntPtr.Zero; /* allocated by caller, zero terminated by RichEdit */
+        }
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern int SendMessage(HandleRef hWnd, int uMsg, int wParam, ref TEXTRANGE lParam);
+
+        /* is not for use with regex, useless method
+        public string GetText(RichTextBox rtb, int start, int len)
+        {
+            int iCharLength = len + 1;
+            if (len == -1)
+                iCharLength = GetTextLength(rtb) + 1;
+
+            int iByteLength = 2 * iCharLength;
+
+            TEXTRANGE txtrange = default(TEXTRANGE);
+            txtrange.chrg.cpMin = start;
+            txtrange.chrg.cpMax = start + len;
+            txtrange.lpstrText = Marshal.AllocHGlobal(iByteLength);
+            int charsCopied = SendMessage(new HandleRef(rtb, rtb.Handle), RichTextUser.EM_GETTEXTRANGE, 0, ref txtrange);
+            if (charsCopied <= 0)
+            {
+                Marshal.FreeHGlobal(txtrange.lpstrText);
+                return "";
+            }
+            String text = Marshal.PtrToStringUni(txtrange.lpstrText, iCharLength);
+            Marshal.FreeHGlobal(txtrange.lpstrText);
+            return text;
+        }
+        */
+
         public override int TextLength
         {
             get
@@ -149,7 +205,7 @@ namespace System.Windows.Forms
         {
             get
             {
-                return GetText(this);
+                return GetTextRaw(this); //GetText(this, 0, -1);
             }
             set => base.Text = value;
         }
@@ -175,13 +231,19 @@ namespace System.Windows.Forms
             FINDTEXTEXW findFormat = default(FINDTEXTEXW);
             findFormat.lpstrText = text;
             findFormat.chrg.cpMin = start;
+
+            if (len == -1)
+            {
+                int itotalLength = GetTextLength(rtb) + 1;
+                len = itotalLength - start;
+            }
             findFormat.chrg.cpMax = start + len;
             findFormat.chrgText.cpMin = 0;
             findFormat.chrgText.cpMax = text.Length;
             return SendMessage(new HandleRef(rtb, rtb.Handle), RichTextUser.EM_FINDTEXTEXW, RichTextUser.FR_DOWN, ref findFormat);
         }
 
-        public bool ReplaceUnicodeText(RichTextBox rtb, String text, int start, int len, String replacement)
+        public bool FindReplaceUnicodeText(RichTextBox rtb, String text, int start, int len, String replacement)
         {
             int index = FindUnicodeText(rtb, text, start, len);
             if (index == -1)
@@ -190,11 +252,25 @@ namespace System.Windows.Forms
             if (SetSelectionEx(rtb, index, text.Length) < 0)
                 return false;
 
+            //SendMessage(new HandleRef(rtb, rtb.Handle), RichTextUser.EM_REPLACESEL, 1, replacement);
+            ReplaceSelectedUnicodeText(rtb, replacement);
+            return true;
+        }
+        public static bool ReplaceSelectedUnicodeText(RichTextBox rtb, String replacement)
+        {
             SendMessage(new HandleRef(rtb, rtb.Handle), RichTextUser.EM_REPLACESEL, 1, replacement);
             return true;
         }
+        public static bool ReplaceSelectedUnicodeText(RichTextBox rtb, String replacement, int selStart, int selLen)
+        {
+            int result = SetSelectionEx(rtb, selStart, selLen);
+            if (result < 0)
+                return false;
 
-        public bool SetSelection(RichTextBox rtb, int start, int len)
+            SendMessage(new HandleRef(rtb, rtb.Handle), RichTextUser.EM_REPLACESEL, 1, replacement);
+            return true;
+        }
+        public static bool SetSelection(RichTextBox rtb, int start, int len)
         {
             SendMessage(new HandleRef(rtb, rtb.Handle), RichTextUser.EM_SETSEL, start, start + len);
             return true;

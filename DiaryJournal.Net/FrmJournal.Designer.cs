@@ -1,4 +1,4 @@
-﻿namespace myJournal.Net
+﻿namespace DiaryJournal.Net
 {
     partial class FrmJournal
     {
@@ -97,6 +97,8 @@
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslabelCaretPosition = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslabelLineIndex = new System.Windows.Forms.ToolStripStatusLabel();
             this.rtbEntry = new System.Windows.Forms.AdvRichTextBox();
             this.menuRtbEntry = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -169,10 +171,12 @@
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.tabControlConfig = new System.Windows.Forms.TabControl();
             this.tabPageConfig1 = new System.Windows.Forms.TabPage();
-            this.chkConfigAutoLoadCreateDefaultDB = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbCfgRtbViewEntryRM = new System.Windows.Forms.ComboBox();
+            this.chkCfgAutoLoadCreateDefaultDB = new System.Windows.Forms.CheckBox();
             this.buttonApplyConfig1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbConfigRtbRightMargin = new System.Windows.Forms.ComboBox();
+            this.cmbCfgRtbEntryRM = new System.Windows.Forms.ComboBox();
             this.tabPageTrashcan = new System.Windows.Forms.TabPage();
             this.toolStripContainer3 = new System.Windows.Forms.ToolStripContainer();
             this.lvTrashCan = new System.Windows.Forms.ListView();
@@ -229,6 +233,9 @@
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.revertClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem24 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator42 = new System.Windows.Forms.ToolStripSeparator();
+            this.searchAllEntriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gotoTodaysEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -261,6 +268,9 @@
             this.forceUnsetUnderlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceSetStrikeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnsetStrikeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
+            this.decreaseFontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.increaseFontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
@@ -283,6 +293,8 @@
             this.bgWorkerRefreshTrashCan = new System.ComponentModel.BackgroundWorker();
             this.bgWorkerRebuildDB = new System.ComponentModel.BackgroundWorker();
             this.bgWorkerSearch = new System.ComponentModel.BackgroundWorker();
+            this.toolStripSeparator43 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).BeginInit();
             this.splitContainerH.Panel1.SuspendLayout();
             this.splitContainerH.Panel2.SuspendLayout();
@@ -1013,7 +1025,9 @@
             this.statusStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel2,
-            this.tsslabelCaretPosition});
+            this.tsslabelCaretPosition,
+            this.toolStripStatusLabel4,
+            this.tsslabelLineIndex});
             this.statusStrip2.Location = new System.Drawing.Point(0, 0);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.Size = new System.Drawing.Size(836, 22);
@@ -1031,8 +1045,21 @@
             this.tsslabelCaretPosition.Size = new System.Drawing.Size(13, 17);
             this.tsslabelCaretPosition.Text = "0";
             // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(29, 17);
+            this.toolStripStatusLabel4.Text = "line:";
+            // 
+            // tsslabelLineIndex
+            // 
+            this.tsslabelLineIndex.Name = "tsslabelLineIndex";
+            this.tsslabelLineIndex.Size = new System.Drawing.Size(13, 17);
+            this.tsslabelLineIndex.Text = "0";
+            // 
             // rtbEntry
             // 
+            this.rtbEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbEntry.BulletNumberStart = ((short)(1));
             this.rtbEntry.BulletStyle = System.Windows.Forms.RichTextBoxEx.AdvRichTextBulletStyle.Plain;
             this.rtbEntry.BulletType = System.Windows.Forms.RichTextBoxEx.AdvRichTextBulletType.Normal;
@@ -1709,10 +1736,12 @@
             // 
             // tabPageConfig1
             // 
-            this.tabPageConfig1.Controls.Add(this.chkConfigAutoLoadCreateDefaultDB);
+            this.tabPageConfig1.Controls.Add(this.label3);
+            this.tabPageConfig1.Controls.Add(this.cmbCfgRtbViewEntryRM);
+            this.tabPageConfig1.Controls.Add(this.chkCfgAutoLoadCreateDefaultDB);
             this.tabPageConfig1.Controls.Add(this.buttonApplyConfig1);
             this.tabPageConfig1.Controls.Add(this.label1);
-            this.tabPageConfig1.Controls.Add(this.cmbConfigRtbRightMargin);
+            this.tabPageConfig1.Controls.Add(this.cmbCfgRtbEntryRM);
             this.tabPageConfig1.Location = new System.Drawing.Point(4, 29);
             this.tabPageConfig1.Name = "tabPageConfig1";
             this.tabPageConfig1.Padding = new System.Windows.Forms.Padding(3);
@@ -1721,15 +1750,43 @@
             this.tabPageConfig1.Text = "configuration 1";
             this.tabPageConfig1.UseVisualStyleBackColor = true;
             // 
-            // chkConfigAutoLoadCreateDefaultDB
+            // label3
             // 
-            this.chkConfigAutoLoadCreateDefaultDB.AutoSize = true;
-            this.chkConfigAutoLoadCreateDefaultDB.Location = new System.Drawing.Point(16, 55);
-            this.chkConfigAutoLoadCreateDefaultDB.Name = "chkConfigAutoLoadCreateDefaultDB";
-            this.chkConfigAutoLoadCreateDefaultDB.Size = new System.Drawing.Size(219, 24);
-            this.chkConfigAutoLoadCreateDefaultDB.TabIndex = 1;
-            this.chkConfigAutoLoadCreateDefaultDB.Text = "auto load/create default db?";
-            this.chkConfigAutoLoadCreateDefaultDB.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(361, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(185, 20);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "viewer right margin (limit):";
+            // 
+            // cmbCfgRtbViewEntryRM
+            // 
+            this.cmbCfgRtbViewEntryRM.FormattingEnabled = true;
+            this.cmbCfgRtbViewEntryRM.Items.AddRange(new object[] {
+            "800",
+            "1000",
+            "1500",
+            "2000",
+            "3000",
+            "4000",
+            "5000",
+            "6000",
+            "8000",
+            "10000"});
+            this.cmbCfgRtbViewEntryRM.Location = new System.Drawing.Point(549, 11);
+            this.cmbCfgRtbViewEntryRM.Name = "cmbCfgRtbViewEntryRM";
+            this.cmbCfgRtbViewEntryRM.Size = new System.Drawing.Size(150, 28);
+            this.cmbCfgRtbViewEntryRM.TabIndex = 3;
+            // 
+            // chkCfgAutoLoadCreateDefaultDB
+            // 
+            this.chkCfgAutoLoadCreateDefaultDB.AutoSize = true;
+            this.chkCfgAutoLoadCreateDefaultDB.Location = new System.Drawing.Point(16, 55);
+            this.chkCfgAutoLoadCreateDefaultDB.Name = "chkCfgAutoLoadCreateDefaultDB";
+            this.chkCfgAutoLoadCreateDefaultDB.Size = new System.Drawing.Size(219, 24);
+            this.chkCfgAutoLoadCreateDefaultDB.TabIndex = 1;
+            this.chkCfgAutoLoadCreateDefaultDB.Text = "auto load/create default db?";
+            this.chkCfgAutoLoadCreateDefaultDB.UseVisualStyleBackColor = true;
             // 
             // buttonApplyConfig1
             // 
@@ -1750,10 +1807,10 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "editor right margin (limit):";
             // 
-            // cmbConfigRtbRightMargin
+            // cmbCfgRtbEntryRM
             // 
-            this.cmbConfigRtbRightMargin.FormattingEnabled = true;
-            this.cmbConfigRtbRightMargin.Items.AddRange(new object[] {
+            this.cmbCfgRtbEntryRM.FormattingEnabled = true;
+            this.cmbCfgRtbEntryRM.Items.AddRange(new object[] {
             "800",
             "1000",
             "1500",
@@ -1764,10 +1821,10 @@
             "6000",
             "8000",
             "10000"});
-            this.cmbConfigRtbRightMargin.Location = new System.Drawing.Point(204, 11);
-            this.cmbConfigRtbRightMargin.Name = "cmbConfigRtbRightMargin";
-            this.cmbConfigRtbRightMargin.Size = new System.Drawing.Size(150, 28);
-            this.cmbConfigRtbRightMargin.TabIndex = 0;
+            this.cmbCfgRtbEntryRM.Location = new System.Drawing.Point(204, 11);
+            this.cmbCfgRtbEntryRM.Name = "cmbCfgRtbEntryRM";
+            this.cmbCfgRtbEntryRM.Size = new System.Drawing.Size(150, 28);
+            this.cmbCfgRtbEntryRM.TabIndex = 0;
             // 
             // tabPageTrashcan
             // 
@@ -1945,6 +2002,7 @@
             // 
             // rtbViewEntry
             // 
+            this.rtbViewEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbViewEntry.BulletNumberStart = ((short)(1));
             this.rtbViewEntry.BulletStyle = System.Windows.Forms.RichTextBoxEx.AdvRichTextBulletStyle.Plain;
             this.rtbViewEntry.BulletType = System.Windows.Forms.RichTextBoxEx.AdvRichTextBulletType.Normal;
@@ -2007,7 +2065,9 @@
             this.loadExistingDatabaseToolStripMenuItem,
             this.toolStripMenuItem20,
             this.toolStripSeparator2,
-            this.closeDatabaseToolStripMenuItem});
+            this.closeDatabaseToolStripMenuItem,
+            this.toolStripSeparator43,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "&File";
@@ -2257,9 +2317,35 @@
             // 
             // searchToolStripMenuItem
             // 
+            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem24,
+            this.toolStripSeparator42,
+            this.searchAllEntriesToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.searchToolStripMenuItem.Text = "&Search";
+            // 
+            // toolStripMenuItem24
+            // 
+            this.toolStripMenuItem24.Name = "toolStripMenuItem24";
+            this.toolStripMenuItem24.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.toolStripMenuItem24.Size = new System.Drawing.Size(277, 24);
+            this.toolStripMenuItem24.Text = "find and replace";
+            this.toolStripMenuItem24.Click += new System.EventHandler(this.toolStripMenuItem24_Click);
+            // 
+            // toolStripSeparator42
+            // 
+            this.toolStripSeparator42.Name = "toolStripSeparator42";
+            this.toolStripSeparator42.Size = new System.Drawing.Size(274, 6);
+            // 
+            // searchAllEntriesToolStripMenuItem
+            // 
+            this.searchAllEntriesToolStripMenuItem.Name = "searchAllEntriesToolStripMenuItem";
+            this.searchAllEntriesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F)));
+            this.searchAllEntriesToolStripMenuItem.Size = new System.Drawing.Size(277, 24);
+            this.searchAllEntriesToolStripMenuItem.Text = "search all entries";
+            this.searchAllEntriesToolStripMenuItem.Click += new System.EventHandler(this.searchAllEntriesToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -2419,7 +2505,10 @@
             this.forceSetUnderlineToolStripMenuItem,
             this.forceUnsetUnderlineToolStripMenuItem,
             this.forceSetStrikeoutToolStripMenuItem,
-            this.forceUnsetStrikeoutToolStripMenuItem});
+            this.forceUnsetStrikeoutToolStripMenuItem,
+            this.toolStripSeparator41,
+            this.decreaseFontSizeToolStripMenuItem,
+            this.increaseFontSizeToolStripMenuItem});
             this.formatToolStripMenuItem.Name = "formatToolStripMenuItem";
             this.formatToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.formatToolStripMenuItem.Text = "&Format";
@@ -2427,84 +2516,107 @@
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.fontToolStripMenuItem.Text = "font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.colorToolStripMenuItem.Text = "foreground color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
             // backgroundColorToolStripMenuItem
             // 
             this.backgroundColorToolStripMenuItem.Name = "backgroundColorToolStripMenuItem";
-            this.backgroundColorToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.backgroundColorToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.backgroundColorToolStripMenuItem.Text = "background color";
             this.backgroundColorToolStripMenuItem.Click += new System.EventHandler(this.backgroundColorToolStripMenuItem_Click);
             // 
             // toolStripSeparator24
             // 
             this.toolStripSeparator24.Name = "toolStripSeparator24";
-            this.toolStripSeparator24.Size = new System.Drawing.Size(214, 6);
+            this.toolStripSeparator24.Size = new System.Drawing.Size(315, 6);
             // 
             // forceSetBoldToolStripMenuItem
             // 
             this.forceSetBoldToolStripMenuItem.Name = "forceSetBoldToolStripMenuItem";
-            this.forceSetBoldToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceSetBoldToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceSetBoldToolStripMenuItem.Text = "force set bold ";
             this.forceSetBoldToolStripMenuItem.Click += new System.EventHandler(this.forceSetBoldToolStripMenuItem_Click);
             // 
             // forceUnsetBoldToolStripMenuItem
             // 
             this.forceUnsetBoldToolStripMenuItem.Name = "forceUnsetBoldToolStripMenuItem";
-            this.forceUnsetBoldToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceUnsetBoldToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceUnsetBoldToolStripMenuItem.Text = "force unset bold ";
             this.forceUnsetBoldToolStripMenuItem.Click += new System.EventHandler(this.forceUnsetBoldToolStripMenuItem_Click);
             // 
             // forceSetItalicsToolStripMenuItem
             // 
             this.forceSetItalicsToolStripMenuItem.Name = "forceSetItalicsToolStripMenuItem";
-            this.forceSetItalicsToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceSetItalicsToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceSetItalicsToolStripMenuItem.Text = "force set italics";
             this.forceSetItalicsToolStripMenuItem.Click += new System.EventHandler(this.forceSetItalicsToolStripMenuItem_Click);
             // 
             // forceUnsetItalicsToolStripMenuItem
             // 
             this.forceUnsetItalicsToolStripMenuItem.Name = "forceUnsetItalicsToolStripMenuItem";
-            this.forceUnsetItalicsToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceUnsetItalicsToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceUnsetItalicsToolStripMenuItem.Text = "force unset italics";
             this.forceUnsetItalicsToolStripMenuItem.Click += new System.EventHandler(this.forceUnsetItalicsToolStripMenuItem_Click);
             // 
             // forceSetUnderlineToolStripMenuItem
             // 
             this.forceSetUnderlineToolStripMenuItem.Name = "forceSetUnderlineToolStripMenuItem";
-            this.forceSetUnderlineToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceSetUnderlineToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceSetUnderlineToolStripMenuItem.Text = "force set underline";
             this.forceSetUnderlineToolStripMenuItem.Click += new System.EventHandler(this.forceSetUnderlineToolStripMenuItem_Click);
             // 
             // forceUnsetUnderlineToolStripMenuItem
             // 
             this.forceUnsetUnderlineToolStripMenuItem.Name = "forceUnsetUnderlineToolStripMenuItem";
-            this.forceUnsetUnderlineToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceUnsetUnderlineToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceUnsetUnderlineToolStripMenuItem.Text = "force unset underline";
             this.forceUnsetUnderlineToolStripMenuItem.Click += new System.EventHandler(this.forceUnsetUnderlineToolStripMenuItem_Click);
             // 
             // forceSetStrikeoutToolStripMenuItem
             // 
             this.forceSetStrikeoutToolStripMenuItem.Name = "forceSetStrikeoutToolStripMenuItem";
-            this.forceSetStrikeoutToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceSetStrikeoutToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceSetStrikeoutToolStripMenuItem.Text = "force set strikeout";
             this.forceSetStrikeoutToolStripMenuItem.Click += new System.EventHandler(this.forceSetStrikeoutToolStripMenuItem_Click);
             // 
             // forceUnsetStrikeoutToolStripMenuItem
             // 
             this.forceUnsetStrikeoutToolStripMenuItem.Name = "forceUnsetStrikeoutToolStripMenuItem";
-            this.forceUnsetStrikeoutToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.forceUnsetStrikeoutToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
             this.forceUnsetStrikeoutToolStripMenuItem.Text = "force unset strikeout";
             this.forceUnsetStrikeoutToolStripMenuItem.Click += new System.EventHandler(this.forceUnsetStrikeoutToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator41
+            // 
+            this.toolStripSeparator41.Name = "toolStripSeparator41";
+            this.toolStripSeparator41.Size = new System.Drawing.Size(315, 6);
+            // 
+            // decreaseFontSizeToolStripMenuItem
+            // 
+            this.decreaseFontSizeToolStripMenuItem.Name = "decreaseFontSizeToolStripMenuItem";
+            this.decreaseFontSizeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Down)));
+            this.decreaseFontSizeToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
+            this.decreaseFontSizeToolStripMenuItem.Text = "decrease font size";
+            this.decreaseFontSizeToolStripMenuItem.Click += new System.EventHandler(this.decreaseFontSizeToolStripMenuItem_Click);
+            // 
+            // increaseFontSizeToolStripMenuItem
+            // 
+            this.increaseFontSizeToolStripMenuItem.Name = "increaseFontSizeToolStripMenuItem";
+            this.increaseFontSizeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Up)));
+            this.increaseFontSizeToolStripMenuItem.Size = new System.Drawing.Size(318, 24);
+            this.increaseFontSizeToolStripMenuItem.Text = "increase font size";
+            this.increaseFontSizeToolStripMenuItem.Click += new System.EventHandler(this.increaseFontSizeToolStripMenuItem_Click);
             // 
             // tableToolStripMenuItem
             // 
@@ -2644,6 +2756,18 @@
             this.bgWorkerSearch.WorkerReportsProgress = true;
             this.bgWorkerSearch.WorkerSupportsCancellation = true;
             this.bgWorkerSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorkerSearch_DoWork);
+            // 
+            // toolStripSeparator43
+            // 
+            this.toolStripSeparator43.Name = "toolStripSeparator43";
+            this.toolStripSeparator43.Size = new System.Drawing.Size(392, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(395, 24);
+            this.exitToolStripMenuItem.Text = "exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // FrmJournal
             // 
@@ -2836,7 +2960,6 @@
         private ToolStripMenuItem toolStripMenuItem12;
         private ToolStripButton tsbuttonLeftJustify;
         private ToolStripButton tsbuttonRightJustify;
-        private AdvRichTextBox rtbEntry;
         private ToolStripButton tsbuttonJustify;
         private ToolStripButton tsbuttonCenterJustify;
         private ToolStripSeparator toolStripSeparator13;
@@ -2846,11 +2969,11 @@
         private TabControl tabControlConfig;
         private TabPage tabPageConfig1;
         private Label label1;
-        private ComboBox cmbConfigRtbRightMargin;
+        private ComboBox cmbCfgRtbEntryRM;
         private Button buttonApplyConfig1;
         private ToolStripMenuItem fontToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem15;
-        private CheckBox chkConfigAutoLoadCreateDefaultDB;
+        private CheckBox chkCfgAutoLoadCreateDefaultDB;
         private ToolStripSeparator toolStripSeparator14;
         private ToolStripButton tsbuttonBullets;
         private ToolStripButton tsbuttonNumberedList;
@@ -2990,6 +3113,19 @@
         private ToolStripSeparator toolStripSeparator40;
         private ToolStripMenuItem generateTestEntryToolStripMenuItem;
         private TabPage tabPageViewEntry;
+        private ToolStripSeparator toolStripSeparator41;
+        private ToolStripMenuItem decreaseFontSizeToolStripMenuItem;
+        private ToolStripMenuItem increaseFontSizeToolStripMenuItem;
+        private ToolStripStatusLabel toolStripStatusLabel4;
+        private ToolStripStatusLabel tsslabelLineIndex;
+        private ToolStripSeparator toolStripSeparator42;
+        private ToolStripMenuItem searchAllEntriesToolStripMenuItem;
+        private Label label3;
+        private ComboBox cmbCfgRtbViewEntryRM;
+        public AdvRichTextBox rtbEntry;
         private AdvRichTextBox rtbViewEntry;
+        private ToolStripMenuItem toolStripMenuItem24;
+        private ToolStripSeparator toolStripSeparator43;
+        private ToolStripMenuItem exitToolStripMenuItem;
     }
 }

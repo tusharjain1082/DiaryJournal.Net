@@ -13,6 +13,7 @@
           "MigraDocPlusXml": "1.0.0",
           "RtfPipe": "1.0.0",
           "RtfWriter": "1.0.0",
+          "SharpConfig": "1.0.0",
           "nrtftree_library": "1.0.0"
         },
         "runtime": {
@@ -83,6 +84,11 @@
         "runtime": {
           "RtfWriter.dll": {}
         }
+      },
+      "SharpConfig/1.0.0": {
+        "runtime": {
+          "SharpConfig.dll": {}
+        }
       }
     }
   },
@@ -128,6 +134,11 @@
       "sha512": ""
     },
     "RtfWriter/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SharpConfig/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

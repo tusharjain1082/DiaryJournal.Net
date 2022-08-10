@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RtfPipe;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public static class htmlEntry
     {

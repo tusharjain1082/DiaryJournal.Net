@@ -7,7 +7,7 @@ using Net.Sgoliver.NRtfTree.Core;
 using Net.Sgoliver.NRtfTree.Util;
 using System.Text.RegularExpressions;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public static class theJournalMethods
     {

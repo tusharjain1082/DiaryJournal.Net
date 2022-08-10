@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LiteDB;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public class myContext
     {
@@ -16,6 +16,8 @@ namespace myJournal.Net
         public String dbpath = "";
         public String dbfile = "";
         public List<Chapter>? identifiers = null;
+        public myConfig? config = new myConfig();
+        public String configFilePath = "";
 
         public bool isDBOpen()
         {

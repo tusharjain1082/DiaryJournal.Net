@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigraDoc.Extensions.Html", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigraDoc.Extensions.Markdown", "MigraDoc.Extensions.Markdown\MigraDoc.Extensions.Markdown.csproj", "{DD2F2907-8373-4416-82E8-ED3AD84EB14E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpConfig", "SharpConfig\SharpConfig.csproj", "{CDA7FC58-A586-4D8F-AE9A-629E9495CB7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{DD2F2907-8373-4416-82E8-ED3AD84EB14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD2F2907-8373-4416-82E8-ED3AD84EB14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD2F2907-8373-4416-82E8-ED3AD84EB14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDA7FC58-A586-4D8F-AE9A-629E9495CB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDA7FC58-A586-4D8F-AE9A-629E9495CB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDA7FC58-A586-4D8F-AE9A-629E9495CB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDA7FC58-A586-4D8F-AE9A-629E9495CB7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

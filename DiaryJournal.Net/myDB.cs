@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Linq;
 
-namespace myJournal.Net
+namespace DiaryJournal.Net
 {
     public class Chapter
     {

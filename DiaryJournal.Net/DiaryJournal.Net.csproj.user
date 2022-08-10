@@ -7,6 +7,9 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormFind.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormInsertTable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -16,5 +19,10 @@
     <Compile Update="RichTextBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="FrmJournal.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
