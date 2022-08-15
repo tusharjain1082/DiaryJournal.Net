@@ -9,5 +9,7 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 # notes
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
-# screenshot
-![Alt text](/screenshot1.png?raw=false "DiaryJournal.Net screenshot")
+# screenshots
+![Alt text](/screenshot1.png?raw=false "DiaryJournal.Net screenshot 1")
+
+![Alt text](/screenshot2.png?raw=false "DiaryJournal.Net screenshot 2")
