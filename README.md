@@ -6,8 +6,11 @@
 
 i coded the entire software on a native 64-bit Windows 11, therefore native 64-bit Windows is probably the other requirement. except for the requirements mentioned, there is no other dependency or requirement.
 
+version 1.1.0.0 released Saturday, 20 August 2022:
+i invented an open file system based database. it is a database with a structure of directories and files openly stored on windows and hard disk. we can directly read and manage all the files of the database. so there should be no need of import and export of database. i also fixed bugs, added new features, and improved the DiaryJournal.Net. even at this present time, i am actively developing this software and improving and enhancing it. you can download this software project and make it your own, use it for keeping a journal. always visit time from time to retrieve updates.
+
 # notes
-you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
+you can find and use executable software files in /bin/Release-NoDebugSymbols/net6.0-windows/ directory.
 
 # screenshots
 ![Alt text](/screenshot1.png?raw=false "DiaryJournal.Net screenshot 1")
