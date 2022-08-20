@@ -12,6 +12,9 @@ i invented an open file system based database. it is a database with a structure
 # notes
 you can find and use executable software files in /bin/Release-NoDebugSymbols/net6.0-windows/ directory.
 
+# features
+2 types of database used. 1. single file based database (LiteDB). 2. open file system based database (my own invented code) in which the entire database is stored in open as ordinary files on windows and hard disk.
+
 # screenshots
 ![Alt text](/screenshot1.png?raw=false "DiaryJournal.Net screenshot 1")
 
