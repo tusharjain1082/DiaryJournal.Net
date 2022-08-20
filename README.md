@@ -9,10 +9,6 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 # notes
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
-please note that at this very time (Friday, 19 August, 2022), i am actually devloping this software, improving it to make it simple and perfect, correct it's bugs and other issues which i discover. so please visit time after time for updates of this software project. as soon as i improve it, i update this repository with new files. 
-
-please note the current phase of this software project is alpha-1. it contains bugs and issues.
-
 # screenshots
 ![Alt text](/screenshot1.png?raw=false "DiaryJournal.Net screenshot 1")
 
