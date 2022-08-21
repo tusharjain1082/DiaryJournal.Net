@@ -9,7 +9,10 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 # notes
 you can find and use executable software files in /bin/Release-NoDebugSymbols/net6.0-windows/ directory.
 
-version 1.1.0.0 released Saturday, 20 August 2022:
+version 1.1.1.0 released Sundary, 21 August, 2022:
+some bugs fixed, improvements.
+
+version 1.1.0.0 released Saturday, 20 August, 2022:
 i invented an open file system based database. it is a database with a structure of directories and files openly stored on windows and hard disk. we can directly read and manage all the files of the database. so there should be no need of complicated import and export of database because we can directly read and manage any file. by default entry is stored as .rtf rich text format file which is editable in almost all word processors most importantly windows wordpad. i also fixed bugs, added new features, and improved the DiaryJournal.Net. i myself coded this entire software project DiaryJournal.Net except for the dependency libraries. even at this present time, i am actively developing this software and improving and enhancing it. you can download this software project and make it your own, use it for keeping a journal. always visit time from time to retrieve updates.
 
 if you discover a bug, defect, issue, please report it to me.
