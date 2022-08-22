@@ -7,7 +7,10 @@
 i coded the entire software on a native 64-bit Windows 11, therefore native 64-bit Windows is probably the other requirement. except for the requirements mentioned, there is no other dependency or requirement.
 
 # notes
-you can find and use executable software files in /bin/Release-NoDebugSymbols/net6.0-windows/ directory.
+you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
+
+version 1.1.1.1 released Monday, 22 August, 2022:
+some bugs fixed, improvements.
 
 version 1.1.1.0 released Sundary, 21 August, 2022:
 some bugs fixed, improvements.
