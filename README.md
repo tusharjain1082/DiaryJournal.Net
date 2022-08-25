@@ -9,10 +9,13 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 # notes
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
-version 1.1.1.1 released Monday, 22 August, 2022:
+version 1.1.1.2 alpha released Thursday, 25 August, 2022:
 some bugs fixed, improvements.
 
-version 1.1.1.0 released Sundary, 21 August, 2022:
+version 1.1.1.1 alpha released Monday, 22 August, 2022:
+some bugs fixed, improvements.
+
+version 1.1.1.0 alpha released Sundary, 21 August, 2022:
 some bugs fixed, improvements.
 
 version 1.1.0.0 released Saturday, 20 August, 2022:
