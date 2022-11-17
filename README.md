@@ -12,6 +12,8 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 # notes
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
+to download the binary program files or to download the source code, please click on "Code" and then 
+
 if you discover a bug, defect, issue, please report it to me.
 
 if you find this software project eligible for a star, please do star it.
