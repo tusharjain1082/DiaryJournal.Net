@@ -22,6 +22,6 @@ if you find this software project eligible for a star, please do star it.
 2 types of database used. 1. single file based database (LiteDB). 2. open file system based database (my own code) in which the entire database is stored in open as ordinary files on windows and hard disk and we can read and manage any database file.
 
 # screenshots
-![Alt text](/screenshot1.png?raw=false "DiaryJournal.Net screenshot 1")
+![Alt text](/screenshot3.png?raw=false "DiaryJournal.Net screenshot")
 
-![Alt text](/screenshot2.png?raw=false "DiaryJournal.Net screenshot 2")
+
