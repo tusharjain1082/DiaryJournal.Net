@@ -14,6 +14,8 @@ you can find and use executable software files in /bin/Release/net6.0-windows/ d
 
 to download the binary program/software executable files or to download the source code, you need to download both as a single zip file. please click on "Code" and then click on "Download Zip" to download both the binary program/software executable files and the source code all included into one single zip file.
 
+DiaryJournal.Net is upgradable to .Net 7.0, so you can retarget entire DiaryJournal.Net Solution to .Net 7.0 and run DiaryJournal.Net in .Net 7.0 without issues.
+
 if you discover a bug, defect, issue, please report it to me.
 
 if you find this software project eligible for a star, please do star it.
