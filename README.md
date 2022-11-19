@@ -26,6 +26,8 @@ if you find this software project eligible for a star, please do star it.
 
 ![Alt text](/screenshot5.png?raw=false "DiaryJournal.Net screenshot")
 
+![Alt text](/screenshot6.png?raw=false "DiaryJournal.Net screenshot")
+
 ![Alt text](/screenshot3.png?raw=false "DiaryJournal.Net screenshot")
 
 
