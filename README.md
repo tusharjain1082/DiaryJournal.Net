@@ -16,6 +16,8 @@ to download the binary program/software executable files or to download the sour
 
 DiaryJournal.Net is upgradable to .Net 7.0, so you can retarget entire DiaryJournal.Net Solution to .Net 7.0 and run DiaryJournal.Net in .Net 7.0 without issues.
 
+it is very important for you to note that like all the journaling and data entry software, this software is memory dependent. because all entries/nodes configuration must be loaded in memory, not entry/node's body but configuration only, body is loaded only when the entry/node is actually selected for actual editing. the software can load and iterate more than 200,000 entries/nodes in just seconds on latest high end computers with ton of memory, but if you want to load and work with more than 200,000 entries/nodes, you need at least 16+ GB RAM and 8+ GB Windows paging file, otherwise software may fail in real time if it loads or works with workload of entries/nodes which overflows the memory.
+
 if you discover a bug, defect, issue, please report it to me.
 
 if you find this software project eligible for a star, please do star it.
