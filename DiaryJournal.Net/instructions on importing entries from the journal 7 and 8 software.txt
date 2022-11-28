@@ -1,0 +1,11 @@
+DiaryJournal.Net can import .rtf document entries exported by the Journal 7 and 8 software. All the entries must exist in a single folder. this folder must not contain any alien or unwanted file. you should export the documents in .rtf format from the Journal software with export template format/pattern: "yyyy-mm-dd-hh-mm-ss" for example "2016-10-25-16-20-00.rtf" is the exported file name. if it is a loose-leaf entry, it shall be imported as common calendar entry in the year and month calendar nodes.
+
+'export entries to document' dialog =
+1. please set the export option to .rtf in the Journal 7/8.
+2. 'file names' settings:
+category file name = %c
+entry file name = %e
+check/mark the 'include full path in loose-leaf entry names option'.
+export path separator = -
+date format: %yyyy-%mm-%dd-%time
+all other settings remain default.
