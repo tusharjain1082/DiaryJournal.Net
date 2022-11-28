@@ -10,6 +10,8 @@ A Desktop or Laptop PC, .Net 6.0 and .Net Desktop 6.0 is the basic requirement. 
 i coded the entire software on a native 64-bit Windows 11, therefore native 64-bit Windows is probably the other requirement. except for the requirements mentioned, there is no other dependency or requirement.
 
 # important notes
+it is very important for you to be on caution that this software and source code is not completely ready yet. there may factually exist multiple bugs in the software because the software is new and not perfect. i fix the bug when i find it but it takes many days to weeks time even months time. so you must cautiously use this software for professional and real life work and journaling of any kind yet. you must always create full backup of database before doing any operation. when the software becomes perfect, i will remove this statement and publish a notice to confirm that the software is perfect and ready.
+
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
 to download the binary program/software executable files or to download the source code, you need to download both as a single zip file. please click on "Code" and then click on "Download Zip" to download both the binary program/software executable files and the source code all included into one single zip file.
