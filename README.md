@@ -12,7 +12,7 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 # important notes
 it is very important for you to be on caution that this software and source code is not completely perfect yet. there may exist multiple bugs in the software because the software is new and not perfect. i fix the bug when i find it but it takes many days to weeks time even months time. so you must cautiously use this software for professional and real life work and journaling of any kind yet. you must agree to use this software and the source code at your own risk and responsibility. you must always create multiple full backups of database in various places before doing any operation. when the software becomes perfect, i will remove this statement and publish a notice to confirm that the software is perfect and faultless.
 
-this software is completely memory dependent like all the multimedia and data entry software, and therefore can fail if your computer has less memory and the software overflows the memory. as many nodes/entries exist and load in/from the database, as much memory it requires.
+this software is completely memory dependent like all the multimedia, data entry, 3d and imaging, banking software, and therefore can fail resulting in database corruption if your computer has less memory and the software overflows the memory while doing any database operation. as many nodes/entries exist and load in/from the database, as much memory it requires.
 
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
