@@ -1,7 +1,7 @@
 # DiaryJournal.Net
 an open source and free desktop/laptop diary and journal software project from Tushar Jain, for latest Visual Studio 2022, Windows 10/11 and .Net 6.0. includes precompiled program files to use as your diary/journal application.
 
-# version 1.8.2.0
+# version 1.8.3.0
 published 21 December 2022. major upgrade. major improvements. new additions. migrated to WPF which now gives major new distinct feature additions. everything improved. i am now working for more.
 
 # requirements
