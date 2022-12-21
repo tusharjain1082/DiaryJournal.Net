@@ -1,0 +1,344 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Documents;
+using static DiaryJournal.Net.FindReplaceFramework;
+
+namespace DiaryJournal.Net
+{
+    public static class LinkedListExt
+    {
+        public static int IndexOf<T>(this LinkedList<T> list, T item)
+        {
+            var count = 0;
+            for (var node = list.First; node != null; node = node.Next, count++)
+            {
+                if (item.Equals(node.Value))
+                    return count;
+            }
+            return -1;
+        }
+        public static LinkedListNode<T>? GetElement<T>(this LinkedList<T> list, T item)
+        {
+            var count = 0;
+            for (var node = list.First; node != null; node = node.Next, count++)
+            {
+                if (item.Equals(node.Value))
+                    return node;
+            }
+            return null;
+        }
+        public static LinkedListNode<T>? GetElement<T>(this LinkedList<T> list, int index)
+        {
+            var count = 0;
+            for (var node = list.First; node != null; node = node.Next, count++)
+            {
+                if (count == index)
+                    return node;
+            }
+            return null;
+        }
+    }
+
+    public static class FindReplaceFramework
+    {
+        public class MatchedTextCollection
+        {
+            public LinkedList<MatchedText> chain = new LinkedList<MatchedText>();
+            public LinkedListNode<MatchedText>? current;
+            public long __index = 0;
+            public int lastRemovedItemIndex = -1;
+            public LinkedListNode<MatchedText>? lastRemovedItemPrevNode, lastRemovedItemNextNode;
+            //          public MatchedText? current;
+            //            public MatchedText? head;
+            //          public MatchedText? tail;
+            //        private long __count = 0;
+
+            String pattern = "";
+            Regex regex;
+            RegexOptions options;
+            FlowDocument doc;
+            public MatchedTextCollection() { }
+
+            public static MatchedTextCollection? initializeSearch(ref RegexOptions options, FlowDocument doc, String pattern)
+            {
+                FindReplaceFramework.MatchedTextCollection col = new FindReplaceFramework.MatchedTextCollection();
+
+                // configure
+                col.options = options;
+                col.pattern = pattern;
+                col.doc = doc;
+                col.regex = new Regex(pattern, options);
+
+                // find all matches on the basis of pattern
+                TextRange content = new TextRange(doc.ContentStart, doc.ContentEnd);
+                TextPointer current = content.Start.GetInsertionPosition(LogicalDirection.Forward);
+                while (current != null)
+                {
+                    string textInRun = current.GetTextInRun(LogicalDirection.Forward);
+                    MatchCollection matches = col.regex.Matches(textInRun);
+                    if (matches.Count > 0)
+                    {
+                        foreach (Match listedMatch in matches)
+                        {
+                            Match? match = listedMatch;
+                            TextPointer start = current.GetPositionAtOffset(match.Index, LogicalDirection.Forward);
+                            TextPointer end = current.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Forward);
+                            FindReplaceFramework.MatchedText matchedText = new FindReplaceFramework.MatchedText(ref start, ref end, ref current, ref match);
+                            col.Add(ref matchedText);
+                            continue;
+                        }
+
+                    }
+                    current = current.GetNextContextPosition(LogicalDirection.Forward);
+                }
+
+                // setup first node
+                //col.Next(true);
+
+                // done
+                return col;
+            }
+            public void Add(ref MatchedText? value)
+            {
+                /*
+                if (Count == 0)
+                {
+                    head = value;
+                }
+                else if (Count == 1) 
+                {
+                    value.previous = head;
+                    head.next = value;
+                    tail = value;
+                }
+                else
+                {
+                    tail.next = value;
+                    value.previous = tail;
+                    tail = value;
+                }
+                value.index = __index;
+                __count++;
+                */
+                if (chain.Count == 0)
+                    chain.AddFirst(value);
+                else
+                    chain.AddLast(value);
+
+                value.__index = __index++;
+            }
+
+            public bool Insert(ref LinkedListNode<MatchedText>? target, ref MatchedText? value, bool insertBeforeTarget)
+            {
+                if (target == null) return false;
+                //MatchedText? prevNode = target.previous;
+                //MatchedText? nextNode = target.next;
+
+                if (insertBeforeTarget)
+                {
+                    chain.AddBefore(target, value);
+                }
+                else
+                {
+                    chain.AddAfter(target, value);
+                }
+
+                value.__index = __index++;
+                return true;
+            }
+
+            public LinkedListNode<MatchedText>? ElementAt(int index) 
+            {
+                /*
+                if (__count == 0) return null;
+                if (index >= __count) return null;
+                MatchedText? target = head;
+                if (index == 0) return target; // 0th node is directly returned6
+
+                long ctr = 0;
+                while (ctr <= (index - 1))
+                {
+                    target = target.next;
+                    ctr++;
+                }
+                return target;
+                */
+                if (Count == 0) return null;
+                if (index >= Count) return null;
+                return chain.GetElement(index);
+            }
+
+            public void Replace(ref LinkedListNode<MatchedText>? target, ref MatchedText? value)
+            {
+                /*
+                target.Valuematch = value.match;
+                target.currentRunPointer = value.currentRunPointer;
+                target.start = value.start;
+                target.end = value.end;
+                */
+                target.Value = value;
+            }
+
+            public void Remove(ref LinkedListNode<MatchedText>? value, bool updateCurrentNode)
+            {
+                /*
+                MatchedText? prev = value.previous;
+                MatchedText? next = value.next;
+                if (prev != null) prev.next = next;
+                if (next != null) next.previous = prev;
+
+                // if previous node is null, means header.
+                if (prev == null)
+                {
+                    // meaning this node is head, so set next node as header
+                    head = next;
+                }
+                else if (next == null)
+                {
+                    // meaning this is either head or tail
+                    if (Count == 2)
+                    {
+                        // previous node is not null, this node is removed, and next node is null,
+                        // so previous node becomes head
+                        head = prev;
+                        tail = null;
+                    }
+                    else if (Count >= 3) 
+                    {
+
+                    }
+                }
+                __count--;
+                */
+                lastRemovedItemIndex = chain.IndexOf(value.Value);
+                lastRemovedItemPrevNode = value.Previous;
+                lastRemovedItemNextNode = value.Next;
+                if (updateCurrentNode)
+                {
+                    //                    if (value == current)
+                    //                  {
+                    
+                    
+//                    current = value.Previous;
+  //                  if (value.Previous == null)
+    //                    current = value.Next;
+                    
+                    
+                    /*
+                    current = value.Next;
+                    if (value.Next == null)
+                        current = value.Previous;
+                    */
+                    //                }
+                }
+                chain.Remove(value);
+
+            }
+            public void SetCurrentNode(int index)
+            {
+                LinkedListNode<MatchedText>? node = chain.GetElement(index);
+                if (node == null) return;
+                current = node;
+            }
+            public void SetCurrentNode(LinkedListNode<MatchedText>? value)
+            {
+                if (value == null) return;
+                current = value;
+            }
+            public LinkedListNode<MatchedText>? Previous(bool setCurrent)
+            {
+                /*
+                if (__count == 0) return null;
+                if (current == null) return null;
+
+                MatchedText? target = current;
+                target = target.previous;
+
+                if (setCurrent) current = target;
+                return target;
+                */
+                if (Count == 0) return null;
+                if (current == null) return null;
+                LinkedListNode<MatchedText>? target = current.Previous;
+
+                if (setCurrent) current = target;
+                return target;
+
+            }
+            public LinkedListNode<MatchedText>? Next(bool setCurrent)
+            {
+                /*
+                if (__count == 0) return null;
+
+                MatchedText? target = current;
+                if (target == null)
+                    target = head;
+                else
+                    target = target.next;
+
+                if (setCurrent) current = target;
+                return target;
+                */
+                if (Count == 0) return null;
+                LinkedListNode<MatchedText>? target;
+                if (current == null)
+                    target = chain.First;
+                else
+                    target = current.Next;
+
+                if (setCurrent) current = target;
+                return target;
+            }
+            public MatchedText? First()
+            {
+                //return head;
+                return chain.FirstOrDefault();
+            }
+            public MatchedText? Last()
+            {
+                //return tail;
+                return chain.Last();
+            }
+            public void reset()
+            {
+                current = null;
+            }
+
+            public long Count
+            {
+                get
+                {
+                    //return __count;
+                    return chain.LongCount();
+                }
+            }
+
+        }
+        public class MatchedText
+        {
+            public TextPointer start;
+            public TextPointer end;
+            public TextPointer currentRunPointer;
+            public Match? match;
+            //public MatchedText? previous;
+            //public MatchedText? next;
+            public long __index = 0;
+
+            public MatchedText() { }
+
+            public MatchedText(ref TextPointer start, ref TextPointer end, ref TextPointer currentRunPointer, ref Match? match)
+            {
+                this.start = start;
+                this.end = end;
+                this.currentRunPointer = currentRunPointer;
+                this.match = match;
+            }
+        }
+    }
+}
