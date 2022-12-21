@@ -4928,5 +4928,10 @@ namespace DiaryJournal.Net
         {
             formatting.formatCellsRemoveAllFormatting(rtbEntry);
         }
+
+        private void formatColumnsAndTheirContentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formatting.formatColumns(rtbEntry);
+        }
     }
 }

@@ -721,7 +721,7 @@ namespace DiaryJournal.Net
             if (!rtb.GetSelectedTableParams(selection, out table, out row, out cell, out rowIndex, out cellIndex))
                 return false;
 
-            IEnumerable<TableCell>? cells = rtb.Selection.EnumerateElements<TableCell>();
+            List<TableCell>? cells = rtb.Selection.EnumerateElements<TableCell>().ToList();
             //IEnumerable<string> cellValues = cells.Select(cell => new TextRange(cell.ContentStart, cell.ContentEnd).Text);
 
             // prepare formatting
@@ -763,6 +763,59 @@ namespace DiaryJournal.Net
 
             // configure
             return rtb.FormatTableCellRemoveAllFormatting(ref cells);
+        }
+
+        public bool formatColumns(WpfRichTextBoxEx rtb)
+        {
+            Table? table = null;
+            TableRow? row = null;
+            TableCell? cell = null;
+            int rowIndex = -1;
+            int cellIndex = -1;
+
+            rtb.Focus();
+            TextSelection selection = ((rtb.IsSelectionActive) ? rtb.Selection : ((rtb.sel != null) ? rtb.sel : rtb.Selection));
+            if (selection == null) return false;
+
+            // get selected cell and other parms
+            if (!rtb.GetSelectedTableParams(selection, out table, out row, out cell, out rowIndex, out cellIndex))
+                return false;
+
+            List<TableCell>? cells = rtb.Selection.EnumerateElements<TableCell>().ToList();
+            //IEnumerable<string> cellValues = cells.Select(cell => new TextRange(cell.ContentStart, cell.ContentEnd).Text);
+
+            // find columns by cells
+            List<int> columns = null;
+            rtb.GetTableColumnIndexesByCells(ref table, ref row, ref cells, out columns);
+
+            // prepare formatting
+            FormInsertTable form = new FormInsertTable();
+            form.isEditingCells = true;
+            form.Italic = rtb.WpfItalicToWinFormsItalic(cell.FontStyle);
+            form.Bold = rtb.WpfBoldToWinFormsBold(cell.FontWeight);
+            form.fontColor = ((cell.Foreground != null) ? WpfRichTextBoxEx.WpfBrushToWinFormsColor((SolidColorBrush)cell.Foreground) : System.Drawing.Color.Black);
+            form.fontBackColor = ((cell.Background != null) ? WpfRichTextBoxEx.WpfBrushToWinFormsColor((SolidColorBrush)cell.Background) : System.Drawing.Color.White);
+            form.font = rtb.WpfFontToWinFormsFont(cell.FontFamily);
+            form.fontName = form.font.Name;
+            form.fontSize = cell.FontSize;
+            if (form.ShowDialog() != DialogResult.OK) return false;
+            form.Dispose();
+
+            // configure
+            foreach (TableRow listedRow in table.RowGroups[0].Rows)
+            {
+                TableRow? thisRow = listedRow;
+                List<TableCell>? rowCells = null;
+
+                // get current row's target cells
+                rtb.GetTableCellsByIndexes(ref table, ref thisRow, ref columns, out rowCells);
+
+                // for the current row's target cells
+                rtb.FormatTableCell(ref table, ref rowCells, rtb.WinFormsFontToWpfFont(form.font), (int)form.fontSize,
+                    form.Bold, form.Italic, form.cellAlignment, rtb.WinFormsColorToWpfColor(form.fontColor), rtb.WinFormsColorToWpfColor(form.fontBackColor),
+                    new Thickness(form.tableInnerBorderSize), new Thickness(form.tableOuterBorderSize));
+            }
+            return true;
         }
 
         public static DialogResult showInsertTableDialog(bool IsEditingCells, out FormInsertTable formObect)

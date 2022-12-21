@@ -1104,6 +1104,40 @@ namespace System.Windows.Controls
             outColumns = columns;
             return true;
         }
+        public bool GetTableColumnIndexesByCells(ref Table table, ref TableRow row, ref List<TableCell>? cells, out List<int>? outColumnIndexes)
+        {
+            List<int> list = new List<int>();
+            foreach (TableCell cell in cells)
+            {
+                int cellIndex = -1;
+                cellIndex = row.Cells.IndexOf(cell);
+                if (cellIndex < 0) continue; // cell not found
+
+                TableColumn? column = table.Columns[cellIndex];
+                if (column == null) continue;
+
+                // found column by cell
+                list.Add(cellIndex);
+            }
+            outColumnIndexes = list;
+            return true;
+        }
+        public bool GetTableCellsByIndexes(ref Table table, ref TableRow row, ref List<int> columnIndexes, out List<TableCell>? outCells)
+        {
+            List<TableCell>? list = new List<TableCell>();
+            foreach (int columnIndex in columnIndexes)
+            {
+                if (columnIndex < 0) continue;
+                if (columnIndex >= row.Cells.Count) continue;
+
+                TableCell? cell = row.Cells.ElementAt(columnIndex);
+
+                // found cell, add it
+                list.Add(cell);
+            }
+            outCells = list;
+            return true;
+        }
 
         public bool AddTableRow(ref Table table, ref TableRow row)
         {
@@ -1262,7 +1296,7 @@ namespace System.Windows.Controls
 
             return true;
         }
-        public bool FormatTableCell(ref Table table, ref IEnumerable<TableCell>? cells, System.Windows.Media.FontFamily font, int fontSize,
+        public bool FormatTableCell(ref Table table, ref List<TableCell>? cells, System.Windows.Media.FontFamily font, int fontSize,
             bool bold, bool italic, TextAlignment align, System.Windows.Media.Color foreground, System.Windows.Media.Color background,
             Thickness cellBorder, Thickness tableBorder)
         {
