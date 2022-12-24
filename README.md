@@ -11,6 +11,8 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 
 # important notes
 
+please download the latest version package and update your application as soon as it is available. latest version most likely contains new additions, bugs defects and faults fixes (important), improvements, and everything upto date.
+
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
 to download the binary program/software executable files or to download the source code, you need to download both as a single zip file. please click on "Code" and then click on "Download Zip" to download both the binary program/software executable files and the source code all included into one single zip file.
