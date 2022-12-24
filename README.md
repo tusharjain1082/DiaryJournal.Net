@@ -11,7 +11,7 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 
 # important notes
 
-please download the latest version package and update your application as soon as it is available. latest version most likely contains new additions, bugs defects and faults fixes (important), improvements, and everything upto date.
+please download the latest version package as soon as it is available, and update your application. latest version most likely contains new additions, bugs and faults fixes (important), improvements, and everything upto the version.
 
 you can find and use executable software files in /bin/Release/net6.0-windows/ directory.
 
