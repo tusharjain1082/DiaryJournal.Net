@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "DiaryJournal.Net": {
-      "commandName": "Project",
-      "nativeDebugging": false
-    }
-  }
-}
