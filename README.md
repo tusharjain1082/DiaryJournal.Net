@@ -24,8 +24,6 @@ if you discover a bug, defect, issue, please report it to me.
 # features
 2 types of database used. 1. single file based database (LiteDB). 2. open file system based database (my own code) in which the entire database is stored in open as ordinary files on windows and hard disk and we can read and manage any database file.
 
-uses Windows Presentation Framework (WPF) which provides latest technology of rich text editing.
-
 # screenshots
 ![Alt text](/screenshot4.png?raw=false "DiaryJournal.Net screenshot")
 
