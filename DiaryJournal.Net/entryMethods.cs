@@ -8,6 +8,7 @@ using RtfPipe.Model;
 using System.Xml.Linq;
 using System.IO;
 using System.Windows.Documents;
+using System.Reflection;
 
 namespace DiaryJournal.Net
 {
@@ -1386,6 +1387,39 @@ namespace DiaryJournal.Net
                 return OpenFileSystemDB.updateNode(cfg.ctx1, ref node, "", false);
             else
                 return SingleFileDB.updateNode(cfg.ctx0, ref node, "", false);
+        }
+
+        // clone the entry/node
+        public static myNode? DBCloneNode(ref myConfig cfg, ref List<myNode> allNodes, ref myNode? node, Int64 locationId,
+            bool writeDBIndexingFile = true, bool checkpoint = true)
+        {
+            if (node == null)
+                return null; // error node not found
+
+            // validate
+            if (node.chapter.specialNodeType == SpecialNodeType.SystemNode)
+                return null; // error 
+
+            String rtf = "";
+            myNode? clone = node.DeepCopy();
+            rtf = entryMethods.DBLoadNodeData(cfg, node.chapter.Id, node.DirectorySectionID);
+
+            // configure
+            if (locationId != -1)
+                clone.chapter.parentId = locationId;
+
+            // finally clone the node
+            if (entryMethods.DBCreateNode(ref cfg, ref clone, rtf, false, false, false, true, writeDBIndexingFile, checkpoint))
+            {
+                // add the clone into the global work list
+                allNodes.Add(clone);
+                cfg.totalNodes++;
+                return clone;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         // sets node state cursor position

@@ -344,6 +344,7 @@
             this.copyAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cutAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem74 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.revertClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -409,6 +410,10 @@
             this.configureEntrysWidthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator77 = new System.Windows.Forms.ToolStripSeparator();
             this.convertEntryToRawTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator78 = new System.Windows.Forms.ToolStripSeparator();
+            this.cloneEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cloneAtParentLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cloneToOtherLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator47 = new System.Windows.Forms.ToolStripSeparator();
@@ -496,7 +501,7 @@
             this.pdRtbEntry = new System.Drawing.Printing.PrintDocument();
             this.ppDlgRtbEntry = new System.Windows.Forms.PrintPreviewDialog();
             this.timerSetRtbEntry = new System.Windows.Forms.Timer(this.components);
-            this.toolStripMenuItem74 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem75 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).BeginInit();
             this.splitContainerH.Panel1.SuspendLayout();
             this.splitContainerH.Panel2.SuspendLayout();
@@ -3530,6 +3535,16 @@
             this.cutAllToolStripMenuItem.Text = "cut all";
             this.cutAllToolStripMenuItem.Click += new System.EventHandler(this.cutAllToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem74
+            // 
+            this.toolStripMenuItem74.Name = "toolStripMenuItem74";
+            this.toolStripMenuItem74.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.X)));
+            this.toolStripMenuItem74.Size = new System.Drawing.Size(269, 22);
+            this.toolStripMenuItem74.Text = "cut paragraph raw";
+            this.toolStripMenuItem74.Click += new System.EventHandler(this.toolStripMenuItem74_Click);
+            // 
             // toolStripSeparator20
             // 
             this.toolStripSeparator20.Name = "toolStripSeparator20";
@@ -3600,7 +3615,7 @@
             // fullScreenToolStripMenuItem
             // 
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.fullScreenToolStripMenuItem.Text = "full screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
@@ -3806,7 +3821,12 @@
             this.toolStripSeparator75,
             this.configureEntrysWidthToolStripMenuItem,
             this.toolStripSeparator77,
-            this.convertEntryToRawTextToolStripMenuItem});
+            this.convertEntryToRawTextToolStripMenuItem,
+            this.toolStripSeparator78,
+            this.cloneEntryToolStripMenuItem,
+            this.cloneAtParentLevelToolStripMenuItem,
+            this.toolStripMenuItem75,
+            this.cloneToOtherLocationToolStripMenuItem});
             this.entryToolStripMenuItem.Name = "entryToolStripMenuItem";
             this.entryToolStripMenuItem.Size = new System.Drawing.Size(46, 23);
             this.entryToolStripMenuItem.Text = "E&ntry";
@@ -4015,6 +4035,32 @@
             this.convertEntryToRawTextToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.convertEntryToRawTextToolStripMenuItem.Text = "convert entry to raw text";
             this.convertEntryToRawTextToolStripMenuItem.Click += new System.EventHandler(this.convertEntryToRawTextToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator78
+            // 
+            this.toolStripSeparator78.Name = "toolStripSeparator78";
+            this.toolStripSeparator78.Size = new System.Drawing.Size(253, 6);
+            // 
+            // cloneEntryToolStripMenuItem
+            // 
+            this.cloneEntryToolStripMenuItem.Name = "cloneEntryToolStripMenuItem";
+            this.cloneEntryToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.cloneEntryToolStripMenuItem.Text = "clone entry";
+            this.cloneEntryToolStripMenuItem.Click += new System.EventHandler(this.cloneEntryToolStripMenuItem_Click);
+            // 
+            // cloneAtParentLevelToolStripMenuItem
+            // 
+            this.cloneAtParentLevelToolStripMenuItem.Name = "cloneAtParentLevelToolStripMenuItem";
+            this.cloneAtParentLevelToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.cloneAtParentLevelToolStripMenuItem.Text = "clone at parent level";
+            this.cloneAtParentLevelToolStripMenuItem.Click += new System.EventHandler(this.cloneAtParentLevelToolStripMenuItem_Click);
+            // 
+            // cloneToOtherLocationToolStripMenuItem
+            // 
+            this.cloneToOtherLocationToolStripMenuItem.Name = "cloneToOtherLocationToolStripMenuItem";
+            this.cloneToOtherLocationToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.cloneToOtherLocationToolStripMenuItem.Text = "clone to other location";
+            this.cloneToOtherLocationToolStripMenuItem.Click += new System.EventHandler(this.cloneToOtherLocationToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
@@ -4657,15 +4703,12 @@
             this.timerSetRtbEntry.Interval = 10;
             this.timerSetRtbEntry.Tick += new System.EventHandler(this.timerSetRtbEntry_Tick);
             // 
-            // toolStripMenuItem74
+            // toolStripMenuItem75
             // 
-            this.toolStripMenuItem74.Name = "toolStripMenuItem74";
-            this.toolStripMenuItem74.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.X)));
-            this.toolStripMenuItem74.Size = new System.Drawing.Size(269, 22);
-            this.toolStripMenuItem74.Text = "cut paragraph raw";
-            this.toolStripMenuItem74.Click += new System.EventHandler(this.toolStripMenuItem74_Click);
+            this.toolStripMenuItem75.Name = "toolStripMenuItem75";
+            this.toolStripMenuItem75.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItem75.Text = "clone at root";
+            this.toolStripMenuItem75.Click += new System.EventHandler(this.toolStripMenuItem75_Click);
             // 
             // FrmJournal
             // 
@@ -5248,5 +5291,10 @@
         private ToolStripButton toolStripButton1;
         private ColumnHeader CHSearchReport;
         private ToolStripMenuItem toolStripMenuItem74;
+        private ToolStripSeparator toolStripSeparator78;
+        private ToolStripMenuItem cloneEntryToolStripMenuItem;
+        private ToolStripMenuItem cloneAtParentLevelToolStripMenuItem;
+        private ToolStripMenuItem cloneToOtherLocationToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem75;
     }
 }

@@ -29,13 +29,6 @@ using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 using System.IO.Packaging;
 using PdfSharp.Drawing;
-using static DiaryJournal.Net.FrmJournal;
-//using MigraDoc.DocumentObjectModel.Tables;
-//using System.Windows;
-//using System.Windows.Controls;
-//using System.Windows;
-//using MigraDoc.DocumentObjectModel;
-//using MigraDoc.DocumentObjectModel.Tables;
 
 namespace DiaryJournal.Net
 {
@@ -4895,7 +4888,7 @@ namespace DiaryJournal.Net
             {
                 MessageBox.Show("error loading this entry's rtf. rtf corrupted and or contains invalid data.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
             resetRtb(rtbEntry, false, true);
 
             txtEntryTitle.Text = node.chapter.Title;
@@ -4922,7 +4915,25 @@ namespace DiaryJournal.Net
             if (node.chapter.caretSelectionLength != 0)
                 rtbEntry.SelectionLength = node.chapter.caretSelectionLength;
 
-            //rtbEntry.initDocumentTables();
+            // show caret position in the middle of richtextbox
+            if (rtbEntry.Selection != null)
+            {
+                if (rtbEntry.Selection.Start != null)
+                {
+                    if (rtbEntry.Selection.Start.Paragraph != null)
+                    {
+                        if (rtbEntry.Selection.Start.Paragraph.NextBlock != null)
+                        {
+                            Block selNextBlock = rtbEntry.Selection.Start.Paragraph.NextBlock;
+                            if (selNextBlock != null)
+                            {
+                                var characterRect = selNextBlock.ContentStart.GetCharacterRect(LogicalDirection.Forward);
+                                rtbEntry.ScrollToVerticalOffset(rtbEntry.VerticalOffset + characterRect.Top - rtbEntry.ActualHeight / 2d);
+                            }
+                        }
+                    }
+                }
+            }
 
             timerSetRtbEntry.Stop();
             timerSetRtbEntry.Enabled = false;
@@ -5285,6 +5296,133 @@ namespace DiaryJournal.Net
         private void toolStripMenuItem74_Click(object sender, EventArgs e)
         {
             formatting.cutParagraphRaw(rtbEntry);
+        }
+
+        private void cloneEntryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tvEntries.SelectedNode == null)
+                return;
+
+            cloneEntry(tvEntries.SelectedNode, -1);
+        }
+
+        public bool cloneEntry(TreeNode? treeNode, Int64 locationId)
+        {
+            if (treeNode == null) return false;
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen()) return false;
+
+            // firstly save entry
+            __saveEntry();
+
+            Int64 id = Int64.Parse(treeNode.Name);
+            myNode? node = entryMethods.FindNodeInList(ref allNodes, id);
+            if (node == null)
+                return false;
+
+            myNode? clone = entryMethods.DBCloneNode(ref cfg, ref allNodes, ref node, locationId, true, true);
+            if (clone == null)
+                return false;
+
+            // rebuild lineage
+            clone.lineage = entryMethods.findBottomToRootNodesRecursive(ref allNodes, ref clone, false, false, true, false);
+
+            // setup tree node
+
+            System.Drawing.Font? nodeFont = null; 
+            String path = String.Format(@"{0}", clone.chapter.Id);
+            String entryName = entryMethods.getEntryLabel(clone, false);
+            TreeNode newTreeNode = new TreeNode(entryName);
+            newTreeNode.Name = path;
+            entryMethods.loadNodeHighlight(newTreeNode, ref clone, ref nodeFont);
+
+            if (clone.chapter.parentId >= 1)
+            {
+                // add new clone node at it's parent's location
+                TreeNode? locationTreeNode = null;
+                __findTreeNode(clone.chapter.parentId, out locationTreeNode);
+                if (locationTreeNode == null) // no parent tree node found 
+                    return false;
+
+                locationTreeNode.Nodes.Add(newTreeNode);
+            }
+            else
+            {
+                // add into treeview root
+                __initTreeViewRootNode(newTreeNode);
+            }
+
+
+            // update
+            this.Invoke(updateTotalEntriesStatus, cfg.totalNodes);
+            tvEntries.SelectedNode = newTreeNode;
+            newTreeNode.ExpandAll();
+            newTreeNode.EnsureVisible();
+            return true;
+        }
+
+        private void cloneAtParentLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tvEntries.SelectedNode == null)
+                return;
+
+            Int64 id = Int64.Parse(tvEntries.SelectedNode.Name);
+            myNode? node = entryMethods.FindNodeInList(ref allNodes, id);
+            if (node == null)
+                return;
+
+            Int64 ancestorId = 0;
+            myNode? parentNode = null;
+            Int64 parentId = node.chapter.parentId;
+            if (parentId >= 1)
+            {
+                parentNode = entryMethods.FindNodeInList(ref allNodes, parentId);
+                if (parentNode == null)
+                    return;
+
+                // get id of parent of parent
+                ancestorId = parentNode.chapter.parentId;
+            }
+
+            // create clone node at parent's level
+            cloneEntry(tvEntries.SelectedNode, ancestorId);
+        }
+
+        private void cloneToOtherLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tvEntries.SelectedNode == null)
+                return;
+
+            FormTree form = new FormTree();
+            form.allNodes = allNodes;
+            if (form.ShowDialog() != DialogResult.OK)
+                return;
+
+            // resetup newly updated tree into the primary tree work list.
+            allNodes = form.allNodes;
+
+            TreeNode? targetTreeNode = form.tvEntries.SelectedNode;
+            if (targetTreeNode == null) // no node selected, abort.
+                return;
+
+            Int64 locationId = Int64.Parse(targetTreeNode.Name);
+
+            //Int64 id = Int64.Parse(tvEntries.SelectedNode.Name);
+            //myNode? node = entryMethods.FindNodeInList(ref allNodes, id);
+            //if (node == null)
+            //    return;
+
+            // create clone node at other location
+            cloneEntry(tvEntries.SelectedNode, locationId);
+        }
+
+        private void toolStripMenuItem75_Click(object sender, EventArgs e)
+        {
+            if (tvEntries.SelectedNode == null)
+                return;
+
+            // create clone node at root level
+            cloneEntry(tvEntries.SelectedNode, 0);
+
         }
     }
 }

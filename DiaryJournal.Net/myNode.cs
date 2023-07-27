@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using RtfPipe.Tokens;
 
 namespace DiaryJournal.Net
 {
@@ -26,6 +27,19 @@ namespace DiaryJournal.Net
         public SpecialNodeType specialNodeType { get; set; } = SpecialNodeType.None;
         public DomainType domainType { get; set; } = DomainType.Journal;
         public Int32 documentWidth { get; set; } = myConfig.defaultDocumentWidth;
+
+        public Chapter? ShallowCopy()
+        {
+            return (Chapter)this.MemberwiseClone();
+        }
+
+        public Chapter? DeepCopy()
+        {
+            Chapter? other = (Chapter?)this.MemberwiseClone();
+            //other.IdInfo = new IdInfo(IdInfo.IdNumber);
+            //other.Name = String.Copy(Name);
+            return other;
+        }
     }
 
     // note that we cannot store data blob with chapter in db, because when we load the chapter, entire blob is loaded as well, which is a bug.
@@ -93,6 +107,25 @@ namespace DiaryJournal.Net
             if (newChapter)
                 this.chapter = new Chapter();
         }
+
+        public myNode? ShallowCopy()
+        {
+            return (myNode)this.MemberwiseClone();
+        }
+
+        public myNode? DeepCopy()
+        {
+            myNode other = (myNode)this.MemberwiseClone();
+            
+            if (this.chapter != null)
+                other.chapter = this.chapter.DeepCopy();
+            
+            if (this.lineage != null)   
+                other.lineage = new List<myNode>(this.lineage.ToArray());
+
+            return other;
+        }
+
     }
 
     // system nodes collection
