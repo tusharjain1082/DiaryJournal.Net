@@ -22,7 +22,7 @@ DiaryJournal.Net is upgradable to .Net 7.0, so you can retarget entire DiaryJour
 if you discover a bug, defect, issue, please report it to me.
 
 # features
-2 types of database used. 1. single file based database (LiteDB). 2. open file system based database (my own code) in which the entire database is stored in open as ordinary files on windows and hard disk and we can read and manage any database file.
+2 types of database used. 1. single file based database (LiteDB). 2. open windows file system based database (this is all my own invented code) in which the entire database is stored in open as ordinary files on windows and hard disk and we can read and manage any database file.
 
 # screenshots
 ![Alt text](/screenshot7.png?raw=false "DiaryJournal.Net screenshot")
