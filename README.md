@@ -19,7 +19,7 @@ to download the binary program/software executable files or to download the sour
 
 DiaryJournal.Net is upgradable to .Net 7.0, so you can retarget entire DiaryJournal.Net Solution to .Net 7.0 and run DiaryJournal.Net in .Net 7.0 without issues.
 
-i have not created any auto-backup function, so you need to occasionaly save journal database backups in safe places so that if something goes wrong, you would still have a database copy in other place which you saved in the past. i recommed using open file system database in the DiaryJournal.Net application folder itself and then saving copies of entire application + database in a different safe and secure place in case you need it in time of emergency when something goes wrong.
+i have not created any auto-backup function, so you need to occasionaly save journal database copies in safe places so that if something goes wrong, you should still have a database copy in other place which you saved in the past. i recommed using open file system database in the DiaryJournal.Net application folder itself and then saving copies of entire application + database in a different safe place in case you need it in time of emergency when something goes wrong.
 
 if you discover a bug, defect, issue, please report it to me.
 
