@@ -1391,10 +1391,13 @@ namespace DiaryJournal.Net
 
         // clone the entry/node
         public static myNode? DBCloneNode(ref myConfig cfg, ref List<myNode> allNodes, ref myNode? node, Int64 locationId,
-            bool writeDBIndexingFile = true, bool checkpoint = true)
+            bool writeDBIndexingFile = true, bool checkpoint = true, bool buildLineageList = true)
         {
             if (node == null)
                 return null; // error node not found
+
+            if (node.chapter == null)
+                return null; // error node without chapter
 
             // validate
             if (node.chapter.specialNodeType == SpecialNodeType.SystemNode)
@@ -1414,12 +1417,32 @@ namespace DiaryJournal.Net
                 // add the clone into the global work list
                 allNodes.Add(clone);
                 cfg.totalNodes++;
+
+                // rebuild lineage if required by user
+                if (buildLineageList)
+                    clone.lineage = entryMethods.findBottomToRootNodesRecursive(ref allNodes, ref clone, false, false, true, false);
+
                 return clone;
             }
             else
             {
+                // error creating node return error
                 return null;
             }
+        }
+
+        // load new tree node with configuration
+        public static TreeNode? InitializeNewTreeNode(ref myNode? node)
+        {
+            if (node == null) return null;
+            if (node.chapter == null) return null;
+            System.Drawing.Font? nodeFont = null;
+            String path = String.Format(@"{0}", node.chapter.Id);
+            String entryName = getEntryLabel(node, false);
+            TreeNode newTreeNode = new TreeNode(entryName);
+            newTreeNode.Name = path;
+            loadNodeHighlight(newTreeNode, ref node, ref nodeFont);
+            return newTreeNode;                
         }
 
         // sets node state cursor position

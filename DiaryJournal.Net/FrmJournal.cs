@@ -174,7 +174,7 @@ namespace DiaryJournal.Net
             // setup treeview
             tvEntries.ImageList = new ImageList();
             tvEntries.ImageList.ImageSize = new Size(12, 12);
-            tvEntries.Font = new System.Drawing.Font("Arial", 8, FontStyle.Regular);
+            tvEntries.Font = cfg.tvEntriesFont;// new System.Drawing.Font("Arial", 8, FontStyle.Regular);
             tvEntries.ImageList.Images.Add(DiaryJournal.Net.Properties.Resources.text_file_7);
             tvEntries.ImageList.Images.Add(DiaryJournal.Net.Properties.Resources.closed_book_1);
             tvEntries.ImageList.Images.Add(DiaryJournal.Net.Properties.Resources.opened_book_1);
@@ -218,8 +218,15 @@ namespace DiaryJournal.Net
             updateSearchProgressPath = new __updateSearchProgressPathDelegate(__updateSearchProgressPath);
             gotoEntryByAttribute = new __gotoEntryByAttributeDelegate(__gotoEntryByAttribute);
 
-        // now load config file and setup
-        myConfigMethods.autoCreateLoadConfigFile(ref cfg, false);
+            // setup config ui
+            for (int itemHeight = 16; itemHeight <= 60; itemHeight++)
+                cmbCfgTVEntriesItemHeight.Items.Add(itemHeight);
+
+            for (int indent = 16; indent <= 60; indent++)
+                cmbCfgTVEntriesIndent.Items.Add(indent);
+
+            // now load config file and setup
+            myConfigMethods.autoCreateLoadConfigFile(ref cfg, false);
             applyConfig();
 
             splitContainerEntryTree.Cursor = Cursors.Default;
@@ -565,6 +572,35 @@ namespace DiaryJournal.Net
             radCfgLMNode.Checked = cfg.radCfgLMNode;
             radCfgLCNode.Checked = cfg.radCfgLCNode;
             radCfgTCNode.Checked = cfg.radCfgTCNode;
+
+            if (cfg.tvEntriesItemHeight <= 0) cfg.tvEntriesItemHeight = myConfig.default_tvEntriesItemHeight;
+            if (cfg.tvEntriesIndent <= 0) cfg.tvEntriesIndent = myConfig.default_tvEntriesIndent;
+
+            tvEntries.ItemHeight = cfg.tvEntriesItemHeight;
+            index = cmbCfgTVEntriesItemHeight.FindString(tvEntries.ItemHeight.ToString());
+            if (index >= 0)
+                cmbCfgTVEntriesItemHeight.SelectedIndex = index;
+            else
+                cmbCfgTVEntriesItemHeight.Text = index.ToString();
+
+            tvEntries.Indent = cfg.tvEntriesIndent;
+            index = cmbCfgTVEntriesItemHeight.FindString(tvEntries.Indent.ToString());
+            if (index >= 0)
+                cmbCfgTVEntriesIndent.SelectedIndex = index;
+            else
+                cmbCfgTVEntriesIndent.Text = index.ToString();
+
+            if (cfg.tvEntriesFont == null) cfg.tvEntriesFont = myConfig.default_tvEntriesFont;
+            tvEntries.Font = cfg.tvEntriesFont;
+            linkCfgTVEntriesFont.Text = commonMethods.FontToString(cfg.tvEntriesFont);
+
+            if (cfg.tvEntriesBackColor == Color.Empty) cfg.tvEntriesBackColor = myConfig.default_tvEntriesBackColor;
+            if (cfg.tvEntriesForeColor == Color.Empty) cfg.tvEntriesForeColor = myConfig.default_tvEntriesForeColor;
+            tvEntries.BackColor = cfg.tvEntriesBackColor;
+            tvEntries.ForeColor = cfg.tvEntriesForeColor;
+            linkCfgTVEntriesFont.BackColor = cfg.tvEntriesBackColor;
+            linkCfgTVEntriesFont.ForeColor = cfg.tvEntriesForeColor;
+
         }
 
         private void LvTrashCan_DoubleClick(object? sender, EventArgs e)
@@ -1176,7 +1212,7 @@ namespace DiaryJournal.Net
                     entryName = entryMethods.getEntryLabel(nodeEntry, false);
                     newNode = tvEntries.Nodes.Add(path, entryName);
                     newNode.Name = path;
-                    loadNodeHighlight(newNode, ref nodeEntry);
+                    loadNodeHighlight(cfg, newNode, ref nodeEntry);
                     this.Invoke(setCalendarHighlightEntry, nodeEntry.chapter.chapterDateTime);
                 }
             }
@@ -1195,7 +1231,7 @@ namespace DiaryJournal.Net
                         entryName = entryMethods.getEntryLabel(nodeEntry, false);
                         newNode = parentNodes[0].Nodes.Add(path, entryName);
                         newNode.Name = path;
-                        loadNodeHighlight(newNode, ref nodeEntry);
+                        loadNodeHighlight(cfg, newNode, ref nodeEntry);
                         this.Invoke(setCalendarHighlightEntry, nodeEntry.chapter.chapterDateTime);
                     }
                 }
@@ -1861,6 +1897,36 @@ namespace DiaryJournal.Net
             cfg.radCfgLMNode = radCfgLMNode.Checked;
             cfg.radCfgLCNode = radCfgLCNode.Checked;
             cfg.radCfgTCNode = radCfgTCNode.Checked;
+
+            int tvEntriesItemHeight = 16;
+            if (!int.TryParse(cmbCfgTVEntriesItemHeight.Text, out tvEntriesItemHeight))
+            {
+                MessageBox.Show(err, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            cfg.tvEntriesItemHeight = tvEntriesItemHeight;
+            tvEntries.ItemHeight = tvEntriesItemHeight;
+
+            int tvEntriesIndent = 20;
+            if (!int.TryParse(cmbCfgTVEntriesIndent.Text, out tvEntriesIndent))
+            {
+                MessageBox.Show(err, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            cfg.tvEntriesIndent = tvEntriesIndent;
+            tvEntries.Indent = tvEntriesIndent;
+
+            System.Drawing.Font tvEntriesFont = commonMethods.StringToFont(linkCfgTVEntriesFont.Text);
+            if (tvEntriesFont == null) tvEntriesFont = myConfig.default_tvEntriesFont;
+            cfg.tvEntriesFont = tvEntriesFont;
+            tvEntries.Font = tvEntriesFont;
+
+            System.Drawing.Color tvEntriesBackColor = linkCfgTVEntriesFont.BackColor;
+            System.Drawing.Color tvEntriesForeColor = linkCfgTVEntriesFont.ForeColor;
+            cfg.tvEntriesBackColor = tvEntriesBackColor;
+            cfg.tvEntriesForeColor = tvEntriesForeColor;
+            tvEntries.BackColor = tvEntriesBackColor;
+            tvEntries.ForeColor = tvEntriesForeColor;
 
             myConfigMethods.saveConfigFile(myConfigMethods.getConfigPathFile(), ref cfg, false);
 
@@ -2565,7 +2631,7 @@ namespace DiaryJournal.Net
             CustomFontDialog fontDialog = new CustomFontDialog();
 
             if (treeNode.NodeFont == null)
-                treeNode.NodeFont = new System.Drawing.Font("Arial", 8);
+                treeNode.NodeFont = cfg.tvEntriesFont;//new System.Drawing.Font("Arial", 8);
 
             fontDialog.font = treeNode.NodeFont;
             fontDialog.fontColor = treeNode.ForeColor;
@@ -2579,14 +2645,14 @@ namespace DiaryJournal.Net
                 return;
 
             entryMethods.setEntryHighlightFontComplete(cfg, ref node, fontDialog.fontColor, fontDialog.fontBackColor, fontDialog.font);
-            loadNodeHighlight(treeNode, ref node);
+            loadNodeHighlight(cfg, treeNode, ref node);
         }
 
         // this method sets the highlights and font for a given tree node
-        public static void loadNodeHighlight(TreeNode treeNode, ref myNode? node)
+        public static void loadNodeHighlight(myConfig? cfg, TreeNode treeNode, ref myNode? node)
         {
             TreeNode tmpNode = new TreeNode();
-            tmpNode.NodeFont = new System.Drawing.Font("Arial", 8, FontStyle.Regular);
+            tmpNode.NodeFont = cfg.tvEntriesFont;// new System.Drawing.Font("Arial", 8, FontStyle.Regular);
 
             if (node.chapter.HLFont.Length >= 1)
                 treeNode.NodeFont = commonMethods.StringToFont(node.chapter.HLFont);
@@ -2639,7 +2705,7 @@ namespace DiaryJournal.Net
             fontDialog.fontColor = treeNode.ForeColor;
             fontDialog.fontBackColor = treeNode.BackColor;
             if (treeNode.NodeFont == null)
-                treeNode.NodeFont = new System.Drawing.Font("Arial", 8);
+                treeNode.NodeFont = cfg.tvEntriesFont;// new System.Drawing.Font("Arial", 8);
             fontDialog.size = (int)treeNode.NodeFont.Size;
             fontDialog.bold = treeNode.NodeFont.Bold;
             fontDialog.italic = treeNode.NodeFont.Italic;
@@ -3769,7 +3835,7 @@ namespace DiaryJournal.Net
                 return;
 
             entryMethods.setEntryClearHighlight(cfg, ref node);
-            loadNodeHighlight(treeNode, ref node);
+            loadNodeHighlight(cfg, treeNode, ref node);
         }
 
         private void toolStripMenuItem26_Click(object sender, EventArgs e)
@@ -5319,22 +5385,12 @@ namespace DiaryJournal.Net
             if (node == null)
                 return false;
 
-            myNode? clone = entryMethods.DBCloneNode(ref cfg, ref allNodes, ref node, locationId, true, true);
+            myNode? clone = entryMethods.DBCloneNode(ref cfg, ref allNodes, ref node, locationId, true, true, true);
             if (clone == null)
                 return false;
 
-            // rebuild lineage
-            clone.lineage = entryMethods.findBottomToRootNodesRecursive(ref allNodes, ref clone, false, false, true, false);
-
             // setup tree node
-
-            System.Drawing.Font? nodeFont = null; 
-            String path = String.Format(@"{0}", clone.chapter.Id);
-            String entryName = entryMethods.getEntryLabel(clone, false);
-            TreeNode newTreeNode = new TreeNode(entryName);
-            newTreeNode.Name = path;
-            entryMethods.loadNodeHighlight(newTreeNode, ref clone, ref nodeFont);
-
+            TreeNode? newTreeNode = entryMethods.InitializeNewTreeNode(ref clone);
             if (clone.chapter.parentId >= 1)
             {
                 // add new clone node at it's parent's location
@@ -5350,7 +5406,6 @@ namespace DiaryJournal.Net
                 // add into treeview root
                 __initTreeViewRootNode(newTreeNode);
             }
-
 
             // update
             this.Invoke(updateTotalEntriesStatus, cfg.totalNodes);
@@ -5422,6 +5477,44 @@ namespace DiaryJournal.Net
 
             // create clone node at root level
             cloneEntry(tvEntries.SelectedNode, 0);
+
+        }
+
+        private void linkCfgTVEntriesFont_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CustomFontDialog fontDialog = new CustomFontDialog();
+            System.Drawing.Font font = commonMethods.StringToFont(linkCfgTVEntriesFont.Text);
+            fontDialog.font = font;
+            fontDialog.size = (int)font.Size;
+            fontDialog.bold = font.Bold;
+            fontDialog.italic = font.Italic;
+            fontDialog.underline = font.Underline;
+            fontDialog.strikeout = font.Strikeout;
+            fontDialog.fontBackColor = linkCfgTVEntriesFont.BackColor;
+            fontDialog.fontColor = linkCfgTVEntriesFont.ForeColor;
+
+            if (fontDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            Color backColor = Color.Empty;
+            Color foreColor = Color.Empty;
+            font = fontDialog.getNewFontComplete(out backColor, out foreColor);
+            if (backColor == Color.Empty) backColor = myConfig.default_tvEntriesBackColor;
+            if (foreColor == Color.Empty) foreColor = myConfig.default_tvEntriesForeColor;
+            linkCfgTVEntriesFont.Text = commonMethods.FontToString(font);
+            linkCfgTVEntriesFont.BackColor = backColor;
+            linkCfgTVEntriesFont.ForeColor = foreColor;
+
+        }
+
+        private void buttonResetConfig1_Click(object sender, EventArgs e)
+        {
+            cmbCfgRtbViewEntryRM.SelectedIndex = cmbCfgRtbViewEntryRM.FindString(myConfig.default_cmbCfgRtbViewEntryRMValue.ToString()); 
+            cmbCfgTVEntriesItemHeight.SelectedIndex = cmbCfgTVEntriesItemHeight.FindString(myConfig.default_tvEntriesItemHeight.ToString());
+            cmbCfgTVEntriesIndent.SelectedIndex = cmbCfgTVEntriesIndent.FindString(myConfig.default_tvEntriesIndent.ToString());
+            linkCfgTVEntriesFont.Text = commonMethods.FontToString(myConfig.default_tvEntriesFont);
+            linkCfgTVEntriesFont.BackColor = myConfig.default_tvEntriesBackColor;
+            linkCfgTVEntriesFont.ForeColor = myConfig.default_tvEntriesForeColor;
 
         }
     }

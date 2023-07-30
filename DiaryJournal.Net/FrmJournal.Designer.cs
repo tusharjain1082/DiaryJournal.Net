@@ -246,6 +246,14 @@
             this.tabPageConfig = new System.Windows.Forms.TabPage();
             this.tabControlConfig = new System.Windows.Forms.TabControl();
             this.tabPageConfig1 = new System.Windows.Forms.TabPage();
+            this.buttonResetConfig1 = new System.Windows.Forms.Button();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.linkCfgTVEntriesFont = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cmbCfgTVEntriesIndent = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbCfgTVEntriesItemHeight = new System.Windows.Forms.ComboBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.radCfgTCNode = new System.Windows.Forms.RadioButton();
             this.radCfgLCNode = new System.Windows.Forms.RadioButton();
@@ -413,6 +421,7 @@
             this.toolStripSeparator78 = new System.Windows.Forms.ToolStripSeparator();
             this.cloneEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneAtParentLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem75 = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneToOtherLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -442,6 +451,7 @@
             this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
             this.decreaseFontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseFontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.formatToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -501,7 +511,6 @@
             this.pdRtbEntry = new System.Drawing.Printing.PrintDocument();
             this.ppDlgRtbEntry = new System.Windows.Forms.PrintPreviewDialog();
             this.timerSetRtbEntry = new System.Windows.Forms.Timer(this.components);
-            this.toolStripMenuItem75 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).BeginInit();
             this.splitContainerH.Panel1.SuspendLayout();
             this.splitContainerH.Panel2.SuspendLayout();
@@ -558,6 +567,7 @@
             this.tabPageConfig.SuspendLayout();
             this.tabControlConfig.SuspendLayout();
             this.tabPageConfig1.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -2642,6 +2652,8 @@
             // 
             // tabPageConfig1
             // 
+            this.tabPageConfig1.Controls.Add(this.buttonResetConfig1);
+            this.tabPageConfig1.Controls.Add(this.groupBox13);
             this.tabPageConfig1.Controls.Add(this.groupBox10);
             this.tabPageConfig1.Controls.Add(this.groupBox6);
             this.tabPageConfig1.Controls.Add(this.groupBox1);
@@ -2656,6 +2668,85 @@
             this.tabPageConfig1.TabIndex = 0;
             this.tabPageConfig1.Text = "configuration 1";
             this.tabPageConfig1.UseVisualStyleBackColor = true;
+            // 
+            // buttonResetConfig1
+            // 
+            this.buttonResetConfig1.Location = new System.Drawing.Point(904, 47);
+            this.buttonResetConfig1.Name = "buttonResetConfig1";
+            this.buttonResetConfig1.Size = new System.Drawing.Size(150, 30);
+            this.buttonResetConfig1.TabIndex = 8;
+            this.buttonResetConfig1.Text = "reset";
+            this.buttonResetConfig1.UseVisualStyleBackColor = true;
+            this.buttonResetConfig1.Click += new System.EventHandler(this.buttonResetConfig1_Click);
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label8);
+            this.groupBox13.Controls.Add(this.linkCfgTVEntriesFont);
+            this.groupBox13.Controls.Add(this.label7);
+            this.groupBox13.Controls.Add(this.cmbCfgTVEntriesIndent);
+            this.groupBox13.Controls.Add(this.label1);
+            this.groupBox13.Controls.Add(this.cmbCfgTVEntriesItemHeight);
+            this.groupBox13.Location = new System.Drawing.Point(504, 202);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(482, 150);
+            this.groupBox13.TabIndex = 7;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "configure primary journal tree view properties";
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(6, 90);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 57);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "font, style, and colors:";
+            // 
+            // linkCfgTVEntriesFont
+            // 
+            this.linkCfgTVEntriesFont.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.linkCfgTVEntriesFont.Location = new System.Drawing.Point(88, 90);
+            this.linkCfgTVEntriesFont.Name = "linkCfgTVEntriesFont";
+            this.linkCfgTVEntriesFont.Size = new System.Drawing.Size(388, 57);
+            this.linkCfgTVEntriesFont.TabIndex = 9;
+            this.linkCfgTVEntriesFont.TabStop = true;
+            this.linkCfgTVEntriesFont.Text = "n/a";
+            this.linkCfgTVEntriesFont.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCfgTVEntriesFont_LinkClicked);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 58);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 20);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "indent:";
+            // 
+            // cmbCfgTVEntriesIndent
+            // 
+            this.cmbCfgTVEntriesIndent.FormattingEnabled = true;
+            this.cmbCfgTVEntriesIndent.Location = new System.Drawing.Point(194, 55);
+            this.cmbCfgTVEntriesIndent.Name = "cmbCfgTVEntriesIndent";
+            this.cmbCfgTVEntriesIndent.Size = new System.Drawing.Size(150, 28);
+            this.cmbCfgTVEntriesIndent.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 20);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "item height:";
+            // 
+            // cmbCfgTVEntriesItemHeight
+            // 
+            this.cmbCfgTVEntriesItemHeight.FormattingEnabled = true;
+            this.cmbCfgTVEntriesItemHeight.Location = new System.Drawing.Point(194, 21);
+            this.cmbCfgTVEntriesItemHeight.Name = "cmbCfgTVEntriesItemHeight";
+            this.cmbCfgTVEntriesItemHeight.Size = new System.Drawing.Size(150, 28);
+            this.cmbCfgTVEntriesItemHeight.TabIndex = 5;
             // 
             // groupBox10
             // 
@@ -4055,6 +4146,13 @@
             this.cloneAtParentLevelToolStripMenuItem.Text = "clone at parent level";
             this.cloneAtParentLevelToolStripMenuItem.Click += new System.EventHandler(this.cloneAtParentLevelToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem75
+            // 
+            this.toolStripMenuItem75.Name = "toolStripMenuItem75";
+            this.toolStripMenuItem75.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItem75.Text = "clone at root";
+            this.toolStripMenuItem75.Click += new System.EventHandler(this.toolStripMenuItem75_Click);
+            // 
             // cloneToOtherLocationToolStripMenuItem
             // 
             this.cloneToOtherLocationToolStripMenuItem.Name = "cloneToOtherLocationToolStripMenuItem";
@@ -4167,7 +4265,8 @@
             this.toolStripMenuItem30,
             this.toolStripSeparator41,
             this.decreaseFontSizeToolStripMenuItem,
-            this.increaseFontSizeToolStripMenuItem});
+            this.increaseFontSizeToolStripMenuItem,
+            this.formatToolStripMenuItem1});
             this.formatToolStripMenuItem.Name = "formatToolStripMenuItem";
             this.formatToolStripMenuItem.Size = new System.Drawing.Size(57, 23);
             this.formatToolStripMenuItem.Text = "For&mat";
@@ -4284,6 +4383,12 @@
             this.increaseFontSizeToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
             this.increaseFontSizeToolStripMenuItem.Text = "increase font size";
             this.increaseFontSizeToolStripMenuItem.Click += new System.EventHandler(this.increaseFontSizeToolStripMenuItem_Click);
+            // 
+            // formatToolStripMenuItem1
+            // 
+            this.formatToolStripMenuItem1.Name = "formatToolStripMenuItem1";
+            this.formatToolStripMenuItem1.Size = new System.Drawing.Size(300, 22);
+            this.formatToolStripMenuItem1.Text = "For&mat";
             // 
             // tableToolStripMenuItem
             // 
@@ -4703,13 +4808,6 @@
             this.timerSetRtbEntry.Interval = 10;
             this.timerSetRtbEntry.Tick += new System.EventHandler(this.timerSetRtbEntry_Tick);
             // 
-            // toolStripMenuItem75
-            // 
-            this.toolStripMenuItem75.Name = "toolStripMenuItem75";
-            this.toolStripMenuItem75.Size = new System.Drawing.Size(256, 22);
-            this.toolStripMenuItem75.Text = "clone at root";
-            this.toolStripMenuItem75.Click += new System.EventHandler(this.toolStripMenuItem75_Click);
-            // 
             // FrmJournal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -4800,6 +4898,8 @@
             this.tabControlConfig.ResumeLayout(false);
             this.tabPageConfig1.ResumeLayout(false);
             this.tabPageConfig1.PerformLayout();
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -5296,5 +5396,14 @@
         private ToolStripMenuItem cloneAtParentLevelToolStripMenuItem;
         private ToolStripMenuItem cloneToOtherLocationToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem75;
+        private GroupBox groupBox13;
+        private Label label1;
+        private ComboBox cmbCfgTVEntriesItemHeight;
+        private Label label7;
+        private ComboBox cmbCfgTVEntriesIndent;
+        private Label label8;
+        private LinkLabel linkCfgTVEntriesFont;
+        private ToolStripMenuItem formatToolStripMenuItem1;
+        private Button buttonResetConfig1;
     }
 }

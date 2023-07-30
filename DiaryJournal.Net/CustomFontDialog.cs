@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RtfPipe.Tokens;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -216,6 +217,23 @@ namespace DiaryJournal.Net
             txtFont.Text = item.Text;
 
             UpdateSampleText();
+        }
+
+        public Font? getNewFontComplete(out Color outBackColor, out Color outForeColor)
+        {
+            if (font == null)
+            {
+                outBackColor = outForeColor = Color.Empty;
+                return null;
+            }
+
+            FontStyle style = bold ? FontStyle.Bold : FontStyle.Regular;
+            if (italic) style |= FontStyle.Italic;
+            if (strikeout) style |= FontStyle.Strikeout;
+            if (underline) style |= FontStyle.Underline;
+            outBackColor = fontBackColor;
+            outForeColor = fontColor;
+            return new Font(font.FontFamily.Name, size, style);
         }
     }
 }

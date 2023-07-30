@@ -278,8 +278,11 @@ namespace DiaryJournal.Net
             return font.FontFamily.Name + ":" + font.Size + ":" + (int)font.Style;
         }
 
-        public static Font StringToFont(string font)
+        public static Font? StringToFont(string font)
         {
+            if (font == "") return null;
+            if (font.Length <= 0) return null;
+
             string[] parts = font.Split(':');
             if (parts.Length != 3)
                 throw new ArgumentException("Not a valid font string", "font");

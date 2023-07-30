@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using SharpConfig;
 using System.IO;
+using RtfPipe.Model;
 
 namespace DiaryJournal.Net
 {
@@ -28,10 +29,22 @@ namespace DiaryJournal.Net
 
         public bool chkCfgAutoLoadCreateDefaultDB = true;
         public int cmbCfgRtbViewEntryRMValue = 800;//1500;
+        public static int default_cmbCfgRtbViewEntryRMValue = 800;//1500;
         public bool chkCfgUseWinUserDocFolder = true;
         public String configFilePath = "";
 
         public const int defaultDocumentWidth = 800;
+
+        public int tvEntriesItemHeight = 20;
+        public static int default_tvEntriesItemHeight = 20;
+        public int tvEntriesIndent = 20;
+        public static int default_tvEntriesIndent = 20;
+        public Font? tvEntriesFont = new System.Drawing.Font("Arial", 11, FontStyle.Regular);
+        public static Font default_tvEntriesFont = new System.Drawing.Font("Arial", 11, FontStyle.Regular);
+        public Color tvEntriesBackColor = Color.White;
+        public Color tvEntriesForeColor = Color.Black;
+        public static Color default_tvEntriesBackColor = Color.White;
+        public static Color default_tvEntriesForeColor = Color.Black;
 
         public void close()
         {
@@ -71,8 +84,16 @@ namespace DiaryJournal.Net
             try
             {
                 // Create the configuration.
-                Configuration myConfig = new Configuration();
+                Configuration config = new Configuration();
                 Section config1V1000 = new Section("Config1Version1.0.0.0");
+
+                // prepare default config wherever required
+                if (cfg.tvEntriesItemHeight <= 0) cfg.tvEntriesItemHeight = myConfig.default_tvEntriesItemHeight;
+                if (cfg.tvEntriesIndent <= 0) cfg.tvEntriesIndent = myConfig.default_tvEntriesIndent;
+                if (cfg.tvEntriesFont == null) cfg.tvEntriesFont = myConfig.default_tvEntriesFont;
+                if (cfg.tvEntriesBackColor == Color.Empty) cfg.tvEntriesBackColor = myConfig.default_tvEntriesBackColor;
+                if (cfg.tvEntriesForeColor == Color.Empty) cfg.tvEntriesForeColor = myConfig.default_tvEntriesForeColor;
+
                 config1V1000.Add(new Setting("chkCfgAutoLoadCreateDefaultDB", cfg.chkCfgAutoLoadCreateDefaultDB));
                 config1V1000.Add(new Setting("cmbCfgRtbViewEntryRMValue", cfg.cmbCfgRtbViewEntryRMValue));
                 config1V1000.Add(new Setting("chkCfgUseWinUserDocFolder", cfg.chkCfgUseWinUserDocFolder));
@@ -81,9 +102,14 @@ namespace DiaryJournal.Net
                 config1V1000.Add(new Setting("radCfgLMNode", cfg.radCfgLMNode));
                 config1V1000.Add(new Setting("radCfgLCNode", cfg.radCfgLCNode));
                 config1V1000.Add(new Setting("radCfgTCNode", cfg.radCfgTCNode));
+                config1V1000.Add(new Setting("tvEntriesItemHeight", cfg.tvEntriesItemHeight));
+                config1V1000.Add(new Setting("tvEntriesIndent", cfg.tvEntriesIndent));
+                config1V1000.Add(new Setting("tvEntriesFont", commonMethods.FontToString(cfg.tvEntriesFont)));
+                config1V1000.Add(new Setting("tvEntriesBackColor", commonMethods.ColorToString(cfg.tvEntriesBackColor)));
+                config1V1000.Add(new Setting("tvEntriesForeColor", commonMethods.ColorToString(cfg.tvEntriesForeColor)));
 
-                myConfig.Add(config1V1000);
-                myConfig.SaveToFile(file);
+                config.Add(config1V1000);
+                config.SaveToFile(file);
                 cfg.configFilePath = file;
                 return true;
             }
@@ -100,11 +126,11 @@ namespace DiaryJournal.Net
             try
             {
                 // Create the configuration.
-                Configuration myConfig = Configuration.LoadFromFile(file);
-                if (myConfig == null)
+                Configuration config = Configuration.LoadFromFile(file);
+                if (config == null)
                     return false;
 
-                Section config1V1000 = myConfig["Config1Version1.0.0.0"];
+                Section config1V1000 = config["Config1Version1.0.0.0"];
                 cfg.chkCfgAutoLoadCreateDefaultDB = config1V1000["chkCfgAutoLoadCreateDefaultDB"].BoolValue;
                 cfg.cmbCfgRtbViewEntryRMValue = config1V1000["cmbCfgRtbViewEntryRMValue"].IntValue;
                 cfg.chkCfgUseWinUserDocFolder = config1V1000["chkCfgUseWinUserDocFolder"].BoolValue;
@@ -113,7 +139,20 @@ namespace DiaryJournal.Net
                 cfg.radCfgLMNode = config1V1000["radCfgLMNode"].BoolValue;
                 cfg.radCfgLCNode = config1V1000["radCfgLCNode"].BoolValue;
                 cfg.radCfgTCNode = config1V1000["radCfgTCNode"].BoolValue;
+                cfg.tvEntriesItemHeight = config1V1000["tvEntriesItemHeight"].IntValue;
+                cfg.tvEntriesIndent = config1V1000["tvEntriesIndent"].IntValue;
+                cfg.tvEntriesFont =  commonMethods.StringToFont(config1V1000["tvEntriesFont"].StringValue);
+                cfg.tvEntriesBackColor = commonMethods.StringToColor(config1V1000["tvEntriesBackColor"].StringValue);
+                cfg.tvEntriesForeColor = commonMethods.StringToColor(config1V1000["tvEntriesForeColor"].StringValue);
                 cfg.configFilePath = file;
+
+                if (cfg.tvEntriesItemHeight <= 0) cfg.tvEntriesItemHeight = myConfig.default_tvEntriesItemHeight;
+                if (cfg.tvEntriesIndent <= 0) cfg.tvEntriesIndent = myConfig.default_tvEntriesIndent;
+                if (cfg.tvEntriesFont == null) cfg.tvEntriesFont = myConfig.default_tvEntriesFont;
+                if (cfg.tvEntriesBackColor == Color.Empty) cfg.tvEntriesBackColor = myConfig.default_tvEntriesBackColor;
+                if (cfg.tvEntriesForeColor == Color.Empty) cfg.tvEntriesForeColor = myConfig.default_tvEntriesForeColor;
+
+
                 return true;
             }
             catch (Exception)
