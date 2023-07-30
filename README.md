@@ -19,12 +19,13 @@ to download the binary program/software executable files or to download the sour
 
 DiaryJournal.Net is upgradable to .Net 7.0, so you can retarget entire DiaryJournal.Net Solution to .Net 7.0 and run DiaryJournal.Net in .Net 7.0 without issues.
 
-i have not created any auto-backup function, so you need to occasionaly save copies of journal database + all mandatory database config files in safe places so that if something goes wrong, you should still have a database copy in other place which you saved in the past. i recommed using open file system database in the DiaryJournal.Net application folder itself and then saving copies of entire application + database in a different safe place in case you need it in time of emergency when something goes wrong.
-
 if you discover a bug, defect, issue, please report it to me.
 
 # features
 2 types of database used. 1. single file based database (LiteDB). 2. open windows file system based database (this is all my own invented code) in which the entire database is stored in open as ordinary files on windows and hard disk and we can read and manage any database file.
+
+# guidance on using DiaryJournal.Net
+you should frequently save copies of your database and all it's mandatory config files in different safe locations such as a safe external hard disk, usb pen drive, dvd, cd, online internet cloud, and any other safe location. this is to ensure you always have a latest saved backup copy of your journal database and all it's mandatory config files in case of anything goes wrong such as hardware or software or database failure or corruption. i do the same. i frequently save copies of backups of entire software and database and all mandatory files in multiple different safe places. the latest backup copy you save, everything upto the latest backup copy should be available in an emergency situation when you corrupted or lost your DiaryJournal.Net database.
 
 # screenshots
 ![Alt text](/screenshot7.png?raw=false "DiaryJournal.Net screenshot")
