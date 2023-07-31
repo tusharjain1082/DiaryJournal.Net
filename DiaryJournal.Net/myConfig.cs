@@ -39,8 +39,8 @@ namespace DiaryJournal.Net
         public static int default_tvEntriesItemHeight = 20;
         public int tvEntriesIndent = 20;
         public static int default_tvEntriesIndent = 20;
-        public Font? tvEntriesFont = new System.Drawing.Font("Arial", 11, FontStyle.Regular);
-        public static Font default_tvEntriesFont = new System.Drawing.Font("Arial", 11, FontStyle.Regular);
+        public Font? tvEntriesFont = new System.Drawing.Font("Arial", 8, FontStyle.Regular);
+        public static Font default_tvEntriesFont = new System.Drawing.Font("Arial", 8, FontStyle.Regular);
         public Color tvEntriesBackColor = Color.White;
         public Color tvEntriesForeColor = Color.Black;
         public static Color default_tvEntriesBackColor = Color.White;

@@ -200,41 +200,42 @@ namespace DiaryJournal.Net
             switch (node.chapter.nodeType)
             {
                 case NodeType.JournalNode:
-                    entryName = String.Format(@"{0}", mySystemNodes.JournalSystemNodeName);
+                    entryName = String.Format(@"{0}:(ID {1})", mySystemNodes.JournalSystemNodeName, node.chapter.Id.ToString());
                     break;
 
                 case NodeType.LibraryNode:
-                    entryName = String.Format(@"{0}", mySystemNodes.LibrarySystemNodeName);
+                    entryName = String.Format(@"{0}:(ID {1})", mySystemNodes.LibrarySystemNodeName, node.chapter.Id.ToString());
                     break;
 
                 case NodeType.LabelNode:
-                    entryName = String.Format(@"{0}", node.chapter.Title);
+                    entryName = String.Format(@"{0}:(ID {1})", node.chapter.Title, node.chapter.Id.ToString());
                     break;
 
                 case NodeType.NonCalendarEntryNode:
-                    entryName = String.Format(@"{0}", node.chapter.Title);
+                    entryName = String.Format(@"{0}:(ID {1})", node.chapter.Title, node.chapter.Id.ToString());
                     break;
 
                 case NodeType.SetNode:
-                    entryName = String.Format(@"CloneSet:({0}):({1}):({2}:{3}:{4}:{5})", node.chapter.Title,
+                    entryName = String.Format(@"CloneSet:({0}):({1}):({2}:{3}:{4}:{5}):(ID {6})", node.chapter.Title,
                         node.chapter.chapterDateTime.ToString("dd-MM-yyyy"),
                         node.chapter.chapterDateTime.Hour, node.chapter.chapterDateTime.Minute,
                         node.chapter.chapterDateTime.Second,
-                        node.chapter.chapterDateTime.Millisecond);
+                        node.chapter.chapterDateTime.Millisecond,
+                        node.chapter.Id.ToString());
                     break;
 
                 case NodeType.YearNode:
-                    entryName = node.chapter.chapterDateTime.ToString("yyyy");
+                    entryName = String.Format("{0}:(ID {1})", node.chapter.chapterDateTime.ToString("yyyy"), node.chapter.Id.ToString());
                     break;
 
                 case NodeType.MonthNode:
-                    entryName = node.chapter.chapterDateTime.ToString("MMMM");
+                    entryName = String.Format("{0}:(ID {1})", node.chapter.chapterDateTime.ToString("MMMM"), node.chapter.Id.ToString());
                     break;
 
                 case NodeType.EntryNode:
-                    entryName = String.Format(@"({0}):({1}:{2}:{3}:{4}):({5})", node.chapter.chapterDateTime.ToString("dd-MM-yyyy"),
+                    entryName = String.Format(@"({0}):({1}:{2}:{3}:{4}):({5}):(ID {6})", node.chapter.chapterDateTime.ToString("dd-MM-yyyy"),
                         node.chapter.chapterDateTime.Hour, node.chapter.chapterDateTime.Minute,
-                        node.chapter.chapterDateTime.Second, node.chapter.chapterDateTime.Millisecond, node.chapter.Title);
+                        node.chapter.chapterDateTime.Second, node.chapter.chapterDateTime.Millisecond, node.chapter.Title, node.chapter.Id.ToString());
                     break;
 
                 default:
