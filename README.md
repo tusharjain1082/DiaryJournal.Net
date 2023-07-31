@@ -27,6 +27,9 @@ if you discover a bug, defect, issue, please report it to me.
 # guidance on using DiaryJournal.Net
 you should frequently save copies of your database and all it's mandatory config files in different safe locations such as a safe external hard disk, usb pen drive, dvd, cd, online internet cloud, and any other safe location. this is to ensure you always have a latest saved backup copy of your journal database and all it's mandatory config files in case of anything goes wrong such as hardware or software or database failure or corruption. i do the same. i frequently save copies of backups of entire software and database and all mandatory files in multiple different safe places. the latest backup copy you save, everything upto the latest backup copy should be available in an emergency situation when you corrupted or lost your DiaryJournal.Net database.
 
+# compiling the solution
+to compile the solution you require Visual Studio 2022 and latest .Net 6.0 SDK. choose "Release" as entire solution's configuration, and "x64" as solution's platform, then rebuild the entire solution in a single go to successfully build the solution.
+
 # screenshots
 ![Alt text](/screenshot7.png?raw=false "DiaryJournal.Net screenshot")
 
