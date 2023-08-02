@@ -126,7 +126,10 @@ namespace DiaryJournal.Net
                 id++;
             }    
 
-            if (id == 0)
+            // original - tushar
+            //if (id == 0)
+            // new =
+            if (ctx.dbSections.sections.Count == 0)
             {
                 // no sections found, so create the initial first one with index 1
                 autoFindCreateAvailableSection(ctx);

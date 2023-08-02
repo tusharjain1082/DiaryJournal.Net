@@ -498,6 +498,12 @@ namespace DiaryJournal.Net
             bool newID, bool writeDBIndexingFile, bool checkpoint)
         {
             bool result = false;
+
+            // auto initialize node font and colors if not already initialized.
+            if (node.chapter.HLFont == "") node.chapter.HLFont = commonMethods.FontToString(cfg.tvEntriesFont);
+            if (node.chapter.HLBackColor == "") node.chapter.HLBackColor = commonMethods.ColorToString(cfg.tvEntriesBackColor);
+            if (node.chapter.HLFontColor == "") node.chapter.HLFontColor = commonMethods.ColorToString(cfg.tvEntriesForeColor);
+
             if (cfg.radCfgUseOpenFileSystemDB)
                 result = OpenFileSystemDB.createNode(cfg.ctx1, ref node, rtf, resetCD, resetMD, resetDD, newID);
             else
@@ -2471,7 +2477,7 @@ namespace DiaryJournal.Net
         }
 
         // this function customizes the nodes or resets them to default properties
-        public static bool DBCustomizeTreeNodesRecursive(ref myConfig? cfg, ref List<myNode> nodes, bool set, bool setFont, bool setFontSize, bool setItalics, bool setBold, bool setStrikeout,
+        public static bool DBCustomizeTreeNodesRecursive(ref myConfig cfg, ref List<myNode> nodes, bool set, bool setFont, bool setFontSize, bool setItalics, bool setBold, bool setStrikeout,
             bool setUnderline, bool setBackColor, bool setForeColor, Color backColor, Color foreColor, String fontName = "", float size = -1)
         {
             if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())

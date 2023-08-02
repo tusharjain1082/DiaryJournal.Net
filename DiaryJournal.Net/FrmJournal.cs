@@ -45,7 +45,7 @@ namespace DiaryJournal.Net
         bool properExit = false;
         public List<myNode> allNodes = new List<myNode>();
         PrintRichTextBoxEx printerRtb = new PrintRichTextBoxEx();
-  //      CoreManaged.CoreManaged cppCore = new CoreManaged.CoreManaged();
+        //      CoreManaged.CoreManaged cppCore = new CoreManaged.CoreManaged();
 
         public myConfig cfg = new myConfig();
 
@@ -107,9 +107,9 @@ namespace DiaryJournal.Net
         public __showFormDelegate showForm;
         public delegate void __updateSearchProgressPathDelegate(String path);
         public __updateSearchProgressPathDelegate updateSearchProgressPath;
-        public delegate void __gotoEntryByAttributeDelegate(bool lm, bool lc, bool tc);
+        public delegate void __gotoEntryByAttributeDelegate(bool lm, bool lc, bool tc, bool byID, Int64 id);
         public __gotoEntryByAttributeDelegate gotoEntryByAttribute;
-        
+
 
         public FrmJournal()
         {
@@ -312,7 +312,7 @@ namespace DiaryJournal.Net
         {
         }
 
-        private void RtbEntry_SelectionChanged(object sender, System.Windows.RoutedEventArgs e)        
+        private void RtbEntry_SelectionChanged(object sender, System.Windows.RoutedEventArgs e)
         {
             tsbuttonUnderline.Checked = rtbEntry.Underline;
             tsbuttonStrikeout.Checked = rtbEntry.Strikeout;
@@ -342,7 +342,7 @@ namespace DiaryJournal.Net
                 int intSelFontSize = (int)doubleSelFontSize;
                 cmbSize.SelectedIndex = cmbSize.FindString(intSelFontSize.ToString());
             }
-            
+
             if (rtbEntry.SelectionAlignment == System.Windows.TextAlignment.Left)
                 tsbuttonLeftJustify.Checked = true;
             else
@@ -472,14 +472,14 @@ namespace DiaryJournal.Net
 
         private void TvEntries_DragLeave(object? sender, EventArgs e)
         {
-//            TreeNode? treeNode = (TreeNode?)sender;
+            //            TreeNode? treeNode = (TreeNode?)sender;
 
             // Retrieve the client coordinates of the mouse position.
             //Point targetPoint = tvEntries.PointToClient(new Point(e.X, e.Y));
 
             // Select the node at the mouse position.
             //TreeNode? targetNode = tvEntries.GetNodeAt(targetPoint);
-//            treeNode.BackColor = SystemColors.Control; // This will work
+            //            treeNode.BackColor = SystemColors.Control; // This will work
         }
 
         private void TvEntries_DragOver(object? sender, DragEventArgs e)
@@ -545,7 +545,30 @@ namespace DiaryJournal.Net
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     saveCloseDB();
             }
-            base.OnClosing(e);
+
+            try
+            {
+                reset();
+            }
+            catch { }
+
+            try
+            {
+                List<Control>? list = ControlHelper.GetAllChildControls(this); //ControlHelper.GetAll(this, typeof(Control)))
+                if (list != null)
+                {
+                    foreach (Control c in list)
+                        c.Dispose();
+                }
+                this.Controls.Clear();
+            }
+            catch { }
+
+            try
+            {
+                base.OnClosing(e);
+            }
+            catch { }
 
         }
 
@@ -1005,16 +1028,24 @@ namespace DiaryJournal.Net
 
         public void __treeViewBeginUpdate(TreeView tv, bool clear)
         {
-            if (clear)
-            {
-                tv.BeginUpdate();
-                tv.Nodes.Clear();
-                tv.EndUpdate();
-            }
+            tv.Hide();
+            tv.SuspendLayout();
+            //tv.BeginUpdate();
 
-            tv.BeginUpdate();
+            if (clear)
+                tv.Nodes.Clear();
+
             CalendarEntries.SuspendLayout();
             CalendarEntries.Hide();
+        }
+        public void __treeViewEndUpdate(TreeView tv)
+        {
+            CalendarEntries.ResumeLayout();
+            CalendarEntries.Show();
+
+            //tv.EndUpdate();
+            tv.ResumeLayout();
+            tv.Show();
         }
 
         /*
@@ -1035,13 +1066,6 @@ namespace DiaryJournal.Net
             tv.TreeViewNodeSorter = defaultSorter;
         }
         */
-
-        public void __treeViewEndUpdate(TreeView tv)
-        {
-            CalendarEntries.ResumeLayout();
-            CalendarEntries.Show();
-            tv.EndUpdate();
-        }
 
         public void __importTheJournalRtfEntries(String path, String importSetName, bool loadOperationForm)
         {
@@ -1284,7 +1308,7 @@ namespace DiaryJournal.Net
             allNodes = (List<myNode>)this.Invoke(loadTree, worklist);
 
             // update ui
-            this.Invoke(gotoEntryByAttribute, cfg.radCfgLMNode, cfg.radCfgLCNode, cfg.radCfgTCNode);
+            this.Invoke(gotoEntryByAttribute, cfg.radCfgLMNode, cfg.radCfgLCNode, cfg.radCfgTCNode, false, -1);
         }
 
         public List<myNode> __loadTree(ref List<myNode> srcNodes)
@@ -1412,9 +1436,11 @@ namespace DiaryJournal.Net
             formOperation = FormOperation.showForm(this, "please wait. doing operation...", 0, 100, 0, 0);
 
             // first clear tree view
-            tvEntries.BeginUpdate();
+            tvEntries.SuspendLayout();
+            tvEntries.Hide();
             tvEntries.Nodes.Clear();
-            tvEntries.EndUpdate();
+            tvEntries.Show();
+            tvEntries.ResumeLayout();
 
             // reset user interface
             resetRtb(rtbEntry);
@@ -1484,7 +1510,7 @@ namespace DiaryJournal.Net
             Int64 id = Int64.Parse(tvEntries.SelectedNode.Name);
             myNode? node = entryMethods.FindNodeInList(ref allNodes, id);
             if (node == null) return;
-            
+
             // save current caret position
             entryMethods.DBUpdateCaretConfig(ref cfg, ref node, rtbEntry.SelectionStartOffset, rtbEntry.SelectionLength);
 
@@ -1661,10 +1687,10 @@ namespace DiaryJournal.Net
         }
 
         //public void gotoEntryByAttribute(bool lm, bool lc)
-       // {
-       //     __gotoEntryByAttribute(lm, lc);
+        // {
+        //     __gotoEntryByAttribute(lm, lc);
         //}
-        public void __gotoEntryByAttribute(bool lm, bool lc, bool tc)
+        public void __gotoEntryByAttribute(bool lm, bool lc, bool tc, bool byID, Int64 id)
         {
             if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
                 return;
@@ -1679,6 +1705,13 @@ namespace DiaryJournal.Net
                 node = allNodes.FirstOrDefault(x => x.chapter.creationDateTime == allNodes.Max(x => x.chapter.creationDateTime));
             else if (tc)
                 node = allNodes.FirstOrDefault(x => x.chapter.chapterDateTime == allNodes.Max(x => x.chapter.chapterDateTime));
+            else if (byID)
+            {
+                if (id <= 0) return;
+                node = entryMethods.FindNodeInList(ref allNodes, id);
+                if (node == null)
+                    return;
+            }
 
             if (node == null)
                 return;
@@ -2846,7 +2879,7 @@ namespace DiaryJournal.Net
                 myNode? node = (myNode)item.Tag;
                 list.Add(node);
             }
-            return list;                
+            return list;
         }
         public bool __processSearch()
         {
@@ -3192,7 +3225,7 @@ namespace DiaryJournal.Net
                     break;
 
                 case DatabaseType.SingleFileDB:
-                    sfdDB.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); 
+                    sfdDB.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     if (sfdDB.ShowDialog() != DialogResult.OK)
                         return;
 
@@ -4638,10 +4671,10 @@ namespace DiaryJournal.Net
 
             // load node
             Int64 id = Int64.Parse(lvitem.Name);
-//            myNode? node = entryMethods.FindNodeInList(ref allNodes, id);
-  //          if (node == null) return;
+            //            myNode? node = entryMethods.FindNodeInList(ref allNodes, id);
+            //          if (node == null) return;
 
-    //        Int64 id = Int64.Parse(treeNode.Name);
+            //        Int64 id = Int64.Parse(treeNode.Name);
 
             doExportCustomEntry(id);
 
@@ -4821,7 +4854,7 @@ namespace DiaryJournal.Net
             this.Invoke(saveEntry);
 
             if (rtb == null) return;
-            if (rtb.Text.Length == 0) return;    
+            if (rtb.Text.Length == 0) return;
             if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen()) return;
 
 
@@ -4838,10 +4871,10 @@ namespace DiaryJournal.Net
 
             // finally print
             //if ((pd.ShowDialog() == true))
-           // {
-           //     pd.PrintDocument((((IDocumentPaginatorSource)rtbEntry.Document).DocumentPaginator),
+            // {
+            //     pd.PrintDocument((((IDocumentPaginatorSource)rtbEntry.Document).DocumentPaginator),
             //        "Print Document");
-           // }
+            // }
 
             printerRtb.PrintRichTextContents();
         }
@@ -5250,7 +5283,7 @@ namespace DiaryJournal.Net
                     continue;
 
                 // now check if this node's ancestor exists
-                foreach(ListViewItem listedItem in lvSearchWhere.Items)
+                foreach (ListViewItem listedItem in lvSearchWhere.Items)
                 {
                     Int64 listedItemId = Int64.Parse(listedItem.Name);
                     if (entryMethods.IsAncestorNode(ref allNodes, listedItemId, node, false, false) == 1)
@@ -5508,7 +5541,7 @@ namespace DiaryJournal.Net
 
         private void buttonResetConfig1_Click(object sender, EventArgs e)
         {
-            cmbCfgRtbViewEntryRM.SelectedIndex = cmbCfgRtbViewEntryRM.FindString(myConfig.default_cmbCfgRtbViewEntryRMValue.ToString()); 
+            cmbCfgRtbViewEntryRM.SelectedIndex = cmbCfgRtbViewEntryRM.FindString(myConfig.default_cmbCfgRtbViewEntryRMValue.ToString());
             cmbCfgTVEntriesItemHeight.SelectedIndex = cmbCfgTVEntriesItemHeight.FindString(myConfig.default_tvEntriesItemHeight.ToString());
             cmbCfgTVEntriesIndent.SelectedIndex = cmbCfgTVEntriesIndent.FindString(myConfig.default_tvEntriesIndent.ToString());
             linkCfgTVEntriesFont.Text = commonMethods.FontToString(myConfig.default_tvEntriesFont);
@@ -5519,14 +5552,14 @@ namespace DiaryJournal.Net
 
         private void resetCheckedNodesRecursiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormTreeResetOptions form = new FormTreeResetOptions();
-            if (form.ShowDialog() != DialogResult.OK) return;
-
             if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
                 return;
 
             // firstly save entry
             __saveEntry();
+
+            FormTreeResetOptions form = new FormTreeResetOptions();
+            if (form.ShowDialog() != DialogResult.OK) return;
 
             this.Invoke(toggleForm, false);
 
@@ -5538,7 +5571,7 @@ namespace DiaryJournal.Net
             List<myNode> checkedNodes = __getCheckedTreeViewItemsDBNodes(tvEntries);
 
             // customize commit nodes
-            entryMethods.DBCustomizeTreeNodesRecursive(ref cfg, ref checkedNodes, false, 
+            entryMethods.DBCustomizeTreeNodesRecursive(ref cfg, ref checkedNodes, false,
                 form.resetFont, form.resetFontSize, form.resetItalics, form.resetBold, form.resetStrikeout, form.resetUnderline,
                 form.resetBackColor, form.resetForeColor, Color.Empty, Color.Empty, "", -1);
 
@@ -5547,6 +5580,96 @@ namespace DiaryJournal.Net
 
             // finally reload/load db
             mySystemNodes? systemNodes = null;
+            reloadAll(true, true, true, ref systemNodes);
+
+        }
+
+        private void gotoLatestEntryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // goto custom entry
+            __gotoEntryByAttribute(false, true, false, false, -1);
+
+        }
+
+        private void gotoLatestLastModifiedEntryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // goto custom entry
+            __gotoEntryByAttribute(true, false, false, false, -1);
+        }
+
+        private void gotoTodaysCreatedLatestEntryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // goto custom entry
+            __gotoEntryByAttribute(false, false, true, false, -1);
+        }
+
+        private void gotoEntryByIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return;
+
+            // firstly save entry
+            __saveEntry();
+
+            // prepare input box
+            List<string> valueStrings = new List<string>();
+            Int64 id = 1;
+            Int64 total = 3000;
+            for (Int64 i = 0; i < total; i++)
+            {
+                valueStrings.Add(id.ToString());
+                id += 1;
+            }
+
+            // ask user
+            String input = 1.ToString();
+            if (userInterface.ShowListInputDialog("enter id of an existing entry/node", ref input, ref valueStrings, -1) != DialogResult.OK)
+                return;
+
+            // check validity
+            Int64 value = -1;
+            if (!Int64.TryParse(input, out value))
+                return;
+
+            if (value <= 0) return;
+
+            // goto custom entry
+            __gotoEntryByAttribute(false, false, false, true, value);
+
+        }
+
+        private void resetAllDbNodesRecursiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return;
+
+            // firstly save entry
+            __saveEntry();
+
+            FormTreeResetOptions form = new FormTreeResetOptions();
+            if (form.ShowDialog() != DialogResult.OK) return;
+
+            this.Invoke(toggleForm, false);
+
+            // operations status form
+            FormOperation? formOperation = null;
+            formOperation = FormOperation.showForm(this, "please wait. doing operation...", 0, 100, 0, 0);
+
+            // phase 1: get all nodes
+            allNodes = entryMethods.DBFindAllNodes(cfg, false, false);
+            mySystemNodes? systemNodes = null;
+            entryMethods.autoCreateLoadSystemNodes(ref cfg, ref allNodes, out systemNodes);
+
+            // customize commit nodes
+            entryMethods.DBCustomizeTreeNodesRecursive(ref cfg, ref allNodes, false,
+                form.resetFont, form.resetFontSize, form.resetItalics, form.resetBold, form.resetStrikeout, form.resetUnderline,
+                form.resetBackColor, form.resetForeColor, Color.Empty, Color.Empty, "", -1);
+
+            this.Invoke(toggleForm, true);
+            formOperation.close();
+
+            // finally reload/load db
+            systemNodes = null;
             reloadAll(true, true, true, ref systemNodes);
 
         }

@@ -649,6 +649,18 @@ namespace DiaryJournal.Net
             if (purgeData)
                 commonMethods.SecureEraseFile(entryFile, 1, true);
 
+            // vacate one node's slot in this purged node's section
+            if (purgeData && purgeConfig)
+            {
+                // first find and load the section of this purged node
+                OpenFSDBSection? section = OpenFSDBSections.findSection(ctx, node.DirectorySectionID);
+                if (section != null)
+                {
+                    if (section.totalNodes > 0)
+                        section.totalNodes--;
+                }
+            }
+
             return true;
         }
         public static myNode? newNode(ref OpenFSDBContext ctx,

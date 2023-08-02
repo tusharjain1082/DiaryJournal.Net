@@ -29,6 +29,41 @@ namespace DiaryJournal.Net
             Target.Invalidate(true);
             Target.Update();
         }
+
+        public static IEnumerable<Control> GetAll(Control control, Type type)
+        {
+            var controls = control.Controls.Cast<Control>();
+
+            return controls.SelectMany(ctrl => GetAll(ctrl, type))
+                                      .Concat(controls)
+                                      .Where(c => c.GetType() == type);
+        }
+
+        public static List<Control> GetAllChildControls(Control Root, Type? FilterType = null)
+        {
+            List<Control> AllChilds = new List<Control>();
+            foreach (Control ctl in Root.Controls)
+            {
+                Type ctlType = ctl.GetType();
+
+                if (FilterType != null)
+                {
+                    if (ctlType == FilterType)
+                    {
+                        AllChilds.Add(ctl);
+                    }
+                }
+                else
+                {
+                    AllChilds.Add(ctl);
+                }
+                if (ctl.HasChildren)
+                {
+                    GetAllChildControls(ctl, FilterType);
+                }
+            }
+            return AllChilds;
+        }
     }
 
     public static class commonMethods
@@ -127,6 +162,7 @@ namespace DiaryJournal.Net
                     // then erase overwrite the remaining bytes 3 times so that the data is completely destroyed.
                     if (fs.Position != fs.Length)
                     {
+                        // erase 3 times every sector. this overwrites beyond recovery.
                         long pos = fs.Position;
                         rng.GetBytes(sector);
                         fs.Write(sector, 0, (int)(fs.Length % sectorSize));

@@ -369,6 +369,12 @@
             this.toolStripSeparator49 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator81 = new System.Windows.Forms.ToolStripSeparator();
+            this.gotoLatestEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gotoLatestLastModifiedEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gotoTodaysCreatedLatestEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator82 = new System.Windows.Forms.ToolStripSeparator();
+            this.gotoEntryByIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
             this.closeAllTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expandAllTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -514,6 +520,7 @@
             this.pdRtbEntry = new System.Drawing.Printing.PrintDocument();
             this.ppDlgRtbEntry = new System.Windows.Forms.PrintPreviewDialog();
             this.timerSetRtbEntry = new System.Windows.Forms.Timer(this.components);
+            this.resetAllDbNodesRecursiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).BeginInit();
             this.splitContainerH.Panel1.SuspendLayout();
             this.splitContainerH.Panel2.SuspendLayout();
@@ -3720,7 +3727,13 @@
             this.gotoDateToolStripMenuItem,
             this.toolStripSeparator49,
             this.toolStripMenuItem9,
-            this.toolStripMenuItem3});
+            this.toolStripMenuItem3,
+            this.toolStripSeparator81,
+            this.gotoLatestEntryToolStripMenuItem,
+            this.gotoLatestLastModifiedEntryToolStripMenuItem,
+            this.gotoTodaysCreatedLatestEntryToolStripMenuItem,
+            this.toolStripSeparator82,
+            this.gotoEntryByIDToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(45, 23);
             this.toolStripMenuItem1.Text = "&Goto";
@@ -3729,7 +3742,7 @@
             // 
             this.gotoTodaysEntryToolStripMenuItem.Name = "gotoTodaysEntryToolStripMenuItem";
             this.gotoTodaysEntryToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.gotoTodaysEntryToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.gotoTodaysEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
             this.gotoTodaysEntryToolStripMenuItem.Text = "goto today\'s entry";
             this.gotoTodaysEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoTodaysEntryToolStripMenuItem_Click);
             // 
@@ -3737,20 +3750,20 @@
             // 
             this.gotoDateToolStripMenuItem.Name = "gotoDateToolStripMenuItem";
             this.gotoDateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-            this.gotoDateToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.gotoDateToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
             this.gotoDateToolStripMenuItem.Text = "goto date";
             this.gotoDateToolStripMenuItem.Click += new System.EventHandler(this.gotoDateToolStripMenuItem_Click);
             // 
             // toolStripSeparator49
             // 
             this.toolStripSeparator49.Name = "toolStripSeparator49";
-            this.toolStripSeparator49.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator49.Size = new System.Drawing.Size(240, 6);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
             this.toolStripMenuItem9.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(189, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(243, 22);
             this.toolStripMenuItem9.Text = "goto journal";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItem9_Click);
             // 
@@ -3758,9 +3771,48 @@
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(189, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(243, 22);
             this.toolStripMenuItem3.Text = "goto library";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripSeparator81
+            // 
+            this.toolStripSeparator81.Name = "toolStripSeparator81";
+            this.toolStripSeparator81.Size = new System.Drawing.Size(240, 6);
+            // 
+            // gotoLatestEntryToolStripMenuItem
+            // 
+            this.gotoLatestEntryToolStripMenuItem.Name = "gotoLatestEntryToolStripMenuItem";
+            this.gotoLatestEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoLatestEntryToolStripMenuItem.Text = "goto latest entry";
+            this.gotoLatestEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoLatestEntryToolStripMenuItem_Click);
+            // 
+            // gotoLatestLastModifiedEntryToolStripMenuItem
+            // 
+            this.gotoLatestLastModifiedEntryToolStripMenuItem.Name = "gotoLatestLastModifiedEntryToolStripMenuItem";
+            this.gotoLatestLastModifiedEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoLatestLastModifiedEntryToolStripMenuItem.Text = "goto latest last modified entry";
+            this.gotoLatestLastModifiedEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoLatestLastModifiedEntryToolStripMenuItem_Click);
+            // 
+            // gotoTodaysCreatedLatestEntryToolStripMenuItem
+            // 
+            this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Name = "gotoTodaysCreatedLatestEntryToolStripMenuItem";
+            this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Text = "goto today\'s created latest entry";
+            this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoTodaysCreatedLatestEntryToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator82
+            // 
+            this.toolStripSeparator82.Name = "toolStripSeparator82";
+            this.toolStripSeparator82.Size = new System.Drawing.Size(240, 6);
+            // 
+            // gotoEntryByIDToolStripMenuItem
+            // 
+            this.gotoEntryByIDToolStripMenuItem.Name = "gotoEntryByIDToolStripMenuItem";
+            this.gotoEntryByIDToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.gotoEntryByIDToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoEntryByIDToolStripMenuItem.Text = "goto entry by ID";
+            this.gotoEntryByIDToolStripMenuItem.Click += new System.EventHandler(this.gotoEntryByIDToolStripMenuItem_Click);
             // 
             // toolStripMenuItem35
             // 
@@ -3773,7 +3825,8 @@
             this.toolStripSeparator58,
             this.sortToolStripMenuItem,
             this.toolStripSeparator80,
-            this.customizeAllNodesRecursiveToolStripMenuItem});
+            this.customizeAllNodesRecursiveToolStripMenuItem,
+            this.resetAllDbNodesRecursiveToolStripMenuItem});
             this.toolStripMenuItem35.Name = "toolStripMenuItem35";
             this.toolStripMenuItem35.Size = new System.Drawing.Size(40, 23);
             this.toolStripMenuItem35.Text = "T&ree";
@@ -4666,6 +4719,7 @@
             // 
             // upgradeOldVersionDbToolStripMenuItem
             // 
+            this.upgradeOldVersionDbToolStripMenuItem.Enabled = false;
             this.upgradeOldVersionDbToolStripMenuItem.Name = "upgradeOldVersionDbToolStripMenuItem";
             this.upgradeOldVersionDbToolStripMenuItem.Size = new System.Drawing.Size(332, 22);
             this.upgradeOldVersionDbToolStripMenuItem.Text = "upgrade old version db";
@@ -4830,6 +4884,13 @@
             // 
             this.timerSetRtbEntry.Interval = 10;
             this.timerSetRtbEntry.Tick += new System.EventHandler(this.timerSetRtbEntry_Tick);
+            // 
+            // resetAllDbNodesRecursiveToolStripMenuItem
+            // 
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Name = "resetAllDbNodesRecursiveToolStripMenuItem";
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Text = "reset all db nodes recursive...";
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Click += new System.EventHandler(this.resetAllDbNodesRecursiveToolStripMenuItem_Click);
             // 
             // FrmJournal
             // 
@@ -5431,5 +5492,12 @@
         private ToolStripSeparator toolStripSeparator80;
         private ToolStripSeparator toolStripSeparator79;
         private ToolStripMenuItem customizeAllNodesRecursiveToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator81;
+        private ToolStripMenuItem gotoLatestEntryToolStripMenuItem;
+        private ToolStripMenuItem gotoLatestLastModifiedEntryToolStripMenuItem;
+        private ToolStripMenuItem gotoTodaysCreatedLatestEntryToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator82;
+        private ToolStripMenuItem gotoEntryByIDToolStripMenuItem;
+        private ToolStripMenuItem resetAllDbNodesRecursiveToolStripMenuItem;
     }
 }
