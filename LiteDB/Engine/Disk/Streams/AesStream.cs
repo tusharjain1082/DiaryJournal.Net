@@ -62,9 +62,6 @@ namespace LiteDB.Engine
                     // first byte =1 means this datafile is encrypted
                     _stream.WriteByte(1);
                     _stream.Write(this.Salt, 0, ENCRYPTION_SALT_SIZE);
-
-                    // fill with 0 full PAGE_SIZE
-                    _stream.Write(_emptyContent, 0, _emptyContent.Length);
                 }
                 else
                 {
@@ -75,7 +72,7 @@ namespace LiteDB.Engine
 
                     if (isEncrypted != 1)
                     {
-                        throw new LiteException(0, "This file is not encrypted");
+                        throw LiteException.FileNotEncrypted();
                     }
 
                     _stream.Read(this.Salt, 0, ENCRYPTION_SALT_SIZE);
@@ -109,6 +106,17 @@ namespace LiteDB.Engine
 
                 var checkBuffer = new byte[32];
 
+                if (!isNew)
+                {
+                    // check whether bytes 32 to 64 is empty. This indicates LiteDb was unable to write encrypted 1s during last attempt.
+                    _stream.Read(checkBuffer, 0, checkBuffer.Length);
+                    isNew = checkBuffer.All(x => x == 0);
+                    
+                    // reset checkBuffer and stream position
+                    Array.Clear(checkBuffer, 0, checkBuffer.Length);
+                    _stream.Position = 32;
+                }
+
                 // fill checkBuffer with encrypted 1 to check when open
                 if (isNew)
                 {
@@ -126,7 +134,7 @@ namespace LiteDB.Engine
 
                     if (!checkBuffer.All(x => x == 1))
                     {
-                        throw new LiteException(0, "Invalid password");
+                        throw LiteException.InvalidPassword();
                     }
                 }
 
