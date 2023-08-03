@@ -40,7 +40,43 @@ namespace DiaryJournal.Net
         public const string setNameTagName = "setName";
         public const string setDateTimeTagName = "setDateTime";
         public const string setIDTagName = "setID";
+        public const string productVersionTagName = "productVersion";
 
+        public string thisVersionString = Application.ProductVersion;
+        public int thisMajorVersion = 0;
+        public int thisMinorVersion = 0;
+        public int thisRevision = 0;
+        public int thisBuild = 0;
+        public static string currentVersion = Application.ProductVersion;
+        public int currentMajorVersion = 0;
+        public int currentMinorVersion = 0;
+        public int currentRevision = 0;
+        public int currentBuild = 0;
+
+        public DatabaseConfig()
+        {
+            String[] values = currentVersion.Split(".");
+            thisMajorVersion = currentMajorVersion = int.Parse(values[0]);
+            thisMinorVersion = currentMinorVersion = int.Parse(values[1]);
+            thisRevision = currentRevision= int.Parse(values[2]);
+            thisBuild = currentBuild = int.Parse(values[3]);
+        }
+
+        public static bool importVersionInfo(ref DatabaseConfig config, string versionString)
+        {
+            if (config == null) return false;
+            if (versionString.Length <= 0) return false;
+
+            String[] values = versionString.Split(".");
+            if (values.Count() <= 3) return false;
+
+            config.thisMajorVersion = int.Parse(values[0]);
+            config.thisMinorVersion = int.Parse(values[1]);
+            config.thisRevision = int.Parse(values[2]);
+            config.thisBuild = int.Parse(values[3]);
+            return true;
+
+        }
         public static void setDBConfig(ref DatabaseConfig config, String setName, DateTime setDateTime, Guid setID)
         {
             config.setName = setName;
@@ -93,15 +129,15 @@ namespace DiaryJournal.Net
             XmlElement child2 = (XmlElement)list[0];
             config.setID = Guid.Parse(child2.InnerText);//UInt32.Parse(child2.InnerText);
 
-            /*
-            // current database index available for use
-            list = configElement.GetElementsByTagName(currentDBIndexTagName);
-            if (list.Count <= 0)
-                return false;
-
-            XmlElement child3 = (XmlElement)list[0];
-            config.currentDBIndex = Int64.Parse(child3.InnerText);
-            */
+            // set version
+            list = configElement.GetElementsByTagName(productVersionTagName);
+            if (list.Count >= 1)
+            {
+                // if version config not found directly apply and use current product version
+                XmlElement child3 = (XmlElement)list[0];
+                config.thisVersionString = child3.InnerText;//UInt32.Parse(child2.InnerText);
+            }
+            importVersionInfo(ref config, config.thisVersionString);
 
             return true;
         }
@@ -126,11 +162,9 @@ namespace DiaryJournal.Net
             XmlElement child2 = doc.CreateElement(string.Empty, setIDTagName, string.Empty);
             child2.InnerText = config.setID.ToString();
             configElement.AppendChild(child2);
-            /*
-            XmlElement child3 = doc.CreateElement(string.Empty, currentDBIndexTagName, string.Empty);
-            child3.InnerText = config.currentDBIndex.ToString();
+            XmlElement child3 = doc.CreateElement(string.Empty, productVersionTagName, string.Empty);
+            child3.InnerText = DatabaseConfig.currentVersion;
             configElement.AppendChild(child3);
-            */
 
             TextWriter writer = new StringWriterWithEncoding(Encoding.UTF8);
             doc.Save(writer);

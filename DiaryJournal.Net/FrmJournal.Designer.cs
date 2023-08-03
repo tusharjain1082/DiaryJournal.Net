@@ -393,6 +393,7 @@
             this.sortCheckedNodesRecursivelyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator80 = new System.Windows.Forms.ToolStripSeparator();
             this.customizeAllNodesRecursiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAllDbNodesRecursiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newEntryNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -520,7 +521,7 @@
             this.pdRtbEntry = new System.Drawing.Printing.PrintDocument();
             this.ppDlgRtbEntry = new System.Windows.Forms.PrintPreviewDialog();
             this.timerSetRtbEntry = new System.Windows.Forms.Timer(this.components);
-            this.resetAllDbNodesRecursiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem76 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).BeginInit();
             this.splitContainerH.Panel1.SuspendLayout();
             this.splitContainerH.Panel2.SuspendLayout();
@@ -3948,6 +3949,13 @@
             this.customizeAllNodesRecursiveToolStripMenuItem.Text = "reset checked nodes recursive...";
             this.customizeAllNodesRecursiveToolStripMenuItem.Click += new System.EventHandler(this.resetCheckedNodesRecursiveToolStripMenuItem_Click);
             // 
+            // resetAllDbNodesRecursiveToolStripMenuItem
+            // 
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Name = "resetAllDbNodesRecursiveToolStripMenuItem";
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Text = "reset all db nodes recursive...";
+            this.resetAllDbNodesRecursiveToolStripMenuItem.Click += new System.EventHandler(this.resetAllDbNodesRecursiveToolStripMenuItem_Click);
+            // 
             // entryToolStripMenuItem
             // 
             this.entryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -4667,6 +4675,7 @@
             this.openDatabaseLocationToolStripMenuItem,
             this.toolStripSeparator54,
             this.upgradeOldVersionDbToolStripMenuItem,
+            this.toolStripMenuItem76,
             this.toolStripSeparator64,
             this.singleFileDbToOpenFilesystemDbToolStripMenuItem,
             this.openFilesystemDbToSingleFileDbToolStripMenuItem,
@@ -4885,12 +4894,12 @@
             this.timerSetRtbEntry.Interval = 10;
             this.timerSetRtbEntry.Tick += new System.EventHandler(this.timerSetRtbEntry_Tick);
             // 
-            // resetAllDbNodesRecursiveToolStripMenuItem
+            // toolStripMenuItem76
             // 
-            this.resetAllDbNodesRecursiveToolStripMenuItem.Name = "resetAllDbNodesRecursiveToolStripMenuItem";
-            this.resetAllDbNodesRecursiveToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.resetAllDbNodesRecursiveToolStripMenuItem.Text = "reset all db nodes recursive...";
-            this.resetAllDbNodesRecursiveToolStripMenuItem.Click += new System.EventHandler(this.resetAllDbNodesRecursiveToolStripMenuItem_Click);
+            this.toolStripMenuItem76.Name = "toolStripMenuItem76";
+            this.toolStripMenuItem76.Size = new System.Drawing.Size(332, 22);
+            this.toolStripMenuItem76.Text = "upgrade db config";
+            this.toolStripMenuItem76.Click += new System.EventHandler(this.toolStripMenuItem76_Click);
             // 
             // FrmJournal
             // 
@@ -5499,5 +5508,6 @@
         private ToolStripSeparator toolStripSeparator82;
         private ToolStripMenuItem gotoEntryByIDToolStripMenuItem;
         private ToolStripMenuItem resetAllDbNodesRecursiveToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem76;
     }
 }

@@ -731,6 +731,9 @@ namespace System.Windows.Controls
             if (value == DependencyProperty.UnsetValue) return null;
             System.Windows.Media.Brush? brush = (System.Windows.Media.Brush)value;// new SolidColorBrush(Colors.Transparent);
 
+            if (selection.Start.Parent is FlowDocument)
+                return brush;
+
             TextElement element = (TextElement)selection.Start.Parent;
             if (brush == null)
             {
@@ -752,6 +755,9 @@ namespace System.Windows.Controls
             Object? value = selection.GetPropertyValue(TextElement.ForegroundProperty);
             if (value == DependencyProperty.UnsetValue) return null;
             System.Windows.Media.Brush? brush = (System.Windows.Media.Brush)value;// new SolidColorBrush(Colors.Transparent);
+
+            if (selection.Start.Parent is FlowDocument)
+                return brush;
 
             TextElement element = (TextElement)selection.Start.Parent;
             if (brush == null)

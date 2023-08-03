@@ -577,8 +577,6 @@ namespace DiaryJournal.Net
             // take final actions as per the stored configuration
             if (cfg.chkCfgAutoLoadCreateDefaultDB)
                 autoCreateLoadDefaultDB(false);
-
-
         }
 
         public void applyConfig()
@@ -5672,6 +5670,16 @@ namespace DiaryJournal.Net
             systemNodes = null;
             reloadAll(true, true, true, ref systemNodes);
 
+        }
+
+        private void toolStripMenuItem76_Click(object sender, EventArgs e)
+        {
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return;
+
+            String xml = entryMethods.DBWriteConfig(ref cfg);
+            if (xml != "")
+                MessageBox.Show("upgraded db config to current product version", "done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
