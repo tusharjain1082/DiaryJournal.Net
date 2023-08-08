@@ -1638,6 +1638,20 @@ namespace DiaryJournal.Net
             __gotoTodaysEntry();
         }
 
+        public void __gotoParentByEntryID(Int64 id)
+        {
+            if (allNodes == null) return;
+            if (allNodes.Count() <= 0) return;
+
+            // catch the node from work list
+            myNode? node = entryMethods.FindNodeInList(ref allNodes, id);
+            if (node == null)
+                return;
+
+            // goto custom entry
+            __gotoEntryByAttribute(false, false, false, true, node.chapter.parentId);
+        }
+
         public void __gotoEntry(DateTime dateTime)
         {
             if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
@@ -5229,11 +5243,11 @@ namespace DiaryJournal.Net
                 return;
 
             // prepare input box
-            List<string> valueStrings = new List<string>();
+            List<Object> valueStrings = new List<Object>();
             int width = myConfig.defaultDocumentWidth;
             for (int i = 0; i < 60; i++)
             {
-                valueStrings.Add(width.ToString());
+                valueStrings.Add((Object)width.ToString());
                 width += 100;
             }
 
@@ -5610,18 +5624,16 @@ namespace DiaryJournal.Net
             __saveEntry();
 
             // prepare input box
-            List<string> valueStrings = new List<string>();
             Int64 id = 1;
-            Int64 total = 3000;
-            for (Int64 i = 0; i < total; i++)
-            {
-                valueStrings.Add(id.ToString());
-                id += 1;
-            }
+            List<Object> items = new List<Object>();
+            foreach (myNode? listedNode in allNodes)
+                items.Add((Object)listedNode.chapter.Id);
+
+            Int64 total = items.LongCount();
 
             // ask user
             String input = 1.ToString();
-            if (userInterface.ShowListInputDialog("enter id of an existing entry/node", ref input, ref valueStrings, -1) != DialogResult.OK)
+            if (userInterface.ShowListInputDialog("enter id of an existing entry/node", ref input, ref items, -1) != DialogResult.OK)
                 return;
 
             // check validity
@@ -5681,5 +5693,37 @@ namespace DiaryJournal.Net
             if (xml != "")
                 MessageBox.Show("upgraded db config to current product version", "done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void gotoParentByChildEntryIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return;
+
+            // firstly save entry
+            __saveEntry();
+
+            // prepare input box
+            Int64 id = 1;
+            List<Object> items = new List<Object>();
+            foreach (myNode? listedNode in allNodes)
+                items.Add((Object)listedNode.chapter.Id);
+
+            Int64 total = items.LongCount();
+
+            // ask user
+            String input = 1.ToString();
+            if (userInterface.ShowListInputDialog("enter id of an existing entry/node", ref input, ref items, -1) != DialogResult.OK)
+                return;
+
+            // check validity
+            Int64 value = -1;
+            if (!Int64.TryParse(input, out value))
+                return;
+
+            if (value <= 0) return;
+
+            __gotoParentByEntryID(value);
+        }
+
     }
 }

@@ -68,6 +68,16 @@ namespace DiaryJournal.Net
 
     public static class commonMethods
     {
+        public static Type GetListType<T>(this List<T> _)
+        {
+            return typeof(T);
+        }
+
+        public static Type GetEnumeratedType<T>(this IEnumerable<T> _)
+        {
+            return typeof(T);
+        }
+
         public static List<ArraySegment<byte>> Split(byte[] arr, byte[] delimiter)
         {
             var result = new List<ArraySegment<byte>>();
@@ -258,7 +268,7 @@ namespace DiaryJournal.Net
             {
                 Directory.Delete(root, true);
             }
-            catch 
+            catch
             {
             }
             return true;

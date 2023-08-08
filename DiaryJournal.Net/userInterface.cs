@@ -49,7 +49,7 @@ namespace DiaryJournal.Net
             }
         }
 
-        public static DialogResult ShowListInputDialog(String title, ref string input, ref List<String> items, int selIndex)
+        public static DialogResult ShowListInputDialog(String title, ref string input, ref List<Object> items, int selIndex)
         {
             System.Drawing.Size size = new System.Drawing.Size(600, 500);
             Form inputBox = new Form();
@@ -69,8 +69,19 @@ namespace DiaryJournal.Net
             listBox.Size = new System.Drawing.Size(size.Width - 10, 420);
             listBox.Location = new System.Drawing.Point(5, (textBox.Location.Y + textBox.Height + 5));
 
-            foreach (String item in items) 
-                listBox.Items.Add(item);
+            foreach (Object item in items)
+            {
+                if (item is String)
+                    listBox.Items.Add(item);
+                else if (item is Int64)
+                    listBox.Items.Add(item.ToString());
+                else if (item is int)
+                    listBox.Items.Add(item.ToString());
+                else if (item is UInt64)
+                    listBox.Items.Add(item.ToString());
+                else if (item is uint)
+                    listBox.Items.Add(item.ToString());
+            }
 
             inputBox.Controls.Add(listBox);
 

@@ -600,7 +600,7 @@ namespace DiaryJournal.Net
             if (totalColumns >= maxColumns) return false;
 
             // prepare input box
-            List<string> numColStrings = new List<string>();
+            List<Object> numColStrings = new List<Object>();
             for (int i = 1; i <= (maxColumns - totalColumns); i++)
                 numColStrings.Add(i.ToString());
 
@@ -732,7 +732,7 @@ namespace DiaryJournal.Net
                 return false;
 
             // prepare input box
-            List<string> numRowsStrings = new List<string>();
+            List<Object> numRowsStrings = new List<Object>();
             for (int i = 1; i <= 1000; i++)
                 numRowsStrings.Add(i.ToString());
 
@@ -776,7 +776,7 @@ namespace DiaryJournal.Net
                 return false;
 
             // prepare input box
-            List<string> numRowsStrings = new List<string>();
+            List<Object> numRowsStrings = new List<Object>();
             for (int i = 1; i <= 1000; i++)
                 numRowsStrings.Add(i.ToString());
 
@@ -858,7 +858,7 @@ namespace DiaryJournal.Net
             if (!rtb.GetSelectedTableParams(selection, out table, out row, out cell, out rowIndex, out cellIndex))
                 return false;
 
-            List<string> widths = new List<string>();
+            List<Object> widths = new List<Object>();
 
             int width = 100;
             widths.Add(50.ToString());

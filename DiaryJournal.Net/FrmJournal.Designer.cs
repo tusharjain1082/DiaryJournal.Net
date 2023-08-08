@@ -375,6 +375,7 @@
             this.gotoTodaysCreatedLatestEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator82 = new System.Windows.Forms.ToolStripSeparator();
             this.gotoEntryByIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gotoParentByChildEntryIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
             this.closeAllTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expandAllTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -460,7 +461,6 @@
             this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
             this.decreaseFontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseFontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.formatToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -495,6 +495,7 @@
             this.openDatabaseLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator54 = new System.Windows.Forms.ToolStripSeparator();
             this.upgradeOldVersionDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem76 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator64 = new System.Windows.Forms.ToolStripSeparator();
             this.singleFileDbToOpenFilesystemDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFilesystemDbToSingleFileDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -521,7 +522,6 @@
             this.pdRtbEntry = new System.Drawing.Printing.PrintDocument();
             this.ppDlgRtbEntry = new System.Windows.Forms.PrintPreviewDialog();
             this.timerSetRtbEntry = new System.Windows.Forms.Timer(this.components);
-            this.toolStripMenuItem76 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).BeginInit();
             this.splitContainerH.Panel1.SuspendLayout();
             this.splitContainerH.Panel2.SuspendLayout();
@@ -3734,7 +3734,8 @@
             this.gotoLatestLastModifiedEntryToolStripMenuItem,
             this.gotoTodaysCreatedLatestEntryToolStripMenuItem,
             this.toolStripSeparator82,
-            this.gotoEntryByIDToolStripMenuItem});
+            this.gotoEntryByIDToolStripMenuItem,
+            this.gotoParentByChildEntryIDToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(45, 23);
             this.toolStripMenuItem1.Text = "&Goto";
@@ -3743,7 +3744,7 @@
             // 
             this.gotoTodaysEntryToolStripMenuItem.Name = "gotoTodaysEntryToolStripMenuItem";
             this.gotoTodaysEntryToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.gotoTodaysEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoTodaysEntryToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.gotoTodaysEntryToolStripMenuItem.Text = "goto today\'s entry";
             this.gotoTodaysEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoTodaysEntryToolStripMenuItem_Click);
             // 
@@ -3751,20 +3752,20 @@
             // 
             this.gotoDateToolStripMenuItem.Name = "gotoDateToolStripMenuItem";
             this.gotoDateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-            this.gotoDateToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoDateToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.gotoDateToolStripMenuItem.Text = "goto date";
             this.gotoDateToolStripMenuItem.Click += new System.EventHandler(this.gotoDateToolStripMenuItem_Click);
             // 
             // toolStripSeparator49
             // 
             this.toolStripSeparator49.Name = "toolStripSeparator49";
-            this.toolStripSeparator49.Size = new System.Drawing.Size(240, 6);
+            this.toolStripSeparator49.Size = new System.Drawing.Size(268, 6);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
             this.toolStripMenuItem9.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(243, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(271, 22);
             this.toolStripMenuItem9.Text = "goto journal";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItem9_Click);
             // 
@@ -3772,48 +3773,56 @@
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(243, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(271, 22);
             this.toolStripMenuItem3.Text = "goto library";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripSeparator81
             // 
             this.toolStripSeparator81.Name = "toolStripSeparator81";
-            this.toolStripSeparator81.Size = new System.Drawing.Size(240, 6);
+            this.toolStripSeparator81.Size = new System.Drawing.Size(268, 6);
             // 
             // gotoLatestEntryToolStripMenuItem
             // 
             this.gotoLatestEntryToolStripMenuItem.Name = "gotoLatestEntryToolStripMenuItem";
-            this.gotoLatestEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoLatestEntryToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.gotoLatestEntryToolStripMenuItem.Text = "goto latest entry";
             this.gotoLatestEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoLatestEntryToolStripMenuItem_Click);
             // 
             // gotoLatestLastModifiedEntryToolStripMenuItem
             // 
             this.gotoLatestLastModifiedEntryToolStripMenuItem.Name = "gotoLatestLastModifiedEntryToolStripMenuItem";
-            this.gotoLatestLastModifiedEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoLatestLastModifiedEntryToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.gotoLatestLastModifiedEntryToolStripMenuItem.Text = "goto latest last modified entry";
             this.gotoLatestLastModifiedEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoLatestLastModifiedEntryToolStripMenuItem_Click);
             // 
             // gotoTodaysCreatedLatestEntryToolStripMenuItem
             // 
             this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Name = "gotoTodaysCreatedLatestEntryToolStripMenuItem";
-            this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Text = "goto today\'s created latest entry";
             this.gotoTodaysCreatedLatestEntryToolStripMenuItem.Click += new System.EventHandler(this.gotoTodaysCreatedLatestEntryToolStripMenuItem_Click);
             // 
             // toolStripSeparator82
             // 
             this.toolStripSeparator82.Name = "toolStripSeparator82";
-            this.toolStripSeparator82.Size = new System.Drawing.Size(240, 6);
+            this.toolStripSeparator82.Size = new System.Drawing.Size(268, 6);
             // 
             // gotoEntryByIDToolStripMenuItem
             // 
             this.gotoEntryByIDToolStripMenuItem.Name = "gotoEntryByIDToolStripMenuItem";
             this.gotoEntryByIDToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.gotoEntryByIDToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.gotoEntryByIDToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.gotoEntryByIDToolStripMenuItem.Text = "goto entry by ID";
             this.gotoEntryByIDToolStripMenuItem.Click += new System.EventHandler(this.gotoEntryByIDToolStripMenuItem_Click);
+            // 
+            // gotoParentByChildEntryIDToolStripMenuItem
+            // 
+            this.gotoParentByChildEntryIDToolStripMenuItem.Name = "gotoParentByChildEntryIDToolStripMenuItem";
+            this.gotoParentByChildEntryIDToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F6)));
+            this.gotoParentByChildEntryIDToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.gotoParentByChildEntryIDToolStripMenuItem.Text = "goto parent by child entry ID";
+            this.gotoParentByChildEntryIDToolStripMenuItem.Click += new System.EventHandler(this.gotoParentByChildEntryIDToolStripMenuItem_Click);
             // 
             // toolStripMenuItem35
             // 
@@ -4343,8 +4352,7 @@
             this.toolStripMenuItem30,
             this.toolStripSeparator41,
             this.decreaseFontSizeToolStripMenuItem,
-            this.increaseFontSizeToolStripMenuItem,
-            this.formatToolStripMenuItem1});
+            this.increaseFontSizeToolStripMenuItem});
             this.formatToolStripMenuItem.Name = "formatToolStripMenuItem";
             this.formatToolStripMenuItem.Size = new System.Drawing.Size(57, 23);
             this.formatToolStripMenuItem.Text = "For&mat";
@@ -4461,12 +4469,6 @@
             this.increaseFontSizeToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
             this.increaseFontSizeToolStripMenuItem.Text = "increase font size";
             this.increaseFontSizeToolStripMenuItem.Click += new System.EventHandler(this.increaseFontSizeToolStripMenuItem_Click);
-            // 
-            // formatToolStripMenuItem1
-            // 
-            this.formatToolStripMenuItem1.Name = "formatToolStripMenuItem1";
-            this.formatToolStripMenuItem1.Size = new System.Drawing.Size(300, 22);
-            this.formatToolStripMenuItem1.Text = "For&mat";
             // 
             // tableToolStripMenuItem
             // 
@@ -4734,6 +4736,13 @@
             this.upgradeOldVersionDbToolStripMenuItem.Text = "upgrade old version db";
             this.upgradeOldVersionDbToolStripMenuItem.Click += new System.EventHandler(this.upgradeOldVersionDbToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem76
+            // 
+            this.toolStripMenuItem76.Name = "toolStripMenuItem76";
+            this.toolStripMenuItem76.Size = new System.Drawing.Size(332, 22);
+            this.toolStripMenuItem76.Text = "upgrade db config";
+            this.toolStripMenuItem76.Click += new System.EventHandler(this.toolStripMenuItem76_Click);
+            // 
             // toolStripSeparator64
             // 
             this.toolStripSeparator64.Name = "toolStripSeparator64";
@@ -4893,13 +4902,6 @@
             // 
             this.timerSetRtbEntry.Interval = 10;
             this.timerSetRtbEntry.Tick += new System.EventHandler(this.timerSetRtbEntry_Tick);
-            // 
-            // toolStripMenuItem76
-            // 
-            this.toolStripMenuItem76.Name = "toolStripMenuItem76";
-            this.toolStripMenuItem76.Size = new System.Drawing.Size(332, 22);
-            this.toolStripMenuItem76.Text = "upgrade db config";
-            this.toolStripMenuItem76.Click += new System.EventHandler(this.toolStripMenuItem76_Click);
             // 
             // FrmJournal
             // 
@@ -5496,7 +5498,6 @@
         private ComboBox cmbCfgTVEntriesIndent;
         private Label label8;
         private LinkLabel linkCfgTVEntriesFont;
-        private ToolStripMenuItem formatToolStripMenuItem1;
         private Button buttonResetConfig1;
         private ToolStripSeparator toolStripSeparator80;
         private ToolStripSeparator toolStripSeparator79;
@@ -5509,5 +5510,6 @@
         private ToolStripMenuItem gotoEntryByIDToolStripMenuItem;
         private ToolStripMenuItem resetAllDbNodesRecursiveToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem76;
+        private ToolStripMenuItem gotoParentByChildEntryIDToolStripMenuItem;
     }
 }
