@@ -1,0 +1,127 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0-windows7.0": {
+      "PDFsharp/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/PDFsharp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PDFsharp.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "PdfSharp.Charting/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PDFsharp": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PdfSharp.Charting.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PdfSharp.Charting.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      }
+    }
+  },
+  "libraries": {
+    "PDFsharp/1.0.0": {
+      "type": "project",
+      "path": "../PdfSharp/PDFsharp.csproj",
+      "msbuildProject": "../PdfSharp/PDFsharp.csproj"
+    },
+    "PdfSharp.Charting/1.0.0": {
+      "type": "project",
+      "path": "../PdfSharp.Charting/PdfSharp.Charting.csproj",
+      "msbuildProject": "../PdfSharp.Charting/PdfSharp.Charting.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0-windows7.0": [
+      "PDFsharp >= 1.0.0",
+      "PdfSharp.Charting >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "J:\\DiaryJournal.Net\\MigraDocPlusXml\\MigraDocPlusXml.csproj",
+      "projectName": "MigraDocPlusXml",
+      "projectPath": "J:\\DiaryJournal.Net\\MigraDocPlusXml\\MigraDocPlusXml.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "J:\\DiaryJournal.Net\\MigraDocPlusXml\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0-windows7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows7.0",
+          "projectReferences": {
+            "J:\\DiaryJournal.Net\\PdfSharp.Charting\\PdfSharp.Charting.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\PdfSharp.Charting\\PdfSharp.Charting.csproj"
+            },
+            "J:\\DiaryJournal.Net\\PdfSharp\\PDFsharp.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\PdfSharp\\PDFsharp.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows7.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
