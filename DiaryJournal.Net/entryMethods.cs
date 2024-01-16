@@ -1439,7 +1439,8 @@ namespace DiaryJournal.Net
         }
 
         // load new tree node with configuration
-        public static TreeNode? InitializeNewTreeNode(ref myNode? node)
+
+        public static TreeNode? InitializeNewTreeNode(ref myNode? node, Font defaultFont)
         {
             if (node == null) return null;
             if (node.chapter == null) return null;
@@ -1448,7 +1449,7 @@ namespace DiaryJournal.Net
             String entryName = getEntryLabel(node, false);
             TreeNode newTreeNode = new TreeNode(entryName);
             newTreeNode.Name = path;
-            loadNodeHighlight(newTreeNode, ref node, ref nodeFont);
+            loadNodeHighlight(newTreeNode, node, defaultFont, Color.White, Color.Black);
             return newTreeNode;                
         }
 
@@ -1559,26 +1560,21 @@ namespace DiaryJournal.Net
             return nodes;
         }
         // this method sets the highlights and font for a given tree node
-        public static void loadNodeHighlight(TreeNode treeNode, ref myNode node, ref Font? nodeFont)
+        public static void loadNodeHighlight(TreeNode treeNode, myNode node, Font defaultFont, Color defaultBackColor, Color defaultForeColor)
         {
-            //TreeNode tmpNode = new TreeNode();
-            //tmpNode.NodeFont = nodeFont;
+            String defaultFontString = commonMethods.FontToString(defaultFont);
+            String defaultBCString = commonMethods.ColorToString(defaultBackColor);
+            String defaultFCString = commonMethods.ColorToString(defaultForeColor);
 
-            if (node.chapter.HLFont.Length >= 1)
+            if ((node.chapter.HLFont.Length > 0 ) && (node.chapter.HLFont != defaultFontString))
                 treeNode.NodeFont = commonMethods.StringToFont(node.chapter.HLFont);
-            else
-                treeNode.NodeFont = nodeFont;// odeFont;
 
-            if (node.chapter.HLFontColor.Length >= 1)
+            if ((node.chapter.HLFontColor.Length > 0) && (node.chapter.HLFontColor != defaultFCString))
                 treeNode.ForeColor = commonMethods.StringToColor(node.chapter.HLFontColor);
-            //else
-            //    treeNode.ForeColor = tmpNode.ForeColor;
 
-            if (node.chapter.HLBackColor.Length >= 1)
+            if ((node.chapter.HLBackColor.Length > 0) && (node.chapter.HLBackColor != defaultBCString))
                 treeNode.BackColor = commonMethods.StringToColor(node.chapter.HLBackColor);
-            //else
-            //    treeNode.BackColor = tmpNode.BackColor;
-
+            
         }
         public static void setCalendarHighlightEntry(MonthCalendar CalendarEntries, DateTime dateTime)
         {
@@ -1586,14 +1582,18 @@ namespace DiaryJournal.Net
             CalendarEntries.AddBoldedDate(day);
             CalendarEntries.UpdateBoldedDates();
         }
+
         // this method finds all nodes ordered by first parent and then it's children and so and so
         // and builds a treeview tree struture
-        public static List<TreeNode> buildTreeViewTree(ref List<myNode> srcNodes, ref List<myNode> outTree,
+        public static List<TreeNode> buildTreeViewTree(ref List<myNode> srcNodes, ref List<myNode> outTree, ref List<TreeNode> outTreeNodesList,
+            Font defaultFont,
+            bool addTreeNodes = true, bool nullmyNodeTag = true,
             bool sort = true, bool descending = false, MonthCalendar? CalendarEntries = null,
             bool insertDeletedTreeNode = false)
         {
             List<TreeNode> tree = new List<TreeNode>();
             outTree = new List<myNode>();
+            outTreeNodesList = new List<TreeNode>();
             Queue<TreeNode> queue = new Queue<TreeNode>();
 
             // system nodes are first to be indexed at index 0 before all the rest of nodes.
@@ -1602,22 +1602,14 @@ namespace DiaryJournal.Net
             // non system nodes must exist after the system nodes.
             rootNodes.AddRange(entryMethods.findRootNodes(ref srcNodes, SpecialNodeType.NonSystemNode, sort, descending));
 
-            Font? nodeFont = null; //new System.Drawing.Font("Arial", 8, FontStyle.Regular);
-
             // first enqueue all root nodes
             foreach (myNode rootNode in rootNodes)
             {
-//                if (!addDeletedNode)
-  //              {
-    //                if (rootNode.chapter.IsDeleted)
-      //                  continue;
-        //        }
                 myNode node = rootNode;
                 String path = String.Format(@"{0}", node.chapter.Id);
                 String entryName = getEntryLabel(node, false);
                 TreeNode newTreeNode = new TreeNode(entryName);
                 newTreeNode.Name = path;
-                loadNodeHighlight(newTreeNode, ref node, ref nodeFont);
                 newTreeNode.Tag = node;
 
                 if (CalendarEntries != null)
@@ -1644,11 +1636,9 @@ namespace DiaryJournal.Net
             while (queue.Count > 0)
             {
                 TreeNode currentTreeNode = queue.Dequeue();
-                if (currentTreeNode == null)
-                    continue;
+                if (currentTreeNode == null) continue;
 
                 myNode currentNode = (myNode)currentTreeNode.Tag;
-//                outTree.Add(currentNode); // add this node in the output tree list.
 
                 // fetch this node's children
                 List<myNode> children = entryMethods.findFirstLevelChildren(currentNode.chapter.Id, ref srcNodes, sort, descending);
@@ -1656,27 +1646,24 @@ namespace DiaryJournal.Net
                 // 2nd in sequence is parent's children, so children are added 2nd to parent in sequence.
                 foreach (myNode childNode in children)
                 {
-//                    if (!addDeletedNode)
-  //                  {
-    //                    if (childNode.chapter.IsDeleted)
-      //                      continue;
-        //            }
                     myNode node = childNode;
                     String path = String.Format(@"{0}", node.chapter.Id);
                     String entryName = getEntryLabel(node, false);
                     TreeNode newTreeNode = new TreeNode(entryName);
                     newTreeNode.Name = path;
-                    loadNodeHighlight(newTreeNode, ref node, ref nodeFont);
                     newTreeNode.Tag = node;
 
-                    if (!insertDeletedTreeNode)
+                    if (addTreeNodes)
                     {
-                        if (!node.chapter.IsDeleted)
+                        if (!insertDeletedTreeNode)
+                        {
+                            if (!node.chapter.IsDeleted)
+                                currentTreeNode.Nodes.Add(newTreeNode);
+                        }
+                        else
+                        {
                             currentTreeNode.Nodes.Add(newTreeNode);
-                    }
-                    else
-                    {
-                        currentTreeNode.Nodes.Add(newTreeNode);
+                        }
                     }
 
                     outTree.Add(node); // add this node in the output tree list.
@@ -1711,9 +1698,16 @@ namespace DiaryJournal.Net
                 if (CalendarEntries != null)
                     setCalendarHighlightEntry(CalendarEntries, currentNode.chapter.chapterDateTime);
 
+                // highlight
+                loadNodeHighlight(currentTreeNode, currentNode, defaultFont, Color.Black, Color.White);
+
                 // null the processed tree node's tag so that the resource is released and memory freed.
-                currentTreeNode.Tag = null;
+                if (nullmyNodeTag) currentTreeNode.Tag = null;
+
+                // add tree node
+                outTreeNodesList.Add(currentTreeNode);
             }
+
             return tree;
         }
 

@@ -12,8 +12,9 @@ namespace DiaryJournal.Net
 {
     public partial class CustomFontDialog : Form
     {
-        public Font font = null;
+        public bool editor = false;
 
+        public Font font = null;
         public int size = 0;
         public bool bold = false;
         public bool italic = false;
@@ -75,7 +76,8 @@ namespace DiaryJournal.Net
                 return;
 
             ListViewItem item = lvFonts.SelectedItems[0];
-            Font newFont = new Font(item.Name, (float)(size * 72.0 / 96.0), style);
+            float finalSize = ((editor) ? (float)(size * 72.0 / 96.0) : (float)size);
+            Font newFont = new Font(item.Name, finalSize, style);
             lblSampleText.Font = newFont;
 
             // update colors

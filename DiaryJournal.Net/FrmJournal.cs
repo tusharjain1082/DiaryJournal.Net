@@ -1328,7 +1328,9 @@ namespace DiaryJournal.Net
 
             // build tree
             List<myNode> outputTree = new List<myNode>();
-            List<TreeNode> tree = entryMethods.buildTreeViewTree(ref srcNodes, ref outputTree, true, false, CalendarEntries, false);
+            List<TreeNode> outputTreeNodesList = new List<TreeNode>();
+            List<TreeNode> tree = entryMethods.buildTreeViewTree(ref srcNodes, ref outputTree, ref outputTreeNodesList,
+                tvEntries.Font, true, true, true, false, CalendarEntries, false);
             srcNodes = outputTree;
 
             // load all tree 
@@ -2048,6 +2050,7 @@ namespace DiaryJournal.Net
             fontDialog.strikeout = rtbEntry.Strikeout;
             fontDialog.fontColor = rtbEntry.SelectionColor;
             fontDialog.fontBackColor = rtbEntry.SelectionBackColor;
+            fontDialog.editor = true;
 
             if (fontDialog.ShowDialog() != DialogResult.OK)
                 return;
@@ -2727,6 +2730,7 @@ namespace DiaryJournal.Net
             fontDialog.italic = treeNode.NodeFont.Italic;
             fontDialog.underline = treeNode.NodeFont.Underline;
             fontDialog.strikeout = treeNode.NodeFont.Strikeout;
+            fontDialog.editor = false;
             if (fontDialog.ShowDialog() != DialogResult.OK)
                 return;
 
@@ -2797,6 +2801,8 @@ namespace DiaryJournal.Net
             fontDialog.italic = treeNode.NodeFont.Italic;
             fontDialog.underline = treeNode.NodeFont.Underline;
             fontDialog.strikeout = treeNode.NodeFont.Strikeout;
+            fontDialog.editor = false;
+
             if (!reset)
             {
                 // if user selected a tree node it should be the default value
@@ -3779,12 +3785,16 @@ namespace DiaryJournal.Net
         public void __moveNodeTo(TreeNode? subjectTreeNode)
         {
             FormTree form = new FormTree();
-            form.allNodes = allNodes;
+            form.allNodes = new List<myNode>(allNodes);
+            form.cfg = cfg;
+            form.defaultFont = tvEntries.Font;
+            form.tvHeight = tvEntries.ItemHeight;
+            form.tvIndent = tvEntries.Indent;
             if (form.ShowDialog() != DialogResult.OK)
                 return;
 
             // resetup newly updated tree into the primary tree work list.
-            allNodes = form.allNodes;
+            allNodes = new List<myNode>(form.allNodes);
 
             TreeNode? targetTreeNode = form.tvEntries.SelectedNode;
             if (targetTreeNode == null) // no node selected, abort.
@@ -4039,45 +4049,6 @@ namespace DiaryJournal.Net
                 // opens the folder in explorer
                 System.Diagnostics.Process.Start("explorer.exe", cfg.ctx0.dbBasePath);
             }
-        }
-
-        private void upgradeOldVersionDbToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            myConfig cfg = new myConfig();
-
-            browseFolder.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); //Application.StartupPath;
-            if (browseFolder.ShowDialog() == DialogResult.OK)
-            {
-                if (!OpenFileSystemDB.LoadDB(ref cfg.ctx1, browseFolder.SelectedPath))
-                {
-                    this.Invoke(showMessageBox, "error loading db or invalid (non-db) path.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
-            else
-            {
-                return;
-            }
-
-            cfg.radCfgUseOpenFileSystemDB = true;
-            cfg.radCfgUseSingleFileDB = false;
-
-            // collect all source tree and nodes from currently active db
-            List<myNode>? allNodes = entryMethods.DBFindAllNodes(cfg, false, false);
-
-            // first get the total number of chapters which exist in db
-            long nodesCount = allNodes.LongCount();
-
-            // load tree document object model structure
-            myTreeDom treeDom = new myTreeDom();
-            treeDom.buildTree(ref allNodes, true, false);
-            List<myTreeDomNode> tree = treeDom.ToList();
-
-            foreach (myTreeDomNode listedNode in tree)
-                OpenFileSystemDB.updateNode(cfg.ctx1, ref listedNode.self, "", false, false);
-
-            this.Invoke(showMessageBox, "done.", "done", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
 
         private void toolStripMenuItem34_Click(object sender, EventArgs e)
@@ -5316,13 +5287,16 @@ namespace DiaryJournal.Net
         {
 
             FormTree form = new FormTree();
-            form.allNodes = allNodes;
+            form.allNodes = new List<myNode>(allNodes);
             form.cfg = cfg;
+            form.defaultFont = tvEntries.Font;
+            form.tvHeight = tvEntries.ItemHeight;
+            form.tvIndent = tvEntries.Indent;
             if (form.ShowDialog() != DialogResult.OK)
                 return;
 
             // resetup newly updated tree into the primary tree work list.
-            allNodes = form.allNodes;
+            allNodes = new List<myNode>(form.allNodes);
 
             List<myNode> selNodes = getHighestCheckedTreeViewItemsDBNodes(form.tvEntries);
             if (selNodes.Count == 0) return;
@@ -5477,7 +5451,7 @@ namespace DiaryJournal.Net
                 return false;
 
             // setup tree node
-            TreeNode? newTreeNode = entryMethods.InitializeNewTreeNode(ref clone);
+            TreeNode? newTreeNode = entryMethods.InitializeNewTreeNode(ref clone, tvEntries.Font);
             if (clone.chapter.parentId >= 1)
             {
                 // add new clone node at it's parent's location
@@ -5535,12 +5509,16 @@ namespace DiaryJournal.Net
                 return;
 
             FormTree form = new FormTree();
-            form.allNodes = allNodes;
+            form.allNodes = new List<myNode>(allNodes);
+            form.cfg = cfg;
+            form.defaultFont = tvEntries.Font;
+            form.tvHeight = tvEntries.ItemHeight;
+            form.tvIndent = tvEntries.Indent;
             if (form.ShowDialog() != DialogResult.OK)
                 return;
 
             // resetup newly updated tree into the primary tree work list.
-            allNodes = form.allNodes;
+            allNodes = new List<myNode>(form.allNodes);
 
             TreeNode? targetTreeNode = form.tvEntries.SelectedNode;
             if (targetTreeNode == null) // no node selected, abort.
@@ -5579,6 +5557,7 @@ namespace DiaryJournal.Net
             fontDialog.strikeout = font.Strikeout;
             fontDialog.fontBackColor = linkCfgTVEntriesFont.BackColor;
             fontDialog.fontColor = linkCfgTVEntriesFont.ForeColor;
+            fontDialog.editor = false;
 
             if (fontDialog.ShowDialog() != DialogResult.OK)
                 return;
@@ -5958,5 +5937,61 @@ namespace DiaryJournal.Net
 
         }
 
+        private void nullifyemptyAllFontAndColorEntireDbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // first save the entry
+            this.Invoke(saveEntry);
+
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return;
+
+            if (MessageBox.Show("warning: are you sure you want to null/empty all fonts and colors of all nodes?", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                return;
+
+            this.Invoke(toggleForm, false);
+
+            // operations status form
+            FormOperation? formOperation = null;
+            formOperation = FormOperation.showForm(this, "please wait. doing operation...", 0, 100, 0, 0);
+
+            // first get the total number of chapters which exist in db
+            long allNodesCount = allNodes.LongCount();
+            long index = 0;
+
+            foreach (myNode? listedNode in allNodes)
+            {
+                // load the rtf from current node
+                myNode? node = listedNode;
+
+                node.chapter.HLFont = "";//commonMethods.FontToString(tvEntries.Font);
+                node.chapter.HLFontColor = "";//commonMethods.ColorToString(Color.Black);
+                node.chapter.HLBackColor = "";// commonMethods.ColorToString(Color.White);
+
+                entryMethods.DBUpdateNode(cfg, ref node, "", false, false, false);
+
+                formOperation.updateProgressBar(index, allNodesCount);
+                formOperation.updateFilesStatus(index++, allNodesCount);
+
+            }
+
+            // checkpoint
+            entryMethods.DBCheckpoint(ref cfg);
+
+            // finally update the db index in file.
+            entryMethods.DBWriteIndexing(ref cfg);
+
+            // entire tree structure export completed. now final update and exit.
+            this.Invoke(toggleForm, true);
+
+            formOperation.close();
+
+            this.Invoke(showMessageBox, "total nodes processed: " + index, "done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (cfg.radCfgUseOpenFileSystemDB)
+                loadDB(cfg.ctx1.dbBasePath);
+            else
+                loadDB(cfg.ctx0.dbpath);
+
+        }
     }
 }

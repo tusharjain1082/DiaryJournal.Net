@@ -408,6 +408,7 @@
             toolStripSeparator80 = new ToolStripSeparator();
             customizeAllNodesRecursiveToolStripMenuItem = new ToolStripMenuItem();
             resetAllDbNodesRecursiveToolStripMenuItem = new ToolStripMenuItem();
+            nullifyemptyAllFontAndColorEntireDbToolStripMenuItem = new ToolStripMenuItem();
             entryToolStripMenuItem = new ToolStripMenuItem();
             newEntryToolStripMenuItem = new ToolStripMenuItem();
             newEntryNowToolStripMenuItem = new ToolStripMenuItem();
@@ -509,7 +510,6 @@
             toolStripSeparator53 = new ToolStripSeparator();
             openDatabaseLocationToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator54 = new ToolStripSeparator();
-            upgradeOldVersionDbToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem76 = new ToolStripMenuItem();
             toolStripSeparator64 = new ToolStripSeparator();
             singleFileDbToOpenFilesystemDbToolStripMenuItem = new ToolStripMenuItem();
@@ -1182,7 +1182,7 @@
             tvEntries.CheckBoxes = true;
             tvEntries.ContextMenuStrip = menuTVEntries;
             tvEntries.Dock = DockStyle.Fill;
-            tvEntries.Font = new Font("Segoe UI", 8.25F);
+            tvEntries.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tvEntries.FullRowSelect = true;
             tvEntries.HideSelection = false;
             tvEntries.ItemHeight = 16;
@@ -3651,7 +3651,7 @@
             // 
             // toolStripMenuItem35
             // 
-            toolStripMenuItem35.DropDownItems.AddRange(new ToolStripItem[] { closeAllTreeToolStripMenuItem, expandAllTreeToolStripMenuItem, toolStripSeparator55, toolStripMenuItem36, expandSelectedNodeToolStripMenuItem, toolStripSeparator58, sortToolStripMenuItem, toolStripSeparator80, customizeAllNodesRecursiveToolStripMenuItem, resetAllDbNodesRecursiveToolStripMenuItem });
+            toolStripMenuItem35.DropDownItems.AddRange(new ToolStripItem[] { closeAllTreeToolStripMenuItem, expandAllTreeToolStripMenuItem, toolStripSeparator55, toolStripMenuItem36, expandSelectedNodeToolStripMenuItem, toolStripSeparator58, sortToolStripMenuItem, toolStripSeparator80, customizeAllNodesRecursiveToolStripMenuItem, resetAllDbNodesRecursiveToolStripMenuItem, nullifyemptyAllFontAndColorEntireDbToolStripMenuItem });
             toolStripMenuItem35.Name = "toolStripMenuItem35";
             toolStripMenuItem35.Size = new Size(40, 23);
             toolStripMenuItem35.Text = "T&ree";
@@ -3659,46 +3659,46 @@
             // closeAllTreeToolStripMenuItem
             // 
             closeAllTreeToolStripMenuItem.Name = "closeAllTreeToolStripMenuItem";
-            closeAllTreeToolStripMenuItem.Size = new Size(240, 22);
+            closeAllTreeToolStripMenuItem.Size = new Size(298, 22);
             closeAllTreeToolStripMenuItem.Text = "close all tree";
             closeAllTreeToolStripMenuItem.Click += closeAllTreeToolStripMenuItem_Click;
             // 
             // expandAllTreeToolStripMenuItem
             // 
             expandAllTreeToolStripMenuItem.Name = "expandAllTreeToolStripMenuItem";
-            expandAllTreeToolStripMenuItem.Size = new Size(240, 22);
+            expandAllTreeToolStripMenuItem.Size = new Size(298, 22);
             expandAllTreeToolStripMenuItem.Text = "expand all tree";
             expandAllTreeToolStripMenuItem.Click += expandAllTreeToolStripMenuItem_Click;
             // 
             // toolStripSeparator55
             // 
             toolStripSeparator55.Name = "toolStripSeparator55";
-            toolStripSeparator55.Size = new Size(237, 6);
+            toolStripSeparator55.Size = new Size(295, 6);
             // 
             // toolStripMenuItem36
             // 
             toolStripMenuItem36.Name = "toolStripMenuItem36";
-            toolStripMenuItem36.Size = new Size(240, 22);
+            toolStripMenuItem36.Size = new Size(298, 22);
             toolStripMenuItem36.Text = "close selected node";
             toolStripMenuItem36.Click += toolStripMenuItem36_Click;
             // 
             // expandSelectedNodeToolStripMenuItem
             // 
             expandSelectedNodeToolStripMenuItem.Name = "expandSelectedNodeToolStripMenuItem";
-            expandSelectedNodeToolStripMenuItem.Size = new Size(240, 22);
+            expandSelectedNodeToolStripMenuItem.Size = new Size(298, 22);
             expandSelectedNodeToolStripMenuItem.Text = "expand selected node";
             expandSelectedNodeToolStripMenuItem.Click += expandSelectedNodeToolStripMenuItem_Click;
             // 
             // toolStripSeparator58
             // 
             toolStripSeparator58.Name = "toolStripSeparator58";
-            toolStripSeparator58.Size = new Size(237, 6);
+            toolStripSeparator58.Size = new Size(295, 6);
             // 
             // sortToolStripMenuItem
             // 
             sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem38, sortNodesChildrenRecursivelyToolStripMenuItem, toolStripSeparator59, sortFirstLevelRootNodesToolStripMenuItem, sortAllRootNodesRecursivelyToolStripMenuItem, toolStripSeparator60, sortCheckedNodesFirstChildrenToolStripMenuItem, sortCheckedNodesRecursivelyToolStripMenuItem });
             sortToolStripMenuItem.Name = "sortToolStripMenuItem";
-            sortToolStripMenuItem.Size = new Size(240, 22);
+            sortToolStripMenuItem.Size = new Size(298, 22);
             sortToolStripMenuItem.Text = "sort";
             // 
             // toolStripMenuItem38
@@ -3756,21 +3756,28 @@
             // toolStripSeparator80
             // 
             toolStripSeparator80.Name = "toolStripSeparator80";
-            toolStripSeparator80.Size = new Size(237, 6);
+            toolStripSeparator80.Size = new Size(295, 6);
             // 
             // customizeAllNodesRecursiveToolStripMenuItem
             // 
             customizeAllNodesRecursiveToolStripMenuItem.Name = "customizeAllNodesRecursiveToolStripMenuItem";
-            customizeAllNodesRecursiveToolStripMenuItem.Size = new Size(240, 22);
+            customizeAllNodesRecursiveToolStripMenuItem.Size = new Size(298, 22);
             customizeAllNodesRecursiveToolStripMenuItem.Text = "reset checked nodes recursive...";
             customizeAllNodesRecursiveToolStripMenuItem.Click += resetCheckedNodesRecursiveToolStripMenuItem_Click;
             // 
             // resetAllDbNodesRecursiveToolStripMenuItem
             // 
             resetAllDbNodesRecursiveToolStripMenuItem.Name = "resetAllDbNodesRecursiveToolStripMenuItem";
-            resetAllDbNodesRecursiveToolStripMenuItem.Size = new Size(240, 22);
+            resetAllDbNodesRecursiveToolStripMenuItem.Size = new Size(298, 22);
             resetAllDbNodesRecursiveToolStripMenuItem.Text = "reset all db nodes recursive...";
             resetAllDbNodesRecursiveToolStripMenuItem.Click += resetAllDbNodesRecursiveToolStripMenuItem_Click;
+            // 
+            // nullifyemptyAllFontAndColorEntireDbToolStripMenuItem
+            // 
+            nullifyemptyAllFontAndColorEntireDbToolStripMenuItem.Name = "nullifyemptyAllFontAndColorEntireDbToolStripMenuItem";
+            nullifyemptyAllFontAndColorEntireDbToolStripMenuItem.Size = new Size(298, 22);
+            nullifyemptyAllFontAndColorEntireDbToolStripMenuItem.Text = "nullify/empty all font and color entire db...";
+            nullifyemptyAllFontAndColorEntireDbToolStripMenuItem.Click += nullifyemptyAllFontAndColorEntireDbToolStripMenuItem_Click;
             // 
             // entryToolStripMenuItem
             // 
@@ -4395,7 +4402,7 @@
             // 
             // toolStripMenuItem21
             // 
-            toolStripMenuItem21.DropDownItems.AddRange(new ToolStripItem[] { rebuildDbToolStripMenuItem, toolStripSeparator26, checkpointToolStripMenuItem, toolStripSeparator53, openDatabaseLocationToolStripMenuItem, toolStripSeparator54, upgradeOldVersionDbToolStripMenuItem, toolStripMenuItem76, toolStripSeparator64, singleFileDbToOpenFilesystemDbToolStripMenuItem, openFilesystemDbToSingleFileDbToolStripMenuItem, toolStripMenuItem54, toolStripMenuItem55, toolStripMenuItem56, toolStripMenuItem57, toolStripSeparator65, create30000TestNodesToolStripMenuItem, toolStripSeparator79, copyDbToLocationToolStripMenuItem, moveDbToLocationToolStripMenuItem });
+            toolStripMenuItem21.DropDownItems.AddRange(new ToolStripItem[] { rebuildDbToolStripMenuItem, toolStripSeparator26, checkpointToolStripMenuItem, toolStripSeparator53, openDatabaseLocationToolStripMenuItem, toolStripSeparator54, toolStripMenuItem76, toolStripSeparator64, singleFileDbToOpenFilesystemDbToolStripMenuItem, openFilesystemDbToSingleFileDbToolStripMenuItem, toolStripMenuItem54, toolStripMenuItem55, toolStripMenuItem56, toolStripMenuItem57, toolStripSeparator65, create30000TestNodesToolStripMenuItem, toolStripSeparator79, copyDbToLocationToolStripMenuItem, moveDbToLocationToolStripMenuItem });
             toolStripMenuItem21.Name = "toolStripMenuItem21";
             toolStripMenuItem21.Size = new Size(34, 23);
             toolStripMenuItem21.Text = "&DB";
@@ -4435,14 +4442,6 @@
             // 
             toolStripSeparator54.Name = "toolStripSeparator54";
             toolStripSeparator54.Size = new Size(329, 6);
-            // 
-            // upgradeOldVersionDbToolStripMenuItem
-            // 
-            upgradeOldVersionDbToolStripMenuItem.Enabled = false;
-            upgradeOldVersionDbToolStripMenuItem.Name = "upgradeOldVersionDbToolStripMenuItem";
-            upgradeOldVersionDbToolStripMenuItem.Size = new Size(332, 22);
-            upgradeOldVersionDbToolStripMenuItem.Text = "upgrade old version db";
-            upgradeOldVersionDbToolStripMenuItem.Click += upgradeOldVersionDbToolStripMenuItem_Click;
             // 
             // toolStripMenuItem76
             // 
@@ -4539,7 +4538,7 @@
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Size = new Size(107, 22);
             aboutToolStripMenuItem.Text = "About";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
@@ -5022,7 +5021,6 @@
         private ToolStripSeparator toolStripSeparator53;
         private ToolStripMenuItem openDatabaseLocationToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator54;
-        private ToolStripMenuItem upgradeOldVersionDbToolStripMenuItem;
         private ToolStripStatusLabel toolStripStatusLabel5;
         private ToolStripStatusLabel tsslabelLMD;
         private ToolStripMenuItem toolStripMenuItem34;
@@ -5248,5 +5246,6 @@
         private ToolStripMenuItem copyDbToLocationToolStripMenuItem;
         private ToolStripMenuItem moveDbToLocationToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem78;
+        private ToolStripMenuItem nullifyemptyAllFontAndColorEntireDbToolStripMenuItem;
     }
 }
