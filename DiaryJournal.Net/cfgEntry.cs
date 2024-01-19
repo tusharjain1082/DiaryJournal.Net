@@ -32,7 +32,7 @@ namespace DiaryJournal.Net
             chapter.chapterDateTime = DateTime.ParseExact(values[3], "yyyy-MM-dd-HH-mm-ss-fff",
                   System.Globalization.CultureInfo.InvariantCulture);
             chapter.IsDeleted = bool.Parse(values[4]);
-            chapter.nodeType = (NodeType)Enum.Parse(typeof(NodeType), values[5]);
+            chapter.nodeType = mySystemNodes.getSystemNodeTypeByName(values[5]);
             chapter.specialNodeType = (SpecialNodeType)Enum.Parse(typeof(SpecialNodeType), values[6]);
             chapter.domainType = (DomainType)Enum.Parse(typeof(DomainType), values[7]);
             chapter.HLFont = values[8];

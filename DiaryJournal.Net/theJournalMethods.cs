@@ -62,7 +62,7 @@ namespace DiaryJournal.Net
             if (node != null) return node; // node already exists, so return it
 
             // node does not exists, so create new node
-            node = entryMethods.DBNewNode(ref cfg, SpecialNodeType.None, NodeType.NonCalendarEntryNode, DomainType.AnyOrAll,
+            node = entryMethods.DBNewNode(ref cfg, SpecialNodeType.None, NodeType.NonCalendarEntry, DomainType.AnyOrAll,
                 ref node, true, true, true, DateTime.Now, parentId, true, title, "", true, false, false);
             if (node == null) return null; // error creating node
             

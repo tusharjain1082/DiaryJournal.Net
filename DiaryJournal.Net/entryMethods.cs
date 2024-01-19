@@ -200,23 +200,24 @@ namespace DiaryJournal.Net
             String entryName = "";
             switch (node.chapter.nodeType)
             {
-                case NodeType.JournalNode:
+                /*
+                case NodeType.Journal:
                     entryName = String.Format(@"{0}:(ID {1})", mySystemNodes.JournalSystemNodeName, node.chapter.Id.ToString());
                     break;
 
-                case NodeType.LibraryNode:
+                case NodeType.Library:
                     entryName = String.Format(@"{0}:(ID {1})", mySystemNodes.LibrarySystemNodeName, node.chapter.Id.ToString());
                     break;
-
-                case NodeType.LabelNode:
+                */
+                case NodeType.Label:
                     entryName = String.Format(@"{0}:(ID {1})", node.chapter.Title, node.chapter.Id.ToString());
                     break;
 
-                case NodeType.NonCalendarEntryNode:
+                case NodeType.NonCalendarEntry:
                     entryName = String.Format(@"{0}:(ID {1})", node.chapter.Title, node.chapter.Id.ToString());
                     break;
 
-                case NodeType.SetNode:
+                case NodeType.Set:
                     entryName = String.Format(@"CloneSet:({0}):({1}):({2}:{3}:{4}:{5}):(ID {6})", node.chapter.Title,
                         node.chapter.chapterDateTime.ToString("dd-MM-yyyy"),
                         node.chapter.chapterDateTime.Hour, node.chapter.chapterDateTime.Minute,
@@ -225,21 +226,26 @@ namespace DiaryJournal.Net
                         node.chapter.Id.ToString());
                     break;
 
-                case NodeType.YearNode:
+                case NodeType.Year:
                     entryName = String.Format("{0}:(ID {1})", node.chapter.chapterDateTime.ToString("yyyy"), node.chapter.Id.ToString());
                     break;
 
-                case NodeType.MonthNode:
+                case NodeType.Month:
                     entryName = String.Format("{0}:(ID {1})", node.chapter.chapterDateTime.ToString("MMMM"), node.chapter.Id.ToString());
                     break;
 
-                case NodeType.EntryNode:
+                case NodeType.Entry:
                     entryName = String.Format(@"({0}):({1}:{2}:{3}:{4}):({5}):(ID {6})", node.chapter.chapterDateTime.ToString("dd-MM-yyyy"),
                         node.chapter.chapterDateTime.Hour, node.chapter.chapterDateTime.Minute,
                         node.chapter.chapterDateTime.Second, node.chapter.chapterDateTime.Millisecond, node.chapter.Title, node.chapter.Id.ToString());
                     break;
 
                 default:
+                    if (node.chapter.specialNodeType == SpecialNodeType.SystemNode)
+                        entryName = String.Format(@"{0}:(ID {1})", mySystemNodes.getSystemNodeName(node.chapter.nodeType), node.chapter.Id.ToString());
+                    else
+                        entryName = String.Format(@"{0}:(ID {1})", node.chapter.Title, node.chapter.Id.ToString());
+
                     break;
 
             }
@@ -254,43 +260,55 @@ namespace DiaryJournal.Net
         {
             // first try to find and load system nodes
             mySystemNodes systemNodes = new mySystemNodes();
-            List<myNode> collection = findNodesByTypes(ref allNodes, SpecialNodeType.SystemNode, NodeType.AnyOrAll, true, false);
-            if (collection.Count() <= 0) // system nodes do not exist, so create them
+            if (!createCoreSystemNodes(ref cfg, ref allNodes, ref systemNodes))
             {
-                if (!createSystemNodes(ref cfg, ref systemNodes))
-                {
-                    systemNodesOut = null;
-                    return false;
-                }
+                // critical error abort
+                systemNodesOut = null;
+                return false;
+            }
 
-                // successfully created system nodes, add them to prebuilt list
-                collection = findSystemNodesList(ref systemNodes);
-                allNodes.AddRange(collection);
-            }
-            else
-            {
-                // system nodes already exist, successfully loaded system nodes
-                // load all other system nodes such as year and month nodes if they exist from the source list
-                loadSystemNodesCollection(ref collection, ref systemNodes);
-            }
+            // load all other system nodes such as year and month nodes if they exist from the source list
+            loadOtherSystemNodesCollection(ref allNodes, ref systemNodes);
+
             // return output
             systemNodesOut = systemNodes;
             return true;
         }
-        // this method creates and returns a list with all existent system nodes
-        public static List<myNode> findSystemNodesList(ref mySystemNodes systemNodes)
+
+        // find all system nodes
+        public static List<myNode> findSystemNodes(ref List<myNode> srcNodes, bool coreSystemNodes = true, bool calendarNodes = false, bool sort = true, bool descending = false)
         {
-            List<myNode> list = new List<myNode>();
+            List<myNode> nodes = new List<myNode>();
+            foreach (myNode srcNode in srcNodes)
+            {
+                myNode node = srcNode;
 
-            if (systemNodes == null)
-                return list;
+                if (node.chapter.specialNodeType != SpecialNodeType.SystemNode)
+                    continue; // not system node so skip
 
-            list.Add(systemNodes.JournalSystemNode);
-            list.Add(systemNodes.LibrarySystemNode);
-            list.AddRange(systemNodes.YearNodes);
-            list.AddRange(systemNodes.MonthNodes);
-            return list;
+                if (!calendarNodes)
+                {
+                    if (node.chapter.nodeType == NodeType.Year || node.chapter.nodeType == NodeType.Month)
+                        continue; // calendar system node not wanted so skip it
+                }
+
+                if (!coreSystemNodes)
+                {
+                    // core system nodes not wanted so skip
+                    if (mySystemNodes.isCoreSystemNode(node.chapter.nodeType))
+                        continue;
+                }
+                // finally add this system node
+                nodes.Add(node);
+            }
+
+            // sort by date and time
+            if (sort)
+                entryMethods.sortNodesByDateTime(ref nodes, descending);
+
+            return nodes;
         }
+
         // find all system nodes
         public static List<myNode> findNodesByTypes(ref List<myNode> srcNodes, SpecialNodeType specialNodeType,
             NodeType nodeType, bool sort = true, bool descending = false)
@@ -348,58 +366,53 @@ namespace DiaryJournal.Net
             return nodes;
         }
         // this method finds and loads all system nodes into proper places in the system nodes collection
-        public static void loadSystemNodesCollection(ref List<myNode> list, ref mySystemNodes systemNodes)
+        public static void loadOtherSystemNodesCollection(ref List<myNode> allNodes, ref mySystemNodes systemNodes)
         {
             // reset
             systemNodes.YearNodes.Clear();
             systemNodes.MonthNodes.Clear();
 
-            // now find items and fill in appropirate places
-            foreach (myNode node in list)
-            {
-                if (node.chapter.specialNodeType != SpecialNodeType.SystemNode)
-                    continue;
+            List<myNode> otherNodes = findSystemNodes(ref allNodes, false, true, true, false);
 
-                if (node.chapter.nodeType == NodeType.JournalNode)
-                    systemNodes.JournalSystemNode = node;
-                else if (node.chapter.nodeType == NodeType.LibraryNode)
-                    systemNodes.LibrarySystemNode = node;
-                else if (node.chapter.nodeType == NodeType.YearNode)
+            // now find items and fill in appropirate places
+            foreach (myNode node in otherNodes)
+            {
+                if (node.chapter.nodeType == NodeType.Year)
                     systemNodes.YearNodes.Add(node);
-                else if (node.chapter.nodeType == NodeType.MonthNode)
+                else if (node.chapter.nodeType == NodeType.Month)
                     systemNodes.MonthNodes.Add(node);
             }
         }
         // this method creates new system nodes
-        public static bool createSystemNodes(ref myConfig cfg, ref mySystemNodes systemNodes)
+        public static bool createCoreSystemNodes(ref myConfig cfg, ref List<myNode> allNodes, ref mySystemNodes systemNodes)
         {
-            // journal node
-            myNode journalNode = new myNode(true);
-            journalNode.chapter.specialNodeType = SpecialNodeType.SystemNode;
-            journalNode.chapter.nodeType = NodeType.JournalNode;
-            journalNode.chapter.chapterDateTime = DateTime.Now;
-            journalNode.chapter.Title = mySystemNodes.JournalSystemNodeName;
+            List<myNode> coreNodesCollection = findSystemNodes(ref allNodes, true, false, true, false);
 
-            // library node
-            myNode libraryNode = new myNode(true);
-            libraryNode.chapter.specialNodeType = SpecialNodeType.SystemNode;
-            libraryNode.chapter.nodeType = NodeType.LibraryNode;
-            libraryNode.chapter.chapterDateTime = DateTime.Now;
-            libraryNode.chapter.Title = mySystemNodes.LibrarySystemNodeName;
+            foreach (String systemNodeName in mySystemNodes.SystemNodesNames)
+            {
+                NodeType nodeType = commonMethods.convertToEnum<NodeType>(systemNodeName);
 
-            // finally create nodes in db
+                // skip this system node if it exists in db
+                myNode? found = null;
+                if (coreNodesCollection.Count() > 0) found = coreNodesCollection.FirstOrDefault(s => s.chapter.nodeType == nodeType);
+                if (found != null) systemNodes.setSystemNode(nodeType, ref found);
+                if (found != null) continue;
 
-            // create journal node
-            if (!DBCreateNode(ref cfg, ref journalNode, "", true, true, true, true, true, true))
-                return false;
+                // this node does not exists in db, so auto create it and load it in collections
+                myNode newNode = new myNode(true);
+                newNode.chapter.specialNodeType = SpecialNodeType.SystemNode;
+                newNode.chapter.nodeType = nodeType;
+                newNode.chapter.chapterDateTime = DateTime.Now;
+                newNode.chapter.Title = systemNodeName;
 
-            // create library node
-            if (!DBCreateNode(ref cfg, ref libraryNode, "", true, true, true, true, true, true))
-                return false;
+                // finally create this new node
+                if (!DBCreateNode(ref cfg, ref newNode, "", true, true, true, true, true, true))
+                    return false; // critical error abort
 
-            // output
-            systemNodes.JournalSystemNode = journalNode;
-            systemNodes.LibrarySystemNode = libraryNode;
+                // finally add the new node and update the collection
+                systemNodes.setSystemNode(nodeType, ref newNode);
+                allNodes.Add(newNode);
+            }
             return true;
         }
 
@@ -500,11 +513,6 @@ namespace DiaryJournal.Net
         {
             bool result = false;
 
-            // auto initialize node font and colors if not already initialized.
-            if (node.chapter.HLFont == "") node.chapter.HLFont = commonMethods.FontToString(cfg.tvEntriesFont);
-            if (node.chapter.HLBackColor == "") node.chapter.HLBackColor = commonMethods.ColorToString(cfg.tvEntriesBackColor);
-            if (node.chapter.HLFontColor == "") node.chapter.HLFontColor = commonMethods.ColorToString(cfg.tvEntriesForeColor);
-
             if (cfg.radCfgUseOpenFileSystemDB)
                 result = OpenFileSystemDB.createNode(cfg.ctx1, ref node, rtf, resetCD, resetMD, resetDD, newID);
             else
@@ -551,6 +559,40 @@ namespace DiaryJournal.Net
                 DatabaseIndexing.toFile(ref cfg.ctx1.dbIndexing, cfg.ctx1.dbIndexingFile);
             else
                 DatabaseIndexing.toFile(ref cfg.ctx0.dbIndexing, cfg.ctx0.dbIndexingFile);
+        }
+        // this method auto selects the db core sets the index
+        public static void DBSetIndexingIndex(ref myConfig cfg, DatabaseType dbType, long index)
+        {
+            if (dbType == DatabaseType.OpenFSDB)
+                cfg.ctx1.dbIndexing.currentDBIndex = index;
+            else if (dbType == DatabaseType.SingleFileDB)
+                cfg.ctx0.dbIndexing.currentDBIndex = index;
+        }
+        // this method copies the db indexing from one db to another
+        public static void DBCopyIndexingIndex(ref myConfig cfgSrc, ref myConfig cfgDest, DatabaseType srcDBType, DatabaseType destDBType)
+        {
+            if (srcDBType == DatabaseType.SingleFileDB)
+            {
+                if (destDBType == DatabaseType.SingleFileDB)
+                {
+                    cfgDest.ctx0.dbIndexing.currentDBIndex = cfgSrc.ctx0.dbIndexing.currentDBIndex;
+                }
+                else if (destDBType == DatabaseType.OpenFSDB)
+                {
+                    cfgDest.ctx1.dbIndexing.currentDBIndex = cfgSrc.ctx0.dbIndexing.currentDBIndex;
+                }
+            }
+            else if (srcDBType == DatabaseType.OpenFSDB)
+            {
+                if (destDBType == DatabaseType.SingleFileDB)
+                {
+                    cfgDest.ctx0.dbIndexing.currentDBIndex = cfgSrc.ctx1.dbIndexing.currentDBIndex;
+                }
+                else if (destDBType == DatabaseType.OpenFSDB)
+                {
+                    cfgDest.ctx1.dbIndexing.currentDBIndex = cfgSrc.ctx1.dbIndexing.currentDBIndex;
+                }
+            }
         }
 
         // this method auto selects the db core writes it's config file
@@ -829,7 +871,7 @@ namespace DiaryJournal.Net
             if (cfg.radCfgUseOpenFileSystemDB)
                 return OpenFileSystemDB.updateNode(cfg.ctx1, ref node, rtf, storeData, updateModificationDate);
             else
-                return SingleFileDB.updateNode(cfg.ctx0, ref node, rtf, storeData, updateModificationDate);
+                return SingleFileDB.updateNode(cfg.ctx0, ref node, rtf, storeData, updateModificationDate, checkpoint);
         }
 
         // erases and purges the node's files
@@ -957,7 +999,7 @@ namespace DiaryJournal.Net
             node.chapter.creationDateTime = setDateTime;
             node.chapter.modificationDateTime = setDateTime;
             node.chapter.Id = CreateNodeID(ref currentIndex);
-            node.chapter.nodeType = NodeType.SetNode;
+            node.chapter.nodeType = NodeType.Set;
             node.chapter.parentId = 0;
             node.chapter.Title = setName;
             return node;
@@ -971,7 +1013,7 @@ namespace DiaryJournal.Net
             node.chapter.creationDateTime = setDateTime;
             node.chapter.modificationDateTime = setDateTime;
             node.chapter.Id = CreateNodeID(ref cfg);
-            node.chapter.nodeType = NodeType.SetNode;
+            node.chapter.nodeType = NodeType.Set;
             node.chapter.parentId = 0;
             node.chapter.Title = setName;
             return node;
@@ -1532,18 +1574,18 @@ namespace DiaryJournal.Net
 
                 switch (nodeType)
                 {
-                    case NodeType.YearNode:
-                        if (node.chapter.nodeType == NodeType.YearNode && node.chapter.chapterDateTime.Year == year)
+                    case NodeType.Year:
+                        if (node.chapter.nodeType == NodeType.Year && node.chapter.chapterDateTime.Year == year)
                             nodes.Add(node);
 
                         break;
-                    case NodeType.MonthNode:
-                        if (node.chapter.nodeType == NodeType.MonthNode && node.chapter.chapterDateTime.Year == year && node.chapter.chapterDateTime.Month == month)
+                    case NodeType.Month:
+                        if (node.chapter.nodeType == NodeType.Month && node.chapter.chapterDateTime.Year == year && node.chapter.chapterDateTime.Month == month)
                             nodes.Add(node);
 
                         break;
-                    case NodeType.EntryNode:
-                        if (node.chapter.nodeType == NodeType.EntryNode && node.chapter.chapterDateTime.Year == year && node.chapter.chapterDateTime.Month == month &&
+                    case NodeType.Entry:
+                        if (node.chapter.nodeType == NodeType.Entry && node.chapter.chapterDateTime.Year == year && node.chapter.chapterDateTime.Month == month &&
                             node.chapter.chapterDateTime.Day == day)
                             nodes.Add(node);
 
@@ -1670,24 +1712,24 @@ namespace DiaryJournal.Net
                 }
 
                 // setup tree node icons
-                if (currentNode.chapter.specialNodeType == SpecialNodeType.SystemNode && (currentNode.chapter.nodeType == NodeType.JournalNode ||
-                    currentNode.chapter.nodeType == NodeType.LibraryNode))
+                if (currentNode.chapter.specialNodeType == SpecialNodeType.SystemNode)
                 {
                     currentTreeNode.ImageIndex = 1;
                     currentTreeNode.SelectedImageIndex = 2;
                 }
+
                 // setup treeview icons
-                else if (currentNode.chapter.nodeType == NodeType.YearNode || currentNode.chapter.nodeType == NodeType.MonthNode)
+                if (currentNode.chapter.nodeType == NodeType.Year || currentNode.chapter.nodeType == NodeType.Month)
                 {
                     currentTreeNode.ImageIndex = 3;
                     currentTreeNode.SelectedImageIndex = 3;
                 }
-                else if (currentNode.chapter.nodeType == NodeType.SetNode)
+                else if (currentNode.chapter.nodeType == NodeType.Set)
                 {
                     currentTreeNode.ImageIndex = 4;
                     currentTreeNode.SelectedImageIndex = 4;
                 }
-                else if (currentNode.chapter.nodeType == NodeType.LabelNode)
+                else if (currentNode.chapter.nodeType == NodeType.Label)
                 {
                     currentTreeNode.ImageIndex = 5;
                     currentTreeNode.SelectedImageIndex = 5;
@@ -1760,7 +1802,7 @@ namespace DiaryJournal.Net
 
             // now create Year Node direct in DB if it doesn't exists. else load it from db for linking
             List<myNode>? yearNodes = findNodesByNodeTypeDate(ref systemNodes.YearNodes,
-                SpecialNodeType.SystemNode, NodeType.YearNode,
+                SpecialNodeType.SystemNode, NodeType.Year,
                 year, month, -1);
 
             myNode? yearNode = null;
@@ -1770,9 +1812,9 @@ namespace DiaryJournal.Net
                 DateTime yearDateTime = new DateTime(year, 1, 1, 0, 0, 0, 0);
                 String yearLabel = yearDateTime.ToString("yyyy");
                 yearNode = new myNode(true);
-                yearNode.chapter.nodeType = NodeType.YearNode;
+                yearNode.chapter.nodeType = NodeType.Year;
                 yearNode.chapter.specialNodeType = SpecialNodeType.SystemNode;
-                yearNode.chapter.parentId = systemNodes.JournalSystemNode.chapter.Id;
+                yearNode.chapter.parentId = systemNodes.getSystemNode(NodeType.Journal).chapter.Id;
                 yearNode.chapter.chapterDateTime = yearDateTime;
                 yearNode.chapter.Title = yearLabel;
                 if (!DBCreateNode(ref cfg, ref yearNode, "", true, true, true, true, true, true))
@@ -1790,7 +1832,7 @@ namespace DiaryJournal.Net
             // now create Month Node direct in DB if it doesn't exists. else load it from db for linking.
             // note Month node's parent must be the year node.
             List<myNode>? monthNodes = findNodesByNodeTypeDate(ref systemNodes.MonthNodes,
-                SpecialNodeType.SystemNode, NodeType.MonthNode,
+                SpecialNodeType.SystemNode, NodeType.Month,
                 year, month, -1);
 
             myNode? monthNode = null;
@@ -1800,7 +1842,7 @@ namespace DiaryJournal.Net
                 DateTime monthDateTime = new DateTime(year, month, 1, 0, 0, 0, 0);
                 String monthLabel = monthDateTime.ToString("MMMM");
                 monthNode = new myNode(true);
-                monthNode.chapter.nodeType = NodeType.MonthNode;
+                monthNode.chapter.nodeType = NodeType.Month;
                 monthNode.chapter.specialNodeType = SpecialNodeType.SystemNode;
                 monthNode.chapter.parentId = yearNode.chapter.Id;
                 monthNode.chapter.chapterDateTime = monthDateTime;
@@ -1830,7 +1872,7 @@ namespace DiaryJournal.Net
         {
             // now create Year Node direct in DB if it doesn't exists. else load it from db for linking
             List<myNode>? yearNodes = null;
-            yearNodes = findNodesByNodeTypeDate(ref allNodes, SpecialNodeType.None, NodeType.YearNode, year, month, -1);
+            yearNodes = findNodesByNodeTypeDate(ref allNodes, SpecialNodeType.None, NodeType.Year, year, month, -1);
 
             myNode? yearNode = null;
             if (yearNodes.Count() <= 0)
@@ -1839,7 +1881,7 @@ namespace DiaryJournal.Net
                 DateTime yearDateTime = new DateTime(year, 1, 1, 0, 0, 0, 0);
                 String yearLabel = yearDateTime.ToString("yyyy");
                 yearNode = DBNewNode(ref cfg,
-                    SpecialNodeType.None, NodeType.YearNode, DomainType.Journal,
+                    SpecialNodeType.None, NodeType.Year, DomainType.Journal,
                     ref yearNode, true, true, true, yearDateTime, setNode.chapter.Id, true, yearLabel, "",
                     true, writeDBIndexingFile);
 
@@ -1855,7 +1897,7 @@ namespace DiaryJournal.Net
             // now create Month Node direct in DB if it doesn't exists. else load it from db for linking.
             // note Month node's parent must be the year node.
             List<myNode>? monthNodes = null;
-            monthNodes = findNodesByNodeTypeDate(ref allNodes, SpecialNodeType.None, NodeType.MonthNode, year, month, -1);
+            monthNodes = findNodesByNodeTypeDate(ref allNodes, SpecialNodeType.None, NodeType.Month, year, month, -1);
 
             myNode? monthNode = null;
             if (monthNodes.Count() <= 0)
@@ -1864,7 +1906,7 @@ namespace DiaryJournal.Net
                 DateTime monthDateTime = new DateTime(year, month, 1, 0, 0, 0, 0);
                 String monthLabel = monthDateTime.ToString("MMMM");
                 monthNode = DBNewNode(ref cfg,
-                    SpecialNodeType.None, NodeType.MonthNode, DomainType.Journal,
+                    SpecialNodeType.None, NodeType.Month, DomainType.Journal,
                     ref monthNode, true, true, true, monthDateTime, yearNode.chapter.Id, true, monthLabel,
                     "", true, writeDBIndexingFile);
 
@@ -2103,73 +2145,9 @@ namespace DiaryJournal.Net
 
         // this method is universal, clones from source db to destination db.
         public static bool CloneDB(FrmJournal? parentForm,
-            String srcPath, String dstPath, String dbName, DatabaseType srcDBType, DatabaseType destDBType,
+            ref myConfig cfgSrc, ref myConfig cfgDest, DatabaseType srcDBType, DatabaseType destDBType,
             bool loadOperationForm = false, bool reindex = false)
         {
-            myConfig cfgSrc = new myConfig();
-            myConfig cfgDest = new myConfig();
-
-            // load source db
-            switch (srcDBType)
-            {
-                case DatabaseType.OpenFSDB:
-                    {
-                        cfgSrc.radCfgUseSingleFileDB = false;
-                        cfgSrc.radCfgUseOpenFileSystemDB = true;
-                        if (!OpenFileSystemDB.CreateLoadDB(srcPath, "", ref cfgSrc.ctx1, false, false))
-                            return false;
-
-                        break;
-                    }
-                case DatabaseType.SingleFileDB:
-                    {
-                        cfgSrc.radCfgUseSingleFileDB = true;
-                        cfgSrc.radCfgUseOpenFileSystemDB = false;
-                        if (!SingleFileDB.CreateLoadDB(srcPath, "", ref cfgSrc.ctx0, false, false))
-                            return false;
-
-                        break;
-                    }
-                default:
-                    {
-                        return false;
-                    }
-            }
-
-            // create new destination db
-            switch (destDBType)
-            {
-                case DatabaseType.OpenFSDB:
-                    {
-                        cfgDest.radCfgUseSingleFileDB = false;
-                        cfgDest.radCfgUseOpenFileSystemDB = true;
-                        if (!OpenFileSystemDB.CreateLoadDB(dstPath, dbName, ref cfgDest.ctx1, true, true))
-                        {
-                            cfgSrc.close();
-                            return false;
-                        }
-
-                        break;
-                    }
-                case DatabaseType.SingleFileDB:
-                    {
-                        cfgDest.radCfgUseSingleFileDB = true;
-                        cfgDest.radCfgUseOpenFileSystemDB = false;
-                        if (!SingleFileDB.CreateLoadDB(dstPath, dbName, ref cfgDest.ctx0, true, true))
-                        {
-                            cfgSrc.close();
-                            return false;
-                        }
-
-                        break;
-                    }
-                default:
-                    {
-                        cfgSrc.close();
-                        return false;
-                    }
-            }
-
             // operations status form
             FormOperation? formOperation = null;
             if (loadOperationForm)
@@ -2186,17 +2164,14 @@ namespace DiaryJournal.Net
             long nodeIndex = 0;
             myTreeDom treeDom = new myTreeDom();
             treeDom.buildTree(ref allNodes, true, false);
+
             if (reindex)
             {
                 // user demands reindex the destination db
                 treeDom.reindexTree(ref nodeIndex);
             }
+            
             List<myTreeDomNode > tree = treeDom.ToList();
-
-            // load tree sequence from the source
-//            allNodes = entryMethods.findAllNodesTreeSequence(ref allNodes, true, false);
-
-            //foreach (myNode? listedNode in allNodes)
             foreach (myTreeDomNode listedNode in tree)
             {
                 // load the source node
@@ -2227,7 +2202,14 @@ namespace DiaryJournal.Net
             // checkpoint
             entryMethods.DBCheckpoint(ref cfgDest);
 
-            // finally update the db index in file.
+            // because this is direct to direct clone, so we just copy everything 1:1
+            // direct copy the indexing from source to destination db
+            if (!reindex)
+                DBCopyIndexingIndex(ref cfgSrc, ref cfgDest, srcDBType, destDBType);
+            else
+                DBSetIndexingIndex(ref cfgDest, destDBType, nodeIndex); // not 1:1 cloning, so reindexing has been done, so we set the final processed index.
+
+            // finally update the destination db index
             entryMethods.DBWriteIndexing(ref cfgDest);
 
             // close db
@@ -2607,6 +2589,43 @@ namespace DiaryJournal.Net
             processed = index;
             return true;
         }
+        public static bool DBFixUpgradeOldDB(ref myConfig cfg, out long processed, FormOperation? formop = null)
+        {
+            processed = 0;
+
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return false;
+
+            // collect all nodes from source
+            List<myNode>? allNodes = entryMethods.DBFindAllNodes(cfg, false, false);
+
+            // first get the total number of chapters which exist in db
+            long total = allNodes.LongCount();
+            long index = 0;
+
+            foreach (myNode? listedNode in allNodes)
+            {
+                myNode? node = listedNode;
+
+                entryMethods.DBUpdateNode(cfg, ref node, "", false, false, false);
+
+                if (formop != null)
+                {
+                    formop.updateProgressBar(index, total);
+                    formop.updateFilesStatus(index, total);
+                }
+                index++;
+            }
+
+            // checkpoint
+            entryMethods.DBCheckpoint(ref cfg);
+
+            // finally update the db index in file.
+            entryMethods.DBWriteIndexing(ref cfg);
+
+            processed = index;
+            return true;
+        }
 
         // this method deletes the loaded db
         public static bool DBDeleteDatabase(ref myConfig cfg)
@@ -2630,7 +2649,7 @@ namespace DiaryJournal.Net
             return true;
         }
 
-        public static myConfig? DBSelectOpenLoadDB(DatabaseType dbType, Form? parentForm = null)
+        public static myConfig? DBSelectOpenLoadDB(DatabaseType dbType, ref String outDBName, Form? parentForm = null)
         {
             myConfig cfg = new myConfig();
 
@@ -2648,6 +2667,8 @@ namespace DiaryJournal.Net
                         if (!OpenFileSystemDB.CreateLoadDB(browseFolder.SelectedPath, "", ref cfg.ctx1, false, false))
                             return null;
 
+                        outDBName = cfg.ctx1.dbName;
+
                         break;
                     }
                 case DatabaseType.SingleFileDB:
@@ -2662,6 +2683,8 @@ namespace DiaryJournal.Net
                         cfg.radCfgUseOpenFileSystemDB = false;
                         if (!SingleFileDB.CreateLoadDB(ofdDB.FileName, "", ref cfg.ctx0, false, false))
                             return null;
+
+                        outDBName = cfg.ctx0.dbName;
 
                         break;
                     }

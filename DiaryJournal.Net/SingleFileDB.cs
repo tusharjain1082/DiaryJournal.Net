@@ -669,7 +669,7 @@ namespace DiaryJournal.Net
                 node.chapter.modificationDateTime = DateTime.Now;
 
             if (storeData)
-                return UpdateChapterAndData(ctx, ref node.chapter, rtf);
+                return UpdateChapterAndData(ctx, ref node.chapter, rtf, checkpoint);
             else
                 return UpdateChapterAndData(ctx, ref node.chapter, null, checkpoint);
         }

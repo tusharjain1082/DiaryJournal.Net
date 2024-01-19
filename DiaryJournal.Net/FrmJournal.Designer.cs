@@ -526,6 +526,8 @@
             toolStripSeparator83 = new ToolStripSeparator();
             toolStripSeparator85 = new ToolStripSeparator();
             nullemptyAllNodesInADbToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator86 = new ToolStripSeparator();
+            upgradeOldDbToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             txtDBFile = new ToolStripTextBox();
@@ -4405,7 +4407,7 @@
             // 
             // toolStripMenuItem21
             // 
-            toolStripMenuItem21.DropDownItems.AddRange(new ToolStripItem[] { rebuildDbToolStripMenuItem, toolStripSeparator26, checkpointToolStripMenuItem, toolStripSeparator53, openDatabaseLocationToolStripMenuItem, toolStripSeparator54, toolStripMenuItem76, toolStripSeparator64, singleFileDbToOpenFilesystemDbToolStripMenuItem, openFilesystemDbToSingleFileDbToolStripMenuItem, toolStripMenuItem54, toolStripMenuItem55, toolStripMenuItem56, toolStripMenuItem57, toolStripSeparator65, create30000TestNodesToolStripMenuItem, toolStripSeparator79, copyDbToLocationToolStripMenuItem, moveDbToLocationToolStripMenuItem, toolStripSeparator83, toolStripSeparator85, nullemptyAllNodesInADbToolStripMenuItem });
+            toolStripMenuItem21.DropDownItems.AddRange(new ToolStripItem[] { rebuildDbToolStripMenuItem, toolStripSeparator26, checkpointToolStripMenuItem, toolStripSeparator53, openDatabaseLocationToolStripMenuItem, toolStripSeparator54, toolStripMenuItem76, toolStripSeparator64, singleFileDbToOpenFilesystemDbToolStripMenuItem, openFilesystemDbToSingleFileDbToolStripMenuItem, toolStripMenuItem54, toolStripMenuItem55, toolStripMenuItem56, toolStripMenuItem57, toolStripSeparator65, create30000TestNodesToolStripMenuItem, toolStripSeparator79, copyDbToLocationToolStripMenuItem, moveDbToLocationToolStripMenuItem, toolStripSeparator83, toolStripSeparator85, nullemptyAllNodesInADbToolStripMenuItem, toolStripSeparator86, upgradeOldDbToolStripMenuItem });
             toolStripMenuItem21.Name = "toolStripMenuItem21";
             toolStripMenuItem21.Size = new Size(34, 23);
             toolStripMenuItem21.Text = "&DB";
@@ -4413,140 +4415,152 @@
             // rebuildDbToolStripMenuItem
             // 
             rebuildDbToolStripMenuItem.Name = "rebuildDbToolStripMenuItem";
-            rebuildDbToolStripMenuItem.Size = new Size(332, 22);
+            rebuildDbToolStripMenuItem.Size = new Size(335, 22);
             rebuildDbToolStripMenuItem.Text = "rebuild db";
             rebuildDbToolStripMenuItem.Click += rebuildDbToolStripMenuItem_Click;
             // 
             // toolStripSeparator26
             // 
             toolStripSeparator26.Name = "toolStripSeparator26";
-            toolStripSeparator26.Size = new Size(329, 6);
+            toolStripSeparator26.Size = new Size(332, 6);
             // 
             // checkpointToolStripMenuItem
             // 
             checkpointToolStripMenuItem.Name = "checkpointToolStripMenuItem";
-            checkpointToolStripMenuItem.Size = new Size(332, 22);
+            checkpointToolStripMenuItem.Size = new Size(335, 22);
             checkpointToolStripMenuItem.Text = "checkpoint";
             checkpointToolStripMenuItem.Click += checkpointToolStripMenuItem_Click;
             // 
             // toolStripSeparator53
             // 
             toolStripSeparator53.Name = "toolStripSeparator53";
-            toolStripSeparator53.Size = new Size(329, 6);
+            toolStripSeparator53.Size = new Size(332, 6);
             // 
             // openDatabaseLocationToolStripMenuItem
             // 
             openDatabaseLocationToolStripMenuItem.Name = "openDatabaseLocationToolStripMenuItem";
-            openDatabaseLocationToolStripMenuItem.Size = new Size(332, 22);
+            openDatabaseLocationToolStripMenuItem.Size = new Size(335, 22);
             openDatabaseLocationToolStripMenuItem.Text = "open database location";
             openDatabaseLocationToolStripMenuItem.Click += openDatabaseLocationToolStripMenuItem_Click;
             // 
             // toolStripSeparator54
             // 
             toolStripSeparator54.Name = "toolStripSeparator54";
-            toolStripSeparator54.Size = new Size(329, 6);
+            toolStripSeparator54.Size = new Size(332, 6);
             // 
             // toolStripMenuItem76
             // 
             toolStripMenuItem76.Name = "toolStripMenuItem76";
-            toolStripMenuItem76.Size = new Size(332, 22);
+            toolStripMenuItem76.Size = new Size(335, 22);
             toolStripMenuItem76.Text = "upgrade db config";
             toolStripMenuItem76.Click += toolStripMenuItem76_Click;
             // 
             // toolStripSeparator64
             // 
             toolStripSeparator64.Name = "toolStripSeparator64";
-            toolStripSeparator64.Size = new Size(329, 6);
+            toolStripSeparator64.Size = new Size(332, 6);
             // 
             // singleFileDbToOpenFilesystemDbToolStripMenuItem
             // 
             singleFileDbToOpenFilesystemDbToolStripMenuItem.Name = "singleFileDbToOpenFilesystemDbToolStripMenuItem";
-            singleFileDbToOpenFilesystemDbToolStripMenuItem.Size = new Size(332, 22);
+            singleFileDbToOpenFilesystemDbToolStripMenuItem.Size = new Size(335, 22);
             singleFileDbToOpenFilesystemDbToolStripMenuItem.Text = "single file db to open filesystem db";
             singleFileDbToOpenFilesystemDbToolStripMenuItem.Click += singleFileDbToOpenFilesystemDbToolStripMenuItem_Click;
             // 
             // openFilesystemDbToSingleFileDbToolStripMenuItem
             // 
             openFilesystemDbToSingleFileDbToolStripMenuItem.Name = "openFilesystemDbToSingleFileDbToolStripMenuItem";
-            openFilesystemDbToSingleFileDbToolStripMenuItem.Size = new Size(332, 22);
+            openFilesystemDbToSingleFileDbToolStripMenuItem.Size = new Size(335, 22);
             openFilesystemDbToSingleFileDbToolStripMenuItem.Text = "open filesystem db to single file db";
             openFilesystemDbToSingleFileDbToolStripMenuItem.Click += openFilesystemDbToSingleFileDbToolStripMenuItem_Click;
             // 
             // toolStripMenuItem54
             // 
             toolStripMenuItem54.Name = "toolStripMenuItem54";
-            toolStripMenuItem54.Size = new Size(332, 22);
+            toolStripMenuItem54.Size = new Size(335, 22);
             toolStripMenuItem54.Text = "clone-correct single file db to open filesystem db";
             toolStripMenuItem54.Click += toolStripMenuItem54_Click;
             // 
             // toolStripMenuItem55
             // 
             toolStripMenuItem55.Name = "toolStripMenuItem55";
-            toolStripMenuItem55.Size = new Size(332, 22);
+            toolStripMenuItem55.Size = new Size(335, 22);
             toolStripMenuItem55.Text = "clone-correct open filesystem db to single file db";
             toolStripMenuItem55.Click += toolStripMenuItem55_Click;
             // 
             // toolStripMenuItem56
             // 
             toolStripMenuItem56.Name = "toolStripMenuItem56";
-            toolStripMenuItem56.Size = new Size(332, 22);
+            toolStripMenuItem56.Size = new Size(335, 22);
             toolStripMenuItem56.Text = "clone-correct single file db to db";
             toolStripMenuItem56.Click += toolStripMenuItem56_Click;
             // 
             // toolStripMenuItem57
             // 
             toolStripMenuItem57.Name = "toolStripMenuItem57";
-            toolStripMenuItem57.Size = new Size(332, 22);
+            toolStripMenuItem57.Size = new Size(335, 22);
             toolStripMenuItem57.Text = "clone-correct open filesystem db to db";
             toolStripMenuItem57.Click += toolStripMenuItem57_Click;
             // 
             // toolStripSeparator65
             // 
             toolStripSeparator65.Name = "toolStripSeparator65";
-            toolStripSeparator65.Size = new Size(329, 6);
+            toolStripSeparator65.Size = new Size(332, 6);
             // 
             // create30000TestNodesToolStripMenuItem
             // 
             create30000TestNodesToolStripMenuItem.Name = "create30000TestNodesToolStripMenuItem";
-            create30000TestNodesToolStripMenuItem.Size = new Size(332, 22);
+            create30000TestNodesToolStripMenuItem.Size = new Size(335, 22);
             create30000TestNodesToolStripMenuItem.Text = "create 30000 test nodes";
             create30000TestNodesToolStripMenuItem.Click += create30000TestNodesToolStripMenuItem_Click;
             // 
             // toolStripSeparator79
             // 
             toolStripSeparator79.Name = "toolStripSeparator79";
-            toolStripSeparator79.Size = new Size(329, 6);
+            toolStripSeparator79.Size = new Size(332, 6);
             // 
             // copyDbToLocationToolStripMenuItem
             // 
             copyDbToLocationToolStripMenuItem.Name = "copyDbToLocationToolStripMenuItem";
-            copyDbToLocationToolStripMenuItem.Size = new Size(332, 22);
+            copyDbToLocationToolStripMenuItem.Size = new Size(335, 22);
             copyDbToLocationToolStripMenuItem.Text = "copy currently active db to location";
             copyDbToLocationToolStripMenuItem.Click += copyDbToLocationToolStripMenuItem_Click;
             // 
             // moveDbToLocationToolStripMenuItem
             // 
             moveDbToLocationToolStripMenuItem.Name = "moveDbToLocationToolStripMenuItem";
-            moveDbToLocationToolStripMenuItem.Size = new Size(332, 22);
+            moveDbToLocationToolStripMenuItem.Size = new Size(335, 22);
             moveDbToLocationToolStripMenuItem.Text = "move currently active db to location";
             moveDbToLocationToolStripMenuItem.Click += moveDbToLocationToolStripMenuItem_Click;
             // 
             // toolStripSeparator83
             // 
             toolStripSeparator83.Name = "toolStripSeparator83";
-            toolStripSeparator83.Size = new Size(329, 6);
+            toolStripSeparator83.Size = new Size(332, 6);
             // 
             // toolStripSeparator85
             // 
             toolStripSeparator85.Name = "toolStripSeparator85";
-            toolStripSeparator85.Size = new Size(329, 6);
+            toolStripSeparator85.Size = new Size(332, 6);
             // 
             // nullemptyAllNodesInADbToolStripMenuItem
             // 
             nullemptyAllNodesInADbToolStripMenuItem.Name = "nullemptyAllNodesInADbToolStripMenuItem";
-            nullemptyAllNodesInADbToolStripMenuItem.Size = new Size(332, 22);
+            nullemptyAllNodesInADbToolStripMenuItem.Size = new Size(335, 22);
             nullemptyAllNodesInADbToolStripMenuItem.Text = "null-empty all nodes in a db";
             nullemptyAllNodesInADbToolStripMenuItem.Click += nullemptyAllNodesInADbToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator86
+            // 
+            toolStripSeparator86.Name = "toolStripSeparator86";
+            toolStripSeparator86.Size = new Size(332, 6);
+            // 
+            // upgradeOldDbToolStripMenuItem
+            // 
+            upgradeOldDbToolStripMenuItem.Name = "upgradeOldDbToolStripMenuItem";
+            upgradeOldDbToolStripMenuItem.Size = new Size(335, 22);
+            upgradeOldDbToolStripMenuItem.Text = "fix upgrade previous version open filesystem db...";
+            upgradeOldDbToolStripMenuItem.Click += upgradeOldDbToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -5270,5 +5284,7 @@
         private ToolStripSeparator toolStripSeparator83;
         private ToolStripSeparator toolStripSeparator85;
         private ToolStripMenuItem nullemptyAllNodesInADbToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator86;
+        private ToolStripMenuItem upgradeOldDbToolStripMenuItem;
     }
 }

@@ -114,6 +114,16 @@ namespace DiaryJournal.Net
 
     public static class commonMethods
     {
+        public static String convertToString(this Enum eff)
+        {
+            return Enum.GetName(eff.GetType(), eff);
+        }
+
+        public static EnumType convertToEnum<EnumType>(this String enumValue)
+        {
+            return (EnumType)Enum.Parse(typeof(EnumType), enumValue);
+        }
+
         public static bool CopyFilesRecursively(string sourcePath, string targetPath, bool copy = true, bool overwrite = true)
         {
             //Now Create all of the directories

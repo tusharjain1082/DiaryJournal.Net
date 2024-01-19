@@ -127,7 +127,6 @@ namespace DiaryJournal.Net
                     queue.Enqueue(childNode);
 
             }
-
         }
 
         // this method nullifies special node type in entire tree

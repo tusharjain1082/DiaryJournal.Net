@@ -1,8 +1,8 @@
 # DiaryJournal.Net
 DiaryJournal.Net is an open source and free desktop/laptop diary and journal software project from Tushar Jain, for latest Visual Studio 2022, Windows 10/11 and .Net 8.0. includes precompiled program files to use as your diary/journal application, which is also specialized as an educational, office, research, and all purpose notebook software.
 
-# version 1.9.4.0
-published 17 January 2024. upgraded to latest .Net 8.0 (latest version only as available on 15 January 2024 and later). major upgrade. major improvements. new additions. everything improved.
+# version 1.9.5.0
+published 20 January 2024. this is a major release version 1.9. i have fixed some serious bugs, this version and the older version of this application and their databases are not compatible so you must not use older database with this version, you need to discard the older versions and migrate to this new version manually. upgraded to latest .Net 8.0 (latest version only as available on 15 January 2024 and later). major upgrade. major improvements. new additions. everything improved.
 
 # requirements
 A Desktop or Laptop PC, .Net 8.0 and .Net Desktop 8.0 is the basic requirement. You need latest version of .Net 8, not the first version 8.0. You can run the executable software files in any Windows where .Net 8.0 and .Net 8.0 Desktop Runtime (both latest version not first version) properly installs and functions.
@@ -28,6 +28,8 @@ you should frequently backup everything. you should make multiple separate and i
 # build the solution
 to compile the solution you require Visual Studio 2022 and latest .Net 8.0 SDK. choose "Release" as entire solution's configuration, and "x64" as solution's platform, then rebuild the entire solution in a single go to successfully build the solution.
 
+# support me by donations
+buy me a coffee! :) [click here to donate!](https://www.buymeacoffee.com/tusharjain1082)
 # screenshots
 ![Alt text](/screenshot7.png?raw=false "DiaryJournal.Net screenshot")
 

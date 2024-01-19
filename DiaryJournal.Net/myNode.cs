@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using RtfPipe.Tokens;
+using RtfPipe.Model;
+using Microsoft.Win32;
+using System.Security.Principal;
 
 namespace DiaryJournal.Net
 {
@@ -23,7 +26,7 @@ namespace DiaryJournal.Net
         public String HLBackColor { get; set; } = "";
         public Int32 caretIndex { get; set; }
         public Int32 caretSelectionLength { get; set; }
-        public NodeType nodeType { get; set; } = NodeType.EntryNode;
+        public NodeType nodeType { get; set; } = NodeType.Entry;
         public SpecialNodeType specialNodeType { get; set; } = SpecialNodeType.None;
         public DomainType domainType { get; set; } = DomainType.Journal;
         public Int32 documentWidth { get; set; } = myConfig.defaultDocumentWidth;
@@ -52,16 +55,28 @@ namespace DiaryJournal.Net
 
     public enum NodeType : byte
     {
-        JournalNode = 0,
-        LibraryNode = 1,
-        SetNode = 2,
-        YearNode = 3,
-        MonthNode = 4,
-        EntryNode = 5,
-        TemplateNode = 6,
-        LabelNode = 7,
-        NonCalendarEntryNode = 8,
-        AnyOrAll = 100
+        Journal = 0,
+        Library = 1,
+        Set = 2,
+        Year = 3,
+        Month = 4,
+        Entry = 5,
+        Template = 6,
+        Label = 7,
+        NonCalendarEntry = 8,
+        Notebook = 9,
+        Registry = 10,
+        Workspace = 11,
+        Finance = 12,
+        Security = 13,
+        Domestic = 14,
+        Legal = 15,
+        Identity = 16,
+        Confidential = 17,
+        Roughwork = 18,
+        Backup = 19,
+        AnyOrAll = 100,
+        Invalid = 255
     }
     public enum SpecialNodeType : byte
     {
@@ -131,26 +146,114 @@ namespace DiaryJournal.Net
     // system nodes collection
     public class mySystemNodes
     {
-        public myNode? JournalSystemNode = null;
-        public myNode? LibrarySystemNode = null;
         public List<myNode> YearNodes = new List<myNode>();
         public List<myNode> MonthNodes = new List<myNode>();
+        public Dictionary<NodeType, myNode> SystemNodes = new Dictionary<NodeType, myNode?>();
+        public static List<String> SystemNodesNames = new List<String>() { "Journal", "Library", "Notebook", "Registry", "Workspace", 
+            "Finance", "Security", "Domestic", "Legal", "Identity", "Confidential", "Roughwork", "Backup" };
 
-        public const String JournalSystemNodeName = "Journal";
-        public const String LibrarySystemNodeName = "Library";
+        public myNode? getSystemNode(NodeType type)
+        {
+            myNode? value = null;
+            if (SystemNodes.TryGetValue(type, out value))
+                return value;
+            else
+                return null;
+        }
 
+        public static String? getSystemNodeName(NodeType type)
+        {
+            return type.convertToString();
+        }
+
+        public static NodeType getSystemNodeTypeByName(String name)
+        {
+            object? type = null;
+            if (Enum.TryParse(typeof(NodeType), name, out type))
+            {
+                return (NodeType)type;
+            }
+            else
+            {
+                // suppose old version db, so we need to convert old version to new version wherever required
+                switch (name)
+                {
+                    case "JournalNode":
+                        return NodeType.Journal;
+                    case "LibraryNode":
+                        return NodeType.Library;
+                    case "SetNode":
+                        return NodeType.Set;
+                    case "YearNode":
+                        return NodeType.Year;
+                    case "MonthNode":
+                        return NodeType.Month;
+                    case "EntryNode":
+                        return NodeType.Entry;
+                    case "TemplateNode":
+                        return NodeType.Template;
+                    case "LabelNode":
+                        return NodeType.Label;
+                    case "NonCalendarEntryNode":
+                        return NodeType.NonCalendarEntry;
+                    case "Notebook":
+                        return NodeType.Notebook;
+                    case "Registry":
+                        return NodeType.Registry;
+                    case "Workspace":
+                        return NodeType.Workspace;
+                    case "Finance":
+                        return NodeType.Finance;
+                    case "Security":
+                        return NodeType.Security;
+                    case "Domestic":
+                        return NodeType.Domestic;
+                    case "Legal":
+                        return NodeType.Legal;
+                    case "Identity":
+                        return NodeType.Identity;
+                    case "Confidential":
+                        return NodeType.Confidential;
+                    case "Roughwork":
+                        return NodeType.Roughwork;
+                    case "Backup":
+                        return NodeType.Backup;
+                    case "AnyOrAll":
+                        return NodeType.AnyOrAll;
+                }
+            }
+            return NodeType.Invalid;
+        }
+
+        public bool setSystemNode(NodeType type, ref myNode? node)
+        {
+            if (node == null) return false;
+            if (getSystemNode(type) != null) return false;  
+            SystemNodes.Add(type, node);
+            return true;
+        }
+
+        public static bool isCoreSystemNode(NodeType type)
+        {
+            String typeName = getSystemNodeName(type);
+            String? value = SystemNodesNames.FirstOrDefault(s => s == typeName);
+            if ((value != null) && (value != "")) return true;
+            return false;
+        }
+
+        public List<myNode> findAllSystemNodes()
+        {
+            List<myNode> list = new List<myNode> ();
+            foreach (KeyValuePair<NodeType, myNode> item in SystemNodes)
+                list.Add(item.Value);
+
+            list.AddRange(YearNodes);
+            list.AddRange(MonthNodes);
+            return list;
+        }
         public mySystemNodes()
         {
 
         }
-        public mySystemNodes(ref myNode? JournalSystemNode, ref myNode? LibrarySystemNode, 
-            ref List<myNode>? YearNodes, ref List<myNode>? MonthNodes)
-        {
-            this.JournalSystemNode = JournalSystemNode;
-            this.LibrarySystemNode = LibrarySystemNode;
-            this.YearNodes = YearNodes;
-            this.MonthNodes = MonthNodes;
-        }
-
     }
 }

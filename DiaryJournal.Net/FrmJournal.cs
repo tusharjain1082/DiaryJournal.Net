@@ -798,7 +798,7 @@ namespace DiaryJournal.Net
             setupNewEntry(DateTime.Now, 0);
         }
 
-        public void setupNewEntry(DateTime dateTime, Int64 parentId = 0, NodeType nodeType = NodeType.EntryNode,
+        public void setupNewEntry(DateTime dateTime, Int64 parentId = 0, NodeType nodeType = NodeType.Entry,
             String title = "")
         {
             if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
@@ -1127,7 +1127,7 @@ namespace DiaryJournal.Net
 
                 // by default all entries imported from "The Journal" are root entries aligned in Year and Month Nodes.
                 // entry's properties
-                chapter.nodeType = NodeType.EntryNode;
+                chapter.nodeType = NodeType.Entry;
 
                 // initialize calender nodes
                 myNode? yearNode = null;
@@ -1143,7 +1143,7 @@ namespace DiaryJournal.Net
                 // create new node into db
                 myNode? newNode = new myNode(ref chapter);
                 newNode = entryMethods.DBNewNode(ref cfg,
-                    SpecialNodeType.None, NodeType.EntryNode, DomainType.Journal,
+                    SpecialNodeType.None, NodeType.Entry, DomainType.Journal,
                     ref newNode, true, true, true, chapter.chapterDateTime, chapter.parentId, true, chapter.Title, rtf,
                     true, true, false);
 
@@ -1274,24 +1274,24 @@ namespace DiaryJournal.Net
             if (newNode != null)
             {
                 // setup tree node icons
-                if (nodeEntry.chapter.specialNodeType == SpecialNodeType.SystemNode && (nodeEntry.chapter.nodeType == NodeType.JournalNode ||
-                    nodeEntry.chapter.nodeType == NodeType.LibraryNode))
+                if (nodeEntry.chapter.specialNodeType == SpecialNodeType.SystemNode && (nodeEntry.chapter.nodeType == NodeType.Journal ||
+                    nodeEntry.chapter.nodeType == NodeType.Library))
                 {
                     newNode.ImageIndex = 1;
                     newNode.SelectedImageIndex = 2;
                 }
                 // setup treeview icons
-                else if (nodeEntry.chapter.nodeType == NodeType.YearNode || nodeEntry.chapter.nodeType == NodeType.MonthNode)
+                else if (nodeEntry.chapter.nodeType == NodeType.Year || nodeEntry.chapter.nodeType == NodeType.Month)
                 {
                     newNode.ImageIndex = 3;
                     newNode.SelectedImageIndex = 3;
                 }
-                else if (nodeEntry.chapter.nodeType == NodeType.SetNode)
+                else if (nodeEntry.chapter.nodeType == NodeType.Set)
                 {
                     newNode.ImageIndex = 4;
                     newNode.SelectedImageIndex = 4;
                 }
-                else if (nodeEntry.chapter.nodeType == NodeType.LabelNode)
+                else if (nodeEntry.chapter.nodeType == NodeType.Label)
                 {
                     newNode.ImageIndex = 5;
                     newNode.SelectedImageIndex = 5;
@@ -1330,7 +1330,6 @@ namespace DiaryJournal.Net
             List<myNode> outputTree = new List<myNode>();
             List<TreeNode> tree = entryMethods.buildTreeViewTree(ref srcNodes, ref outputTree,
                 tvEntries.Font, true, true, true, false, CalendarEntries, false);
-            srcNodes = outputTree;
 
             // load all tree 
             foreach (TreeNode node in tree)
@@ -1344,18 +1343,16 @@ namespace DiaryJournal.Net
 
         public void __loadSystemNodes(ref mySystemNodes systemNodes)
         {
-            // load journal node
-            this.Invoke(initTreeViewEntry, systemNodes.JournalSystemNode);
+            List<myNode> allSystemNodes = systemNodes.findAllSystemNodes();
+            __loadRootToBottomNodes(ref allSystemNodes, false);
 
-            // load library node
-            this.Invoke(initTreeViewEntry, systemNodes.LibrarySystemNode);
+            //this.Invoke(initTreeViewEntry, node);
 
             // load all year nodes
-            __loadRootToBottomNodes(ref systemNodes.YearNodes, false);
-
-            // load all month nodes
-            __loadRootToBottomNodes(ref systemNodes.MonthNodes, false);
+            //__loadRootToBottomNodes(ref systemNodes.YearNodes, false);
+            //
         }
+
         public void __loadRootToBottomNodes(ref List<myNode> nodes, bool reverse = true)
         {
             // first reverse the nodes so that root node which is last is first, and all parents align before the children upto the bottom node.
@@ -2641,11 +2638,11 @@ namespace DiaryJournal.Net
                     return;
 
                 Int64 parentId = Int64.Parse(tvEntries.SelectedNode.Name);
-                setupNewEntry(DateTime.Now, parentId, NodeType.LabelNode, input);
+                setupNewEntry(DateTime.Now, parentId, NodeType.Label, input);
             }
             else
             {
-                setupNewEntry(DateTime.Now, -1, NodeType.LabelNode, input);
+                setupNewEntry(DateTime.Now, -1, NodeType.Label, input);
             }
         }
 
@@ -3559,7 +3556,7 @@ namespace DiaryJournal.Net
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            gotoSystemNode(NodeType.LibraryNode);
+            gotoSystemNode(NodeType.Library);
         }
 
         public void gotoSystemNode(NodeType nodeType)
@@ -3572,12 +3569,12 @@ namespace DiaryJournal.Net
 
             switch (nodeType)
             {
-                case NodeType.LibraryNode:
-                    gotoTreeNodeByDBNode(ref systemNodes.LibrarySystemNode);
+                case NodeType.Library:
+                    gotoTreeNodeByDBNode(systemNodes.getSystemNode(NodeType.Library));
                     break;
 
-                case NodeType.JournalNode:
-                    gotoTreeNodeByDBNode(ref systemNodes.JournalSystemNode);
+                case NodeType.Journal:
+                    gotoTreeNodeByDBNode(systemNodes.getSystemNode(NodeType.Journal));
                     break;
 
                 default:
@@ -3585,7 +3582,7 @@ namespace DiaryJournal.Net
 
             }
         }
-        public void gotoTreeNodeByDBNode(ref myNode? node)
+        public void gotoTreeNodeByDBNode(myNode? node)
         {
             if (node == null)
                 return;
@@ -3605,19 +3602,19 @@ namespace DiaryJournal.Net
 
         private void tsbuttonLibrary_Click(object sender, EventArgs e)
         {
-            gotoSystemNode(NodeType.LibraryNode);
+            gotoSystemNode(NodeType.Library);
 
         }
 
         private void toolStripMenuItem9_Click(object sender, EventArgs e)
         {
-            gotoSystemNode(NodeType.JournalNode);
+            gotoSystemNode(NodeType.Journal);
 
         }
 
         private void tsbuttonJournal_Click(object sender, EventArgs e)
         {
-            gotoSystemNode(NodeType.JournalNode);
+            gotoSystemNode(NodeType.Journal);
 
         }
 
@@ -4533,95 +4530,20 @@ namespace DiaryJournal.Net
             saveEntry();
 
             // source db
-            String srcPath = "";
             String dbName = "";
-            switch (srcDBType)
-            {
-                case DatabaseType.OpenFSDB:
-                    {
-                        if (browseFolder.ShowDialog(this) != DialogResult.OK)
-                            return;
+            myConfig? cfgSrc = entryMethods.DBSelectOpenLoadDB(srcDBType, ref dbName, null);
 
-                        // load source db and get config
-                        OpenFSDBContext ctx = new OpenFSDBContext();
-                        if (!OpenFileSystemDB.CreateLoadDB(browseFolder.SelectedPath, "", ref ctx, false, false))
-                        {
-                            this.Invoke(showMessageBox, "error loading set db or invalid (non-db) path.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+            if (userInterface.ShowInputDialog("input new clone db name/title", ref dbName) != DialogResult.OK)
+                return;
 
-                        // assign found db/set name as default value in input box
-                        dbName = ctx.dbConfig.setName;
-
-                        // close the db
-                        ctx.close();
-
-                        if (userInterface.ShowInputDialog("input new clone db name/title", ref dbName) != DialogResult.OK)
-                            return;
-
-                        if (dbName.Length <= 0) return;
-                        srcPath = browseFolder.SelectedPath;
-
-                        break;
-                    }
-                case DatabaseType.SingleFileDB:
-                    {
-                        if (ofdDB.ShowDialog() != DialogResult.OK)
-                            return;
-
-                        // load source db and get config
-                        SingleFileDBContext ctx = new SingleFileDBContext();
-                        if (!SingleFileDB.CreateLoadDB(ofdDB.FileName, "", ref ctx, false, false))
-                        {
-                            this.Invoke(showMessageBox, "error loading set db or invalid (non-db) path.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        // assign found db/set name as default value in input box
-                        dbName = ctx.dbConfig.setName;
-
-                        // close the db
-                        ctx.close();
-
-                        if (userInterface.ShowInputDialog("input new clone db name/title", ref dbName) != DialogResult.OK)
-                            return;
-
-                        if (dbName.Length <= 0) return;
-                        srcPath = ofdDB.FileName;
-
-                        break;
-                    }
-                default:
-                    return;
-            }
+            if (dbName.Length <= 0) return;
 
             // destination clone db
-            String destPath = "";
-            switch (destDBType)
-            {
-                case DatabaseType.OpenFSDB:
-                    if (browseFolder.ShowDialog(this) != DialogResult.OK)
-                        return;
-
-                    destPath = browseFolder.SelectedPath;
-
-                    break;
-
-                case DatabaseType.SingleFileDB:
-                    sfdDB.FileName = dbName;
-                    if (sfdDB.ShowDialog() != DialogResult.OK)
-                        return;
-
-                    destPath = sfdDB.FileName;
-
-                    break;
-                default:
-                    return;
-            }
+            myConfig? cfgDest = entryMethods.DBSelectOpenLoadDestinationDB(destDBType, dbName, null, true, true);
 
             // finally clone db from src to dest
             this.Invoke(toggleForm, false);
-            entryMethods.CloneDB(this, srcPath, destPath, dbName, srcDBType, destDBType, true, reindex);
+            entryMethods.CloneDB(this, ref cfgSrc, ref cfgDest, srcDBType, destDBType, true, reindex);
             this.Invoke(toggleForm, true);
         }
 
@@ -4643,7 +4565,7 @@ namespace DiaryJournal.Net
                 myNode node = new myNode();
                 node.chapter.parentId = 0;
                 node.chapter.chapterDateTime = DateTime.Now;
-                node.chapter.nodeType = NodeType.LabelNode;
+                node.chapter.nodeType = NodeType.Label;
                 node.chapter.Title = index.ToString();
                 entryMethods.DBCreateNode(ref cfg, ref node, "", true, true, true, true, false, false);
 
@@ -4830,7 +4752,7 @@ namespace DiaryJournal.Net
 
         private void toolStripMenuItem50_Click(object sender, EventArgs e)
         {
-            doNewCustomNode(NodeType.EntryNode, false);
+            doNewCustomNode(NodeType.Entry, false);
         }
         public void doNewCustomNode(NodeType nodeType, bool root = false)
         {
@@ -4864,7 +4786,7 @@ namespace DiaryJournal.Net
 
         private void toolStripMenuItem51_Click(object sender, EventArgs e)
         {
-            doNewCustomNode(NodeType.EntryNode, true);
+            doNewCustomNode(NodeType.Entry, true);
         }
 
         private void toolStripMenuItem52_Click(object sender, EventArgs e)
@@ -5977,7 +5899,8 @@ namespace DiaryJournal.Net
             saveEntry();
 
             // load source db and setup myConfig
-            myConfig cfg = entryMethods.DBSelectOpenLoadDB(srcDBType, this);
+            String dbName = "";
+            myConfig cfg = entryMethods.DBSelectOpenLoadDB(srcDBType, ref dbName, this);
             if (cfg == null) return false;
 
             this.Invoke(toggleForm, false);
@@ -6007,6 +5930,41 @@ namespace DiaryJournal.Net
             // process with the selected db type
             NullOrEmptyNodesDB(form.selectedDBType);
 
+        }
+
+        public bool FixUpgradeOFSDB()
+        {
+            // firstly save entry
+            saveEntry();
+
+            // load source db and setup myConfig
+            String dbName = "";
+            myConfig cfg = entryMethods.DBSelectOpenLoadDB(DatabaseType.OpenFSDB, ref dbName, this);
+            if (cfg == null) return false;
+
+            this.Invoke(toggleForm, false);
+
+            // operations status form
+            FormOperation? formOperation = null;
+            formOperation = FormOperation.showForm(this, "please wait. doing operation...", 0, 100, 0, 0);
+
+            // process
+            long processed = 0;
+            entryMethods.DBFixUpgradeOldDB(ref cfg, out processed, formOperation);
+
+            // close db
+            cfg.close();
+
+            this.Invoke(toggleForm, true);
+            formOperation.close();
+            this.Invoke(showMessageBox, "total nodes processed: " + processed, "done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return true;
+        }
+
+        private void upgradeOldDbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // fix and or upgrade old open file system db
+            FixUpgradeOFSDB();
         }
     }
 }
