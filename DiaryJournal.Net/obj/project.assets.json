@@ -1,0 +1,306 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0-windows7.0": {
+      "LiteDB/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/LiteDB.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LiteDB.dll": {}
+        }
+      },
+      "MigraDoc.Extensions/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "MigraDocPlusXml": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/MigraDoc.Extensions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MigraDoc.Extensions.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "MigraDocPlusXml/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PDFsharp": "1.0.0",
+          "PdfSharp.Charting": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/MigraDocPlusXml.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MigraDocPlusXml.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "nrtftree_library/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/nrtftree_library.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/nrtftree_library.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "PDFsharp/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/PDFsharp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PDFsharp.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "PdfSharp.Charting/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PDFsharp": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PdfSharp.Charting.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PdfSharp.Charting.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "RtfPipe/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/RtfPipe.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RtfPipe.dll": {}
+        }
+      },
+      "RtfWriter/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/RtfWriter.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RtfWriter.dll": {}
+        }
+      },
+      "SharpConfig/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/SharpConfig.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SharpConfig.dll": {}
+        }
+      },
+      "TheArtOfDev.HtmlRenderer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/TheArtOfDev.HtmlRenderer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TheArtOfDev.HtmlRenderer.dll": {}
+        }
+      },
+      "TheArtOfDev.HtmlRenderer.PdfSharp/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PDFsharp": "1.0.0",
+          "TheArtOfDev.HtmlRenderer": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TheArtOfDev.HtmlRenderer.PdfSharp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TheArtOfDev.HtmlRenderer.PdfSharp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LiteDB/1.0.0": {
+      "type": "project",
+      "path": "../LiteDB/LiteDB.csproj",
+      "msbuildProject": "../LiteDB/LiteDB.csproj"
+    },
+    "MigraDoc.Extensions/1.0.0": {
+      "type": "project",
+      "path": "../MigraDoc.Extensions/MigraDoc.Extensions.csproj",
+      "msbuildProject": "../MigraDoc.Extensions/MigraDoc.Extensions.csproj"
+    },
+    "MigraDocPlusXml/1.0.0": {
+      "type": "project",
+      "path": "../MigraDocPlusXml/MigraDocPlusXml.csproj",
+      "msbuildProject": "../MigraDocPlusXml/MigraDocPlusXml.csproj"
+    },
+    "nrtftree_library/1.0.0": {
+      "type": "project",
+      "path": "../nrtftree_library/nrtftree_library.csproj",
+      "msbuildProject": "../nrtftree_library/nrtftree_library.csproj"
+    },
+    "PDFsharp/1.0.0": {
+      "type": "project",
+      "path": "../PdfSharp/PDFsharp.csproj",
+      "msbuildProject": "../PdfSharp/PDFsharp.csproj"
+    },
+    "PdfSharp.Charting/1.0.0": {
+      "type": "project",
+      "path": "../PdfSharp.Charting/PdfSharp.Charting.csproj",
+      "msbuildProject": "../PdfSharp.Charting/PdfSharp.Charting.csproj"
+    },
+    "RtfPipe/1.0.0": {
+      "type": "project",
+      "path": "../RtfPipe/RtfPipe.csproj",
+      "msbuildProject": "../RtfPipe/RtfPipe.csproj"
+    },
+    "RtfWriter/1.0.0": {
+      "type": "project",
+      "path": "../RtfWriter/RtfWriter.csproj",
+      "msbuildProject": "../RtfWriter/RtfWriter.csproj"
+    },
+    "SharpConfig/1.0.0": {
+      "type": "project",
+      "path": "../SharpConfig/SharpConfig.csproj",
+      "msbuildProject": "../SharpConfig/SharpConfig.csproj"
+    },
+    "TheArtOfDev.HtmlRenderer/1.0.0": {
+      "type": "project",
+      "path": "../TheArtOfDev.HtmlRenderer/TheArtOfDev.HtmlRenderer.csproj",
+      "msbuildProject": "../TheArtOfDev.HtmlRenderer/TheArtOfDev.HtmlRenderer.csproj"
+    },
+    "TheArtOfDev.HtmlRenderer.PdfSharp/1.0.0": {
+      "type": "project",
+      "path": "../TheArtOfDev.HtmlRenderer.PdfSharp/TheArtOfDev.HtmlRenderer.PdfSharp.csproj",
+      "msbuildProject": "../TheArtOfDev.HtmlRenderer.PdfSharp/TheArtOfDev.HtmlRenderer.PdfSharp.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0-windows7.0": [
+      "LiteDB >= 1.0.0",
+      "MigraDoc.Extensions >= 1.0.0",
+      "MigraDocPlusXml >= 1.0.0",
+      "RtfPipe >= 1.0.0",
+      "RtfWriter >= 1.0.0",
+      "SharpConfig >= 1.0.0",
+      "TheArtOfDev.HtmlRenderer.PdfSharp >= 1.0.0",
+      "nrtftree_library >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "J:\\DiaryJournal.Net\\DiaryJournal.Net\\DiaryJournal.Net.csproj",
+      "projectName": "DiaryJournal.Net",
+      "projectPath": "J:\\DiaryJournal.Net\\DiaryJournal.Net\\DiaryJournal.Net.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "J:\\DiaryJournal.Net\\DiaryJournal.Net\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0-windows7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows7.0",
+          "projectReferences": {
+            "J:\\DiaryJournal.Net\\LiteDB\\LiteDB.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\LiteDB\\LiteDB.csproj"
+            },
+            "J:\\DiaryJournal.Net\\MigraDoc.Extensions\\MigraDoc.Extensions.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\MigraDoc.Extensions\\MigraDoc.Extensions.csproj"
+            },
+            "J:\\DiaryJournal.Net\\MigraDocPlusXml\\MigraDocPlusXml.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\MigraDocPlusXml\\MigraDocPlusXml.csproj"
+            },
+            "J:\\DiaryJournal.Net\\nrtftree_library\\nrtftree_library.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\nrtftree_library\\nrtftree_library.csproj"
+            },
+            "J:\\DiaryJournal.Net\\RtfPipe\\RtfPipe.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\RtfPipe\\RtfPipe.csproj"
+            },
+            "J:\\DiaryJournal.Net\\RtfWriter\\RtfWriter.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\RtfWriter\\RtfWriter.csproj"
+            },
+            "J:\\DiaryJournal.Net\\SharpConfig\\SharpConfig.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\SharpConfig\\SharpConfig.csproj"
+            },
+            "J:\\DiaryJournal.Net\\TheArtOfDev.HtmlRenderer.PdfSharp\\TheArtOfDev.HtmlRenderer.PdfSharp.csproj": {
+              "projectPath": "J:\\DiaryJournal.Net\\TheArtOfDev.HtmlRenderer.PdfSharp\\TheArtOfDev.HtmlRenderer.PdfSharp.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows7.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
