@@ -28,8 +28,8 @@ you should frequently backup everything. you should make multiple separate and i
 # build the solution
 to compile the solution you require Visual Studio 2022 and latest .Net 8.0 SDK. choose "Release" as entire solution's configuration, and "x64" as solution's platform, then rebuild the entire solution in a single go to successfully build the solution.
 
-# support DiaryJournal.Net by donations
-[click here to donate to my donations account: https://www.buymeacoffee.com/tusharjain1082](https://www.buymeacoffee.com/tusharjain1082)
+# please support DiaryJournal.Net by donations
+if you like DiaryJournal.Net and find it worthy, you can support DiaryJournal.Net by just anything. if you find it worthy and wish to donate for DiaryJournal.Net, [please click here to donate to my donations account: https://www.buymeacoffee.com/tusharjain1082](https://www.buymeacoffee.com/tusharjain1082)
 
 # screenshots
 ![Alt text](/screenshot7.png?raw=false "DiaryJournal.Net screenshot")
