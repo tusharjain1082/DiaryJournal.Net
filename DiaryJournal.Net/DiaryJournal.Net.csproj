@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <Configurations>Debug;Release;Release-NoDebugSymbols</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="binaryNodeList.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="journal_richtext_icon_160014 (2).ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LiteDB\LiteDB.csproj" />
+    <ProjectReference Include="..\MigraDocPlusXml\MigraDocPlusXml.csproj" />
+    <ProjectReference Include="..\nrtftree_library\nrtftree_library.csproj" />
+    <ProjectReference Include="..\RtfPipe\RtfPipe.csproj" />
+    <ProjectReference Include="..\SharpConfig\SharpConfig.csproj" />
+    <ProjectReference Include="..\TheArtOfDev.HtmlRenderer.PdfSharp\TheArtOfDev.HtmlRenderer.PdfSharp.csproj" />
+    <ProjectReference Include="..\TheArtOfDev.HtmlRenderer\TheArtOfDev.HtmlRenderer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="FormList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormSelectDB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormNodeList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormTreeResetOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="0--2022-08-02-12-39-57-246----.rtf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="instructions on importing entries from the journal 7 and 8 software.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="XamlToHtmlEx.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="echo %25date%25 &gt; &quot;$(ProjectDir)\Resources\BuildDate.txt&quot;&#xD;&#xA;echo %25time%25 &gt; &quot;$(ProjectDir)\Resources\BuildTime.txt&quot;&#xD;&#xA;echo $(CurrentDateTime) &gt; &quot;$(ProjectDir)\Resources\BuildDateTime.txt&quot;" />
+	</Target>
+
+	<PropertyGroup>
+		<CurrentDateTime>$([System.DateTime]::Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"))</CurrentDateTime>
+		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+		<ApplicationIcon>journal_richtext_icon_160014 (2).ico</ApplicationIcon>
+		<DebugType>none</DebugType>
+		<UseWPF>True</UseWPF>
+		<RootNamespace>DiaryJournal.Net</RootNamespace>
+		<AssemblyName>DiaryJournal.Net</AssemblyName>
+		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+		<BaseOutputPath>..\bin\</BaseOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <Optimize>False</Optimize>
+	  <DefineConstants>$(DefineConstants)</DefineConstants>
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <Optimize>False</Optimize>
+	  <DefineConstants>$(DefineConstants)</DefineConstants>
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-NoDebugSymbols|AnyCPU'">
+	  <Optimize>False</Optimize>
+	  <DefineConstants>$(DefineConstants)</DefineConstants>
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+</Project>
