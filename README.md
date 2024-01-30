@@ -2,7 +2,10 @@
 DiaryJournal.Net is an open source and free desktop/laptop diary and journal software project from Tushar Jain, for latest Visual Studio 2022, Windows 10/11 and .Net 8.0. includes precompiled program files to use as your diary/journal application, which is also specialized as an educational, office, research, and all purpose notebook software.
 
 # version 1.9.12.0
-published 28 January 2024. if you have version old 1.8.32.0 or older version, please use version 1.8.33.0 application to convert 1.8.32.0 single file database (LiteDB) into open file system db, then you will be able to migrate it into current version 1.9.12.0 and later. you can find it in releases section labelled "DiaryJournal.Net6.0-v1.8.33.0". there are bugs in past versions which have been fixed in this version. upgraded to latest .Net 8.0 (latest version only as available on 15 January 2024 and later). you need .Net 8.0 to run DiaryJournal.Net. major upgrade. major improvements. new additions. everything improved.
+published 28 January 2024. upgraded to latest .Net 8.0 (latest version only as available on 15 January 2024 and later). you need .Net 8.0 to run DiaryJournal.Net. major upgrade. major improvements. new additions. everything improved.
+
+# important guidance for old obsolete versions 1.8.32.0 and older
+please do not directly upgrade or use old versions with current version and later versions, this may corrupt the database. if you have version old 1.8.32.0 or older version, please use version 1.8.33.0 application to convert 1.8.32.0 single file database (LiteDB) into open file system db, then you will be able to migrate it into current version 1.9.12.0 and later. you can find it in releases section labelled "DiaryJournal.Net6.0-v1.8.33.0". there are bugs in past versions which have been fixed in this version.
 
 # requirements
 A Desktop or Laptop PC, .Net 8.0 and .Net Desktop 8.0 is the basic requirement. You need latest version of .Net 8, not the first version 8.0. You can run the executable software files in any Windows where .Net 8.0 and .Net 8.0 Desktop Runtime (both latest version not first version) properly installs and functions.
