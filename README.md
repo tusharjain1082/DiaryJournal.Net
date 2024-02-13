@@ -33,8 +33,8 @@ to compile the solution you require Visual Studio 2022 and latest .Net 8.0 SDK. 
 
 # please support DiaryJournal.Net
 if you like DiaryJournal.Net and find it worthy, you can support DiaryJournal.Net by just anything. if you find it worthy and wish to donate for DiaryJournal.Net, 
-1. [please click here to donate to my donations account 1: https://ko-fi.com/tusharjain1082](https://ko-fi.com/tusharjain1082).
-2. [please click here to donate to my donations account 2 (you can use paypal): https://www.buymeacoffee.com/tusharjain1082](https://www.buymeacoffee.com/tusharjain1082).
+1. [please click here to donate to my donations account 1 (you can use paypal): https://ko-fi.com/tusharjain1082](https://ko-fi.com/tusharjain1082).
+2. [please click here to donate to my donations account 2: https://www.buymeacoffee.com/tusharjain1082](https://www.buymeacoffee.com/tusharjain1082).
 
 # screenshots
 ![Alt text](/screenshot7.png?raw=false "DiaryJournal.Net screenshot")
