@@ -10,7 +10,6 @@ using System.IO;
 using System.Windows.Documents;
 using System.Reflection;
 using System.Data;
-using LiteDB;
 
 namespace DiaryJournal.Net
 {
@@ -2595,6 +2594,52 @@ namespace DiaryJournal.Net
             processed = index;
             return true;
         }
+        // this method converts all nodes body to raw text
+        public static bool DBNodesConvertToRawText(ref myConfig cfg, ref List<myNode> nodes, out long processed, FormOperation? formop = null)
+        {
+            processed = 0;
+
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return false;
+
+            // first get the total number of chapters which exist in db
+            long allNodesCount = nodes.LongCount();
+            long index = 0;
+
+            RichTextBox rtb = new RichTextBox();
+
+            foreach (myNode? listedNode in nodes)
+            {
+                rtb.Clear();
+                myNode? node = listedNode;
+                String rtf = DBLoadNodeData(cfg, node.chapter.Id, node.DirectorySectionID);
+                if (rtf.Length > 0)
+                    rtb.Rtf = rtf;
+
+                rtb.Text = rtb.Text;
+
+                entryMethods.DBUpdateNode(cfg, ref node, rtb.Rtf, true, false, false);
+
+                if (formop != null)
+                {
+                    formop.updateProgressBar(index, allNodesCount);
+                    formop.updateFilesStatus(index, allNodesCount);
+                }
+                index++;
+            }
+
+            rtb.Dispose();
+
+            // checkpoint
+            entryMethods.DBCheckpoint(ref cfg);
+
+            // finally update the db index in file.
+            entryMethods.DBWriteIndexing(ref cfg);
+
+            processed = index;
+            return true;
+        }
+
         // this method is for upgrading old past version db
         public static bool DBFixUpgradeOldDB(ref myConfig cfg, out long processed, FormOperation? formop = null)
         {

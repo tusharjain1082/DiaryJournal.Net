@@ -3670,7 +3670,9 @@ namespace DiaryJournal.Net
                 myNode? node = listedNode.self;
 
                 // straightaway export the entry
+                // tushar original 15 February 2024: entryMethods.exportEntry(cfg, ref node, browseFolder.SelectedPath, false, exportIndex, entryType);
                 entryMethods.exportEntry(cfg, ref node, browseFolder.SelectedPath, false, exportIndex, entryType);
+                //entryMethods.exportEntry(cfg, ref node, browseFolder.SelectedPath, false, node.chapter.Id, entryType);
 
                 // update ui
                 if (loadOperationForm)
@@ -6122,6 +6124,43 @@ namespace DiaryJournal.Net
 
             // now clone source to destination db
             CloneDB(form.selectedDBType, form2.selectedDBType, true);
+
+        }
+
+        private void convertToRawTextAllNodesRecursiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!cfg.ctx0.isDBOpen() && !cfg.ctx1.isDBOpen())
+                return;
+
+            if (MessageBox.Show("warning: are you sure you want to convert body of all nodes to raw text? this will remove all richtext formatting and media!", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                return;
+
+            // firstly save entry
+            __saveEntry();
+
+            this.Invoke(toggleForm, false);
+
+            // operations status form
+            FormOperation? formOperation = null;
+            formOperation = FormOperation.showForm(this, "please wait. doing operation...", 0, 100, 0, 0);
+
+            // phase 1: get all nodes
+            allNodes = entryMethods.DBFindAllNodes(cfg, false, false);
+            mySystemNodes? systemNodes = null;
+            entryMethods.autoCreateLoadSystemNodes(ref cfg, ref allNodes, out systemNodes);
+
+            // now process
+            long processed = 0;
+            entryMethods.DBNodesConvertToRawText(ref cfg, ref allNodes, out processed, formOperation);
+
+            this.Invoke(toggleForm, true);
+            formOperation.close();
+
+            // finally reload/load db
+            systemNodes = null;
+            reloadAll(true, true, true, true, ref systemNodes);
+
+
 
         }
     }

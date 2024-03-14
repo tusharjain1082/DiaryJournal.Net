@@ -550,6 +550,7 @@
             pdRtbEntry = new System.Drawing.Printing.PrintDocument();
             ppDlgRtbEntry = new PrintPreviewDialog();
             timerSetRtbEntry = new System.Windows.Forms.Timer(components);
+            convertToRawTextAllNodesRecursiveToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)splitContainerH).BeginInit();
             splitContainerH.Panel1.SuspendLayout();
             splitContainerH.Panel2.SuspendLayout();
@@ -3662,7 +3663,7 @@
             // 
             // toolStripMenuItem35
             // 
-            toolStripMenuItem35.DropDownItems.AddRange(new ToolStripItem[] { closeAllTreeToolStripMenuItem, expandAllTreeToolStripMenuItem, toolStripSeparator55, toolStripMenuItem36, expandSelectedNodeToolStripMenuItem, toolStripSeparator58, sortToolStripMenuItem, toolStripSeparator80, customizeAllNodesRecursiveToolStripMenuItem, resetAllDbNodesRecursiveToolStripMenuItem, nullifyemptyAllFontAndColorEntireDbToolStripMenuItem });
+            toolStripMenuItem35.DropDownItems.AddRange(new ToolStripItem[] { closeAllTreeToolStripMenuItem, expandAllTreeToolStripMenuItem, toolStripSeparator55, toolStripMenuItem36, expandSelectedNodeToolStripMenuItem, toolStripSeparator58, sortToolStripMenuItem, toolStripSeparator80, customizeAllNodesRecursiveToolStripMenuItem, resetAllDbNodesRecursiveToolStripMenuItem, nullifyemptyAllFontAndColorEntireDbToolStripMenuItem, convertToRawTextAllNodesRecursiveToolStripMenuItem });
             toolStripMenuItem35.Name = "toolStripMenuItem35";
             toolStripMenuItem35.Size = new Size(40, 23);
             toolStripMenuItem35.Text = "T&ree";
@@ -4701,6 +4702,13 @@
             timerSetRtbEntry.Interval = 10;
             timerSetRtbEntry.Tick += timerSetRtbEntry_Tick;
             // 
+            // convertToRawTextAllNodesRecursiveToolStripMenuItem
+            // 
+            convertToRawTextAllNodesRecursiveToolStripMenuItem.Name = "convertToRawTextAllNodesRecursiveToolStripMenuItem";
+            convertToRawTextAllNodesRecursiveToolStripMenuItem.Size = new Size(298, 22);
+            convertToRawTextAllNodesRecursiveToolStripMenuItem.Text = "convert to raw text all nodes recursive...";
+            convertToRawTextAllNodesRecursiveToolStripMenuItem.Click += convertToRawTextAllNodesRecursiveToolStripMenuItem_Click;
+            // 
             // FrmJournal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -5336,5 +5344,6 @@
         private ToolStripMenuItem findAvailableDbIndexToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem83;
         private ToolStripMenuItem toolStripMenuItem84;
+        private ToolStripMenuItem convertToRawTextAllNodesRecursiveToolStripMenuItem;
     }
 }
