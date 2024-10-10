@@ -11,7 +11,8 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 
 # important notes
 
-please note that like all the multimedia and bulk data processing applications, this application is computer's memory and cpu processing power dependent. as much entries exist in database, as much memory and cpu processing power the application will use. but be assured that you can insert thousands and thousands of entries in a single database and edit any entry instantly.
+for writers novelists journalists and diary keepers and for anybody who needs an application for keeping texts of just any kind. you can insert images also into the entries.
+please note that like all the multimedia and bulk data processing applications, this application is computer's memory and cpu processing power dependent. as much entries exist in database, as much memory and cpu processing power the application will use when loading the entire database all nodes. but be assured you can insert thousands and thousands of entries in a single database, once the database is loaded, you can edit any entry instantly and do any operation on any node, this is normal formality mechanism in all journal and data entry applications. you can try it out and see if the application fits your needs.
 
 please download the latest version package as soon as it is available, and update your application. latest version most likely contains new additions, bugs and faults fixes (important), improvements, and everything upto the version.
 
