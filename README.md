@@ -1,5 +1,8 @@
+# Introduction
+for writers novelists journalists and diary keepers and for anybody who needs an application for keeping texts of just any kind. you can also insert images into the entries. you can try it out and see if the application fits your needs.
+
 # DiaryJournal.Net
-DiaryJournal.Net is an open source and free desktop/laptop diary and journal software project from Tushar Jain, for latest Visual Studio 2022, Windows 10/11 and .Net 8.0. includes precompiled program files to use as your diary/journal application, which is also specialized as an educational, office, research, and all purpose notebook software.
+DiaryJournal.Net is an open source and free desktop/laptop diary and journal software project from Tushar Jain, for latest Visual Studio 2022, Windows 10/11 and .Net 8.0. includes precompiled program files to use as your diary/journal application, which is also specialized as an educational, office, research, and all purpose notebook software. DiaryJournal.Net is an open source and free desktop and laptop software from Tushar Jain for all kinds of writers, book and story writing, educational, notes keeping, journal and diary. for latest Visual Studio 2022, Windows 10/11 and .Net 8.0. includes precompiled application ready to use.
 
 # current version 1.9.16.0
 published 07 October 2024. there are many critical bugs in past versions which have been fixed in this version. upgraded to latest .Net 8.0 (latest version only as available on 15 January 2024 and later). you need .Net 8.0 to run DiaryJournal.Net. major upgrade. major improvements. new additions. everything improved. added new copy paste html from web browser feature (experimental).
@@ -11,7 +14,6 @@ i coded the entire software on a native 64-bit Windows 11, therefore native 64-b
 
 # important notes
 
-for writers novelists journalists and diary keepers and for anybody who needs an application for keeping texts of just any kind. you can insert images also into the entries.
 please note that like all the multimedia and bulk data processing applications, this application is computer's memory and cpu processing power dependent. as much entries exist in database, as much memory and cpu processing power the application will use when loading the entire database all nodes. but be assured you can insert thousands and thousands of entries in a single database, once the database is loaded, you can edit any entry instantly and do any operation on any node, this is normal formality mechanism in all journal and data entry applications. you can try it out and see if the application fits your needs.
 
 please download the latest version package as soon as it is available, and update your application. latest version most likely contains new additions, bugs and faults fixes (important), improvements, and everything upto the version.
