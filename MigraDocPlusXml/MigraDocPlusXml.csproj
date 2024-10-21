@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net8.0-windows7.0</TargetFramework>
+	  <UseWindowsForms>true</UseWindowsForms>
+	  <DebugType>none</DebugType>
+	  <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+	  <Configurations>Debug;Release;Release-NoDebugSymbols</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;CORE;CORE_WITH_GDI</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;CORE;CORE_WITH_GDI</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-NoDebugSymbols|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;CORE;CORE_WITH_GDI</DefineConstants>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <Compile Remove="MigraDocXML\**" />
+    <Compile Remove="PdfSharp.Charting\**" />
+    <Compile Remove="PdfSharp\**" />
+    <EmbeddedResource Remove="MigraDocXML\**" />
+    <EmbeddedResource Remove="PdfSharp.Charting\**" />
+    <EmbeddedResource Remove="PdfSharp\**" />
+    <None Remove="MigraDocXML\**" />
+    <None Remove="PdfSharp.Charting\**" />
+    <None Remove="PdfSharp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PdfSharp.Charting\PdfSharp.Charting.csproj" />
+    <ProjectReference Include="..\PdfSharp\PDFsharp.csproj" />
+  </ItemGroup>
+
+</Project>
