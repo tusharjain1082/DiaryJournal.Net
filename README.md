@@ -34,7 +34,7 @@ you should frequently backup everything. you should make multiple separate and i
 to compile the solution you require Visual Studio 2022 and latest .Net 8.0 SDK. choose "Release" as entire solution's configuration, and "x64" as solution's platform, then rebuild the entire solution in a single go to successfully build the solution.
 
 # TheBook.Net
-my latest and most advanced creation is my TheBook.Net free and open source software. i published it in December 2025. it is generally meant for writers, novelists, authors for writing books, stories, and novels, and also meant for notes and texts and chapters writing organizing and collection. you can try it out to find it fits your needs. also note it can handle very large trees and 8+ million nodes/entries. here: [TheBook.Net project](https://github.com/tusharjain1082/TheBook.Net).
+my latest and most advanced creation is my TheBook.Net free and open source software. i published it in December 2025. it is generally meant for writers, novelists, authors for writing books, stories, and novels, and also meant for diary journal notes and texts and chapters writing organizing and collection. you can try it out to find it fits your needs. also note it can handle very large trees and 8+ million nodes/entries. here: [TheBook.Net project](https://github.com/tusharjain1082/TheBook.Net).
 
 # screenshots
 ![Alt text](/screenshot7.png?raw=false "DiaryJournal.Net screenshot")
